@@ -1,33 +1,24 @@
 import { ImageResponse } from "next/og";
-
-export const runtime = "edge";
+import { readFileSync } from "fs";
+import { join } from "path";
 
 export async function GET() {
+  const logoData = readFileSync(join(process.cwd(), "public/wm-logo.png"));
+  const logoSrc = `data:image/png;base64,${logoData.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
         style={{
           width: 512,
           height: 512,
-          background: "#1a2744",
           display: "flex",
-          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          gap: 12,
         }}
       >
-        <div style={{ fontSize: 280, lineHeight: 1 }}>✝</div>
-        <div
-          style={{
-            fontSize: 72,
-            fontWeight: 700,
-            color: "#c8973a",
-            letterSpacing: 6,
-          }}
-        >
-          10
-        </div>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={logoSrc} width={512} height={512} alt="Watermark" />
       </div>
     ),
     { width: 512, height: 512 }

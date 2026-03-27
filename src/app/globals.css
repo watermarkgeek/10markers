@@ -1,26 +1,95 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Watermark-inspired palette */
+  --wm-navy: #1a2744;
+  --wm-navy-light: #243359;
+  --wm-gold: #c8973a;
+  --wm-gold-light: #e2b55a;
+  --wm-cream: #f8f5f0;
+  --wm-stone: #e8e2d9;
+  --wm-text: #1a1a1a;
+  --wm-text-muted: #6b6b6b;
+
+  /* Pillar accent colors */
+  --pillar-abiding: #3b6fa0;
+  --pillar-making: #2e7d5e;
+  --pillar-together: #b07a2e;
+
+  /* Game feedback colors */
+  --correct: #22c55e;
+  --incorrect: #ef4444;
+  --neutral: #94a3b8;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--wm-cream);
+  color: var(--wm-text);
+  font-family: system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
+
+/* Mobile-first max width container */
+.app-container {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100dvh;
+  background: white;
+  position: relative;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Progress bar animation */
+@keyframes fillBar {
+  from { width: 0; }
+}
+
+/* Celebration pop */
+@keyframes pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  70% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes starPop {
+  0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+  60% { transform: scale(1.3) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.animate-pop { animation: pop 0.4s ease-out forwards; }
+.animate-fade-up { animation: fadeUp 0.4s ease-out forwards; }
+.animate-star { animation: starPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+/* Card flip */
+.card-flip { perspective: 1000px; }
+.card-flip-inner { transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
+.card-flip-inner.flipped { transform: rotateY(180deg); }
+.card-front, .card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.card-back { transform: rotateY(180deg); }
+
+/* Shake animation for wrong answers */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+.animate-shake { animation: shake 0.4s ease-in-out; }
+
+/* Smooth tap feedback */
+button:active:not(:disabled) { transform: scale(0.97); }
+
+/* Scrollbar hide */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }

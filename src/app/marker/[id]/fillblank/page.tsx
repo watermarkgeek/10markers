@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { getMarkerById } from "@/data/markers";
+import { getMarkerById, getMarkersByPillar, MARKERS } from "@/data/markers";
 import { useUser } from "@/hooks/useUser";
 import Header from "@/components/layout/Header";
 import StageProgressBar from "@/components/layout/StageProgressBar";
@@ -33,49 +33,89 @@ interface Question {
 }
 
 function buildQuestions(marker: NonNullable<ReturnType<typeof getMarkerById>>): Question[] {
-  const questions: Question[] = [];
+  // Pull same-pillar markers (excluding current) for distractors — all are already introduced
+  const pillarSiblings = getMarkersByPillar(marker.pillar).filter((m) => m.id !== marker.id);
+  // Pull any remaining markers for extra distractors if needed
+  const otherMarkers   = shuffleArray(MARKERS.filter((m) => m.id !== marker.id));
 
-  // Q1: Blank from definition — remove the last 2–3 key words
-  const defWords = marker.definition.split(" ");
-  const keyWordIndex = Math.floor(defWords.length * 0.55);
-  const blank1 = defWords.slice(keyWordIndex, keyWordIndex + 3).join(" ");
-  const sentence1 =
+  // Helper: get 3 unique distractor names from already-learned content
+  function getNameDistractors(): string[] {
+    const pool = [...pillarSiblings, ...otherMarkers].map((m) => m.name);
+    const unique = [...new Set(pool)].filter((n) => n !== marker.name);
+    return shuffleArray(unique).slice(0, 3);
+  }
+
+  // Q1: Fill in a key phrase from the definition
+  // Strategy: take the last meaningful clause (after the em-dash or final comma)
+  const defWords    = marker.definition.split(" ");
+  const keyWordIndex = Math.max(Math.floor(defWords.length * 0.6), defWords.length - 8);
+  const blank1      = defWords.slice(keyWordIndex, keyWordIndex + 3).join(" ");
+  const sentence1   =
     defWords.slice(0, keyWordIndex).join(" ") +
     " ___" +
     (defWords.slice(keyWordIndex + 3).length > 0
       ? " " + defWords.slice(keyWordIndex + 3).join(" ")
       : "");
 
-  // Q2: Blank the marker name from a cloze
-  const sentence2 = `The marker called "___ " is part of the ${marker.pillar === "abiding" ? "Abiding in Jesus" : marker.pillar === "making" ? "Making Disciples" : "Together"} pillar.`;
+  // Distractors for Q1: similar-length phrases from sibling definitions
+  const defDistractors = pillarSiblings
+    .map((m) => {
+      const w = m.definition.split(" ");
+      const idx = Math.max(Math.floor(w.length * 0.6), w.length - 8);
+      return w.slice(idx, idx + 3).join(" ");
+    })
+    .filter((d) => d !== blank1)
+    .slice(0, 3);
+  // Pad with generic distractors if siblings are few
+  const q1Distractors = [
+    blank1,
+    ...defDistractors,
+    "glorify God and enjoy him",
+    "love and good deeds",
+    "all nations and peoples",
+  ]
+    .filter((v, i, a) => a.indexOf(v) === i && v.trim().length > 0)
+    .slice(0, 4);
 
-  // Q3: Scripture reference blank
-  const [book, ...rest] = marker.scripture.reference.split(" ");
-  const sentence3 = `The key scripture for ${marker.name} is found in ${book} ___.`;
+  // Q2: Name the marker from a pillar hint
+  const pillarLabel =
+    marker.pillar === "abiding"
+      ? "Abiding in Jesus"
+      : marker.pillar === "making"
+      ? "Making Disciples"
+      : "Together";
+  const sentence2 = `This marker is part of the "${pillarLabel}" pillar: ___.`;
 
-  questions.push(
+  // Q3: Fill in the scripture reference (chapter:verse only, book given)
+  const refParts   = marker.scripture.reference.split(" ");
+  const book       = refParts[0];
+  const chapterVerse = refParts.slice(1).join(" ");
+  const sentence3  = `The key scripture for "${marker.name}" is ${book} ___.`;
+  const refDistractors = otherMarkers
+    .map((m) => {
+      const parts = m.scripture.reference.split(" ");
+      return parts.slice(1).join(" ");
+    })
+    .filter((r) => r !== chapterVerse)
+    .slice(0, 3);
+
+  return [
     {
       sentence: sentence1,
       answer: blank1,
-      options: shuffleArray([blank1, "eternal life with God", "love and service", "the Holy Spirit's power"]).slice(0, 4),
+      options: shuffleArray(q1Distractors).slice(0, 4),
     },
     {
       sentence: sentence2,
       answer: marker.name,
-      options: shuffleArray([marker.name, "Gospel Saturated", "Prayerful", "Missional"]).filter(
-        (v, i, a) => a.indexOf(v) === i
-      ).slice(0, 4),
+      options: shuffleArray([marker.name, ...getNameDistractors()]).slice(0, 4),
     },
     {
       sentence: sentence3,
-      answer: rest.join(" "),
-      options: shuffleArray([rest.join(" "), "3:16", "12:1–2", "1:1"]).filter(
-        (v, i, a) => a.indexOf(v) === i
-      ).slice(0, 4),
-    }
-  );
-
-  return questions;
+      answer: chapterVerse,
+      options: shuffleArray([chapterVerse, ...refDistractors]).slice(0, 4),
+    },
+  ];
 }
 
 export default function FillBlankPage() {

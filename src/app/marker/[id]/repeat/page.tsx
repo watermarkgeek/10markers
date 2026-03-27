@@ -15,39 +15,69 @@ import type { Stage } from "@/types";
 
 type CardRating = "got_it" | "almost" | "not_yet";
 
-interface CardState {
-  side: "definition" | "scripture";
-  rating: CardRating | null;
-  attempts: number;
+interface CardDef {
+  id: number;
+  frontLabel: string;
+  frontText: string;
+  backLabel: string;
+  backText: string;
+  isScripture?: boolean;
 }
 
 function getStagesCompleted(p: MarkerProgress | undefined): Stage[] {
   if (!p) return [];
   const done: Stage[] = [];
-  if (p.introCompleted) done.push("intro");
-  if (p.repeatCompleted) done.push("repeat");
-  if (p.matchCompleted) done.push("match");
+  if (p.introCompleted)   done.push("intro");
+  if (p.repeatCompleted)  done.push("repeat");
+  if (p.matchCompleted)   done.push("match");
   if (p.fillblankCompleted) done.push("fillblank");
-  if (p.quizCompleted) done.push("quiz");
+  if (p.quizCompleted)    done.push("quiz");
   return done;
 }
 
 export default function RepeatPage() {
-  const params = useParams();
-  const router = useRouter();
+  const params  = useParams();
+  const router  = useRouter();
   const markerId = Number(params.id);
-  const marker = getMarkerById(markerId);
+  const marker   = getMarkerById(markerId);
   const { progress, completeStage } = useUser();
   const p = progress.find((pr) => pr.markerId === markerId);
 
-  // Two cards: definition card + scripture card
-  const cards = ["definition", "scripture"] as const;
+  // ── Three cards: definition, scripture reference, scripture text ──────────
+  // Card 1: name → definition        (teaches what the marker means)
+  // Card 2: name → scripture ref     (teaches WHICH verse is linked — supports Quiz Q3)
+  // Card 3: scripture ref → full text (teaches what the verse says — supports Quiz Q4)
+  const cards: CardDef[] = marker
+    ? [
+        {
+          id: 0,
+          frontLabel: "Marker Name",
+          frontText: marker.name,
+          backLabel: "Definition",
+          backText: marker.definition,
+        },
+        {
+          id: 1,
+          frontLabel: "Marker Name",
+          frontText: marker.name,
+          backLabel: "Scripture Reference",
+          backText: marker.scripture.reference,
+        },
+        {
+          id: 2,
+          frontLabel: "Scripture Reference",
+          frontText: marker.scripture.reference,
+          backLabel: "Full Verse (ESV)",
+          backText: marker.scripture.text,
+          isScripture: true,
+        },
+      ]
+    : [];
+
   const [cardIndex, setCardIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
-  const [cardStates, setCardStates] = useState<Record<number, CardState>>({
-    0: { side: "definition", rating: null, attempts: 0 },
-    1: { side: "scripture", rating: null, attempts: 0 },
-  });
+  const [ratings, setRatings] = useState<Record<number, CardRating | null>>({ 0: null, 1: null, 2: null });
+  const [attempts, setAttempts] = useState<Record<number, number>>({ 0: 0, 1: 0, 2: 0 });
   const [showXp, setShowXp] = useState(false);
   const [xpAmount, setXpAmount] = useState(0);
   const [done, setDone] = useState(false);
@@ -55,46 +85,37 @@ export default function RepeatPage() {
   if (!marker) return <div className="p-8 text-center">Marker not found.</div>;
 
   const stagesCompleted = getStagesCompleted(p);
-  const currentCard = cards[cardIndex];
-  const totalCards = cards.length;
+  const currentCard     = cards[cardIndex];
+  const totalCards      = cards.length;
 
   const handleFlip = () => setFlipped((f) => !f);
 
   const handleRate = useCallback(
     async (rating: CardRating) => {
-      const updated = {
-        ...cardStates,
-        [cardIndex]: {
-          ...cardStates[cardIndex],
-          rating,
-          attempts: cardStates[cardIndex].attempts + 1,
-        },
-      };
-      setCardStates(updated);
+      const newAttempts = { ...attempts, [cardIndex]: attempts[cardIndex] + 1 };
+      const newRatings  = { ...ratings,  [cardIndex]: rating };
+      setAttempts(newAttempts);
+      setRatings(newRatings);
       setFlipped(false);
 
-      // Move to next card after a brief pause
       setTimeout(async () => {
         const nextIndex = cardIndex + 1;
         if (nextIndex < totalCards) {
           setCardIndex(nextIndex);
         } else {
-          // All cards rated — check if any need review
-          const needsReview = Object.values(updated).some(
-            (s) => s.rating === "not_yet" && s.attempts < 2
+          // Check if any cards need a second pass
+          const needsReview = Object.entries(newRatings).some(
+            ([k, r]) => r === "not_yet" && newAttempts[Number(k)] < 2
           );
           if (needsReview) {
-            // Reset not_yet cards
-            const reset = { ...updated };
-            Object.keys(reset).forEach((k) => {
-              if (reset[Number(k)].rating === "not_yet") {
-                reset[Number(k)] = { ...reset[Number(k)], rating: null };
-              }
+            // Reset "not yet" cards and loop
+            const resetRatings = { ...newRatings };
+            Object.keys(resetRatings).forEach((k) => {
+              if (resetRatings[Number(k)] === "not_yet") resetRatings[Number(k)] = null;
             });
-            setCardStates(reset);
+            setRatings(resetRatings);
             setCardIndex(0);
           } else {
-            // Complete the stage
             const result = await completeStage(markerId, "repeat");
             if (result.xpGain > 0) {
               setXpAmount(result.xpGain);
@@ -105,27 +126,10 @@ export default function RepeatPage() {
         }
       }, 300);
     },
-    [cardIndex, cardStates, totalCards, completeStage, markerId]
+    [cardIndex, ratings, attempts, totalCards, completeStage, markerId]
   );
 
-  const handleContinue = () => {
-    router.push(`/marker/${markerId}/match`);
-  };
-
-  const frontText =
-    currentCard === "definition"
-      ? marker.name
-      : marker.scripture.reference;
-
-  const backText =
-    currentCard === "definition"
-      ? marker.definition
-      : marker.scripture.text;
-
-  const frontLabel =
-    currentCard === "definition" ? "Marker Name" : "Scripture Reference";
-  const backLabel =
-    currentCard === "definition" ? "Definition" : "Full Verse (ESV)";
+  const handleContinue = () => router.push(`/marker/${markerId}/match`);
 
   if (done) {
     return (
@@ -139,12 +143,10 @@ export default function RepeatPage() {
             transition={{ type: "spring", stiffness: 200, damping: 14 }}
           >
             <div className="text-6xl mb-4">🎴</div>
-            <h2 className="text-2xl font-bold text-[#1a2744] mb-2">
-              Cards Complete!
-            </h2>
+            <h2 className="text-2xl font-bold text-[#1a2744] mb-2">Cards Complete!</h2>
             <p className="text-[#6b6b6b] text-sm mb-8">
               Great work reviewing{" "}
-              <span className="font-semibold text-[#1a2744]">{marker.name}</span>.
+              <span className="font-semibold text-[#1a2744]">{marker.name}</span>.{" "}
               Ready to play the match game?
             </p>
             <Button variant="primary" size="lg" onClick={handleContinue}>
@@ -168,9 +170,7 @@ export default function RepeatPage() {
 
       {/* Card counter */}
       <div className="px-5 py-3 flex items-center justify-between">
-        <p className="text-sm text-[#6b6b6b]">
-          Card {cardIndex + 1} of {totalCards}
-        </p>
+        <p className="text-sm text-[#6b6b6b]">Card {cardIndex + 1} of {totalCards}</p>
         <p className="text-xs text-[#b0a898]">Tap card to flip</p>
       </div>
 
@@ -179,15 +179,15 @@ export default function RepeatPage() {
         <div
           className="card-flip w-full max-w-sm cursor-pointer"
           onClick={handleFlip}
-          style={{ height: 260 }}
+          style={{ height: currentCard.isScripture ? 300 : 260 }}
         >
           <div className={`card-flip-inner w-full h-full relative ${flipped ? "flipped" : ""}`}>
             {/* Front */}
             <div className="card-front absolute inset-0 bg-[#1a2744] rounded-3xl p-6 flex flex-col items-center justify-center text-center shadow-xl">
               <p className="text-[10px] font-semibold uppercase tracking-widest text-blue-300 mb-4">
-                {frontLabel}
+                {currentCard.frontLabel}
               </p>
-              <p className="text-white text-2xl font-bold leading-snug">{frontText}</p>
+              <p className="text-white text-2xl font-bold leading-snug">{currentCard.frontText}</p>
               <div className="mt-4 flex items-center gap-1.5">
                 <RotateCcw size={14} className="text-blue-300" />
                 <span className="text-[10px] text-blue-300">tap to reveal</span>
@@ -196,17 +196,19 @@ export default function RepeatPage() {
 
             {/* Back */}
             <div className="card-back absolute inset-0 bg-[#f8f5f0] rounded-3xl p-6 flex flex-col items-center justify-center text-center shadow-xl border-2 border-[#e8e2d9]">
-              <p className="text-[10px] font-semibold uppercase tracking-widest text-[#c8973a] mb-4">
-                {backLabel}
+              <p className="text-[10px] font-semibold uppercase tracking-widest text-[#ee7625] mb-4">
+                {currentCard.backLabel}
               </p>
-              <p className="text-[#1a2744] text-sm leading-relaxed">
-                {currentCard === "scripture" ? `"${backText}"` : backText}
+              <p
+                className={`text-[#1a2744] leading-relaxed ${currentCard.isScripture ? "text-sm italic" : "text-sm"}`}
+              >
+                {currentCard.isScripture ? `"${currentCard.backText}"` : currentCard.backText}
               </p>
             </div>
           </div>
         </div>
 
-        {/* Rating buttons — only shown when flipped */}
+        {/* Rating buttons — shown only when flipped */}
         <AnimatePresence>
           {flipped && (
             <motion.div

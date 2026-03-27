@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { getMarkerById, getMarkersByPillar, MARKERS } from "@/data/markers";
+import { getMarkerById, getMarkersByPillar } from "@/data/markers";
 import { useUser } from "@/hooks/useUser";
 import Header from "@/components/layout/Header";
 import StageProgressBar from "@/components/layout/StageProgressBar";
@@ -38,16 +38,19 @@ export default function MatchPage() {
   const { progress, completeStage } = useUser();
   const p = progress.find((pr) => pr.markerId === markerId);
 
-  // Build a pool of 4 markers to match (current + 3 neighbors)
+  // Build pool using ONLY same-pillar markers — never cross-pillar markers
+  // the user hasn't been introduced to yet.
+  // Pillar sizes: Abiding = 4, Making = 3, Together = 3
+  // If pillar has < 4 markers we show all of them (3-way match is fine).
   const [matchItems] = useState<MatchItem[]>(() => {
     const pillarMarkers = getMarkersByPillar(marker?.pillar ?? "abiding");
-    const others = MARKERS.filter(
-      (m) => m.id !== markerId && !pillarMarkers.some((pm) => pm.id === m.id)
-    );
-    const pool = [
-      ...(marker ? [marker] : []),
-      ...shuffleArray([...pillarMarkers.filter((m) => m.id !== markerId), ...others]).slice(0, 3),
-    ];
+    // Include all same-pillar markers (current + siblings) — max 4
+    const pool = shuffleArray(pillarMarkers).slice(0, 4);
+    // Ensure the current marker is always in the pool
+    const hasCurrentMarker = pool.some((m) => m.id === markerId);
+    if (!hasCurrentMarker && marker) {
+      pool[0] = marker; // replace first slot with current marker
+    }
     return shuffleArray(pool).map((m) => ({
       id: m.id,
       name: m.name,

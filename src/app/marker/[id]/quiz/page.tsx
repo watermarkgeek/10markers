@@ -82,15 +82,14 @@ function buildQuizQuestions(
         ...otherMarkers.slice(0, 3).map((m) => m.name),
       ]),
     },
-    // Q5 — Complete the definition
+    // Q5 — Match the full verse to the marker (distinct from Q4 which shows a truncated excerpt)
     {
-      question: `Complete the definition: "${marker.definition.slice(0, 60)}…"`,
+      question: `Which marker is associated with this verse?\n\n"${marker.scripture.text}"`,
       answer: marker.name,
       options: shuffleArray([
         marker.name,
         ...otherMarkers.slice(0, 3).map((m) => m.name),
       ]),
-      hint: "Think about what marker this definition is describing.",
     },
   ];
 
@@ -253,12 +252,14 @@ export default function QuizPage() {
             className="flex flex-col flex-1"
           >
             {/* Question */}
-            <div className="mb-6">
+            <div className="mb-5">
               {questionLines.map((line, i) => (
                 <p
                   key={i}
-                  className={`text-[#1a2744] leading-relaxed ${
-                    i === 0 ? "font-semibold text-base" : "text-sm italic text-[#6b6b6b] mt-2"
+                  className={`leading-relaxed ${
+                    i === 0
+                      ? "font-semibold text-base text-[#1a2744]"
+                      : "text-sm italic text-[#6b6b6b] mt-2 bg-[#f8f5f0] rounded-xl px-4 py-3 max-h-28 overflow-y-auto"
                   }`}
                 >
                   {line}

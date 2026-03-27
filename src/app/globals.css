@@ -1,46 +1,157 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────────────────────
+   WATERMARK DESIGN SYSTEM
+   Fonts: Proxima Nova (UI), Tussilago (headings), Freight Text Pro (scripture)
+   Colors: Matched to rock.watermark.org/v1/style-guide
+   Scale:  Matched to Rock RMS typography spec
+───────────────────────────────────────────────────────────────────────────── */
+
 :root {
-  /* Watermark-inspired palette */
-  --wm-navy: #1a2744;
-  --wm-navy-light: #243359;
-  --wm-gold: #c8973a;
-  --wm-gold-light: #e2b55a;
-  --wm-cream: #f8f5f0;
-  --wm-stone: #e8e2d9;
-  --wm-text: #1a1a1a;
-  --wm-text-muted: #6b6b6b;
+  /* ── Fonts ──────────────────────────────────────────────────────────────── */
+  --font-heading:  "tussilago", "proxima-nova", system-ui, sans-serif;
+  --font-body:     "proxima-nova", system-ui, -apple-system, sans-serif;
+  --font-serif:    "freight-text-pro", Georgia, "Times New Roman", serif;
 
-  /* Pillar accent colors */
-  --pillar-abiding: #3b6fa0;
-  --pillar-making: #2e7d5e;
-  --pillar-together: #b07a2e;
+  /* ── Watermark brand palette ─────────────────────────────────────────────
+     Names match the style guide: Midnight, Tangerine, Charcoal, Sand, etc.  */
+  --wm-midnight:        #1a2744;   /* primary navy — brand anchor */
+  --wm-midnight-light:  #243359;   /* hover state for midnight */
+  --wm-tangerine:       #ee7625;   /* primary CTA orange */
+  --wm-tangerine-dark:  #cc6118;   /* hover state for tangerine */
+  --wm-tangerine-light: #f5924a;   /* soft tangerine */
+  --wm-gold:            #c8973a;   /* warm gold — secondary accent */
+  --wm-gold-dark:       #b07a2e;   /* hover for gold */
+  --wm-charcoal:        #3c3c3c;   /* primary body text */
+  --wm-onyx:            #1a1a1a;   /* darkest text */
+  --wm-concrete:        #787878;   /* muted / secondary text */
+  --wm-haze:            #f2f2f2;   /* subtle background */
+  --wm-sand:            #f8f5f0;   /* warm page background */
+  --wm-stone:           #e8e2d9;   /* border / divider */
+  --wm-ming:            #2e6e84;   /* blue accent */
+  --wm-glacier:         #a8d8ea;   /* light blue */
 
-  /* Game feedback colors */
-  --correct: #22c55e;
+  /* ── Pillar accent colors ────────────────────────────────────────────────
+     Abiding → blue  |  Making → green  |  Together → amber/gold            */
+  --pillar-abiding:        #2e6e84;   /* Ming blue */
+  --pillar-abiding-light:  #e8f4f8;
+  --pillar-abiding-text:   #1d4d5e;
+  --pillar-making:         #2e7d5e;   /* Forest green */
+  --pillar-making-light:   #e8f5f0;
+  --pillar-making-text:    #1d5240;
+  --pillar-together:       #b07a2e;   /* Warm gold */
+  --pillar-together-light: #fdf3e3;
+  --pillar-together-text:  #7a5220;
+
+  /* ── Game feedback ───────────────────────────────────────────────────────*/
+  --correct:   #22c55e;
   --incorrect: #ef4444;
-  --neutral: #94a3b8;
+  --neutral:   #94a3b8;
+
+  /* ── Typography scale (Rock RMS spec) ───────────────────────────────────
+     h1: 44px · h2: 36px · h3: 28px · h4: 22px · h5: 18px · h6: 16px       */
+  --text-h1:    2.75rem;   /* 44px */
+  --text-h2:    2.25rem;   /* 36px */
+  --text-h3:    1.75rem;   /* 28px */
+  --text-h4:    1.375rem;  /* 22px */
+  --text-h5:    1.125rem;  /* 18px */
+  --text-h6:    1rem;      /* 16px */
+  --text-body:  1rem;      /* 16px */
+  --text-lead:  1.5rem;    /* 24px — "lead & taller" */
+  --text-tall:  1.25rem;   /* 20px — "tall" */
+  --text-small: 0.875rem;  /* 14px */
+  --text-xs:    0.75rem;   /* 12px */
+
+  /* ── Spacing scale ───────────────────────────────────────────────────────*/
+  --spacing-tiny:   4px;
+  --spacing-small:  8px;
+  --spacing-medium: 16px;
+  --spacing-large:  24px;
+  --spacing-xl:     40px;
+  --spacing-huge:   80px;
+
+  /* ── Border radius ───────────────────────────────────────────────────────*/
+  --rounded-sm:   4px;
+  --rounded-md:   8px;
+  --rounded-lg:   12px;
+  --rounded-xl:   16px;
+  --rounded-huge: 24px;
 }
 
+/* ─── Base reset ──────────────────────────────────────────────────────────── */
 * {
   box-sizing: border-box;
 }
 
 body {
-  background-color: var(--wm-cream);
-  color: var(--wm-text);
-  font-family: system-ui, sans-serif;
+  background-color: var(--wm-midnight);  /* shows during overscroll */
+  color: var(--wm-charcoal);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Mobile-first max width container */
+/* ─── Typography ──────────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--wm-midnight);
+  line-height: 1.25;
+  font-weight: 700;
+}
+h1 { font-size: var(--text-h1); }
+h2 { font-size: var(--text-h2); }
+h3 { font-size: var(--text-h3); }
+h4 { font-size: var(--text-h4); }
+h5 { font-size: var(--text-h5); }
+h6 { font-size: var(--text-h6); }
+
+/* Scripture / editorial text — Freight Text Pro */
+.text-scripture,
+.scripture {
+  font-family: var(--font-serif);
+  font-size: var(--text-body);
+  line-height: 1.625;
+  font-style: italic;
+  color: var(--wm-charcoal);
+}
+.scripture-ref {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  font-weight: 700;
+  font-style: normal;
+  color: var(--wm-concrete);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Overline label (used throughout Watermark site) */
+.overline {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--wm-tangerine);
+}
+
+/* Display heading — Tussilago heavy (hero moments) */
+.display-heading {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* ─── App container ───────────────────────────────────────────────────────── */
 .app-container {
   max-width: 480px;
   margin: 0 auto;
   min-height: 100dvh;
   background: white;
   position: relative;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.15);
 
   /* Safe area insets — critical for standalone PWA on iPhone */
   padding-top: env(safe-area-inset-top);
@@ -49,64 +160,109 @@ body {
   padding-right: env(safe-area-inset-right);
 }
 
-/* In standalone mode, prevent overscroll bounce revealing the white body */
+/* In standalone mode, prevent overscroll bounce */
 @media (display-mode: standalone) {
   body {
     overscroll-behavior: none;
   }
-  /* Slightly increase header top padding to clear the status bar */
   header.sticky {
     padding-top: calc(env(safe-area-inset-top) + 0.5rem);
   }
 }
 
-/* Progress bar animation */
+/* ─── Buttons ─────────────────────────────────────────────────────────────── */
+/* Base button — shared across all variants */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-weight: 700;
+  border-radius: var(--rounded-lg);
+  transition: all 0.15s ease;
+  cursor: pointer;
+  user-select: none;
+  letter-spacing: 0.01em;
+}
+.btn:active:not(:disabled) { transform: scale(0.97); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* Watermark primary = Tangerine orange (matches site) */
+.btn-primary {
+  background: var(--wm-tangerine);
+  color: white;
+}
+.btn-primary:hover:not(:disabled) { background: var(--wm-tangerine-dark); }
+
+/* Secondary = Midnight navy outline */
+.btn-secondary {
+  background: transparent;
+  color: var(--wm-midnight);
+  border: 2px solid var(--wm-midnight);
+}
+.btn-secondary:hover:not(:disabled) { background: var(--wm-sand); }
+
+/* Navy filled — for use on light backgrounds needing dark anchor */
+.btn-navy {
+  background: var(--wm-midnight);
+  color: white;
+}
+.btn-navy:hover:not(:disabled) { background: var(--wm-midnight-light); }
+
+/* Gold — secondary warm accent */
+.btn-gold {
+  background: var(--wm-gold);
+  color: white;
+}
+.btn-gold:hover:not(:disabled) { background: var(--wm-gold-dark); }
+
+/* ─── Animations ──────────────────────────────────────────────────────────── */
 @keyframes fillBar {
   from { width: 0; }
 }
 
-/* Celebration pop */
 @keyframes pop {
-  0% { transform: scale(0.8); opacity: 0; }
-  70% { transform: scale(1.1); }
-  100% { transform: scale(1); opacity: 1; }
+  0%   { transform: scale(0.8); opacity: 0; }
+  70%  { transform: scale(1.1); }
+  100% { transform: scale(1);   opacity: 1; }
 }
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes starPop {
-  0% { transform: scale(0) rotate(-30deg); opacity: 0; }
-  60% { transform: scale(1.3) rotate(5deg); }
-  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  0%   { transform: scale(0) rotate(-30deg); opacity: 0; }
+  60%  { transform: scale(1.3) rotate(5deg); }
+  100% { transform: scale(1)   rotate(0deg); opacity: 1; }
 }
 
-.animate-pop { animation: pop 0.4s ease-out forwards; }
-.animate-fade-up { animation: fadeUp 0.4s ease-out forwards; }
-.animate-star { animation: starPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
-
-/* Card flip */
-.card-flip { perspective: 1000px; }
-.card-flip-inner { transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
-.card-flip-inner.flipped { transform: rotateY(180deg); }
-.card-front, .card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-.card-back { transform: rotateY(180deg); }
-
-/* Shake animation for wrong answers */
 @keyframes shake {
   0%, 100% { transform: translateX(0); }
-  20% { transform: translateX(-6px); }
-  40% { transform: translateX(6px); }
-  60% { transform: translateX(-4px); }
-  80% { transform: translateX(4px); }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
 }
-.animate-shake { animation: shake 0.4s ease-in-out; }
 
-/* Smooth tap feedback */
+.animate-pop      { animation: pop     0.4s ease-out forwards; }
+.animate-fade-up  { animation: fadeUp  0.4s ease-out forwards; }
+.animate-star     { animation: starPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+.animate-shake    { animation: shake   0.4s ease-in-out; }
+
+/* ─── Card flip ───────────────────────────────────────────────────────────── */
+.card-flip        { perspective: 1000px; }
+.card-flip-inner  { transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1); transform-style: preserve-3d; }
+.card-flip-inner.flipped { transform: rotateY(180deg); }
+.card-front,
+.card-back        { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.card-back        { transform: rotateY(180deg); }
+
+/* ─── Tap feedback ────────────────────────────────────────────────────────── */
 button:active:not(:disabled) { transform: scale(0.97); }
 
-/* Scrollbar hide */
+/* ─── Scrollbar hide ──────────────────────────────────────────────────────── */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }

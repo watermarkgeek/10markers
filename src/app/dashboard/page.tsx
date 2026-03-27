@@ -15,9 +15,9 @@ import type { MarkerProgress } from "@/lib/db/schema";
 const USER_ID_KEY = "10markers_user_id";
 
 const pillarColors: Record<Pillar, { bg: string; text: string; ring: string; bar: "blue" | "green" | "amber" }> = {
-  abiding: { bg: "bg-blue-50", text: "text-blue-700", ring: "ring-blue-200", bar: "blue" },
-  making: { bg: "bg-emerald-50", text: "text-emerald-700", ring: "ring-emerald-200", bar: "green" },
-  together: { bg: "bg-amber-50", text: "text-amber-700", ring: "ring-amber-200", bar: "amber" },
+  abiding:  { bg: "bg-[#e8f4f8]", text: "text-[#1d4d5e]", ring: "ring-[#a8d8ea]", bar: "blue"  },
+  making:   { bg: "bg-[#e8f5f0]", text: "text-[#1d5240]", ring: "ring-[#a3d9c4]", bar: "green" },
+  together: { bg: "bg-[#fdf3e3]", text: "text-[#7a5220]", ring: "ring-[#e8c98a]", bar: "amber" },
 };
 
 function isPillarUnlocked(pillar: Pillar, progress: MarkerProgress[]): boolean {
@@ -89,10 +89,10 @@ export default function DashboardPage() {
           className="flex items-center justify-between mb-4"
         >
           <div>
-            <p className="text-blue-200 text-xs uppercase tracking-wider mb-0.5">
+            <p className="text-blue-200 text-xs uppercase tracking-[0.15em] mb-0.5 overline" style={{ fontFamily: "var(--font-body)" }}>
               Welcome back
             </p>
-            <h2 className="text-white text-xl font-bold">{user?.name ?? "..."}</h2>
+            <h2 className="text-white text-xl font-black" style={{ fontFamily: "var(--font-heading)" }}>{user?.name ?? "..."}</h2>
           </div>
           <div className="flex gap-4">
             <div className="flex flex-col items-center">
@@ -145,9 +145,10 @@ export default function DashboardPage() {
           >
             <Link
               href={continueHref}
-              className="flex items-center justify-between w-full bg-[#c8973a] text-white rounded-2xl px-5 py-4 font-semibold shadow-md hover:bg-[#b07a2e] transition-colors"
+              className="flex items-center justify-between w-full bg-[#ee7625] text-white rounded-2xl px-5 py-4 font-bold shadow-md hover:bg-[#cc6118] transition-colors"
+              style={{ fontFamily: "var(--font-body)" }}
             >
-              <span className="text-base">Continue Learning</span>
+              <span className="text-base tracking-wide">Continue Learning</span>
               <ChevronRight size={20} />
             </Link>
           </motion.div>

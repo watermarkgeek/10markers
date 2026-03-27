@@ -43,13 +43,23 @@ export default function OnboardingPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <p className="text-[#c8973a] text-xs font-semibold uppercase tracking-[0.2em] mb-3">
+          <p
+            className="text-[#ee7625] text-xs font-bold uppercase tracking-[0.2em] mb-3"
+            style={{ fontFamily: "var(--font-body)" }}
+          >
             Watermark Community Church
           </p>
-          <h1 className="text-4xl font-bold tracking-tight mb-2">
-            The 10 Markers
+          <h1
+            className="text-4xl font-black tracking-tight mb-3"
+            style={{ fontFamily: "var(--font-heading)" }}
+          >
+            The <span className="text-[#ee7625]">10</span> Markers
           </h1>
-          <p className="text-sm text-blue-200 italic leading-relaxed max-w-xs mx-auto">
+          {/* Vision statement — Freight Text Pro italic */}
+          <p
+            className="text-base text-blue-100 leading-relaxed max-w-xs mx-auto"
+            style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}
+          >
             &ldquo;{VISION_STATEMENT}&rdquo;
           </p>
         </motion.div>
@@ -64,7 +74,10 @@ export default function OnboardingPage() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="flex flex-col flex-1"
           >
-            <h2 className="text-xl font-bold text-[#1a2744] mb-3">
+            <h2
+              className="text-xl font-black text-[#1a2744] mb-3"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
               Learn what it means to follow Jesus.
             </h2>
             <p className="text-[#6b6b6b] text-sm leading-relaxed mb-8">
@@ -78,16 +91,16 @@ export default function OnboardingPage() {
               {(["abiding", "making", "together"] as const).map((pillar) => {
                 const p = PILLARS[pillar];
                 const colors = {
-                  abiding: "bg-blue-50 border-blue-200 text-blue-700",
-                  making: "bg-emerald-50 border-emerald-200 text-emerald-700",
-                  together: "bg-amber-50 border-amber-200 text-amber-700",
+                  abiding:  "bg-[#e8f4f8] border-[#a8d8ea] text-[#1d4d5e]",
+                  making:   "bg-[#e8f5f0] border-[#a3d9c4] text-[#1d5240]",
+                  together: "bg-[#fdf3e3] border-[#e8c98a] text-[#7a5220]",
                 };
                 return (
                   <div
                     key={pillar}
                     className={`rounded-xl border px-4 py-3 ${colors[pillar]}`}
                   >
-                    <p className="text-xs font-bold uppercase tracking-wider mb-0.5">
+                    <p className="text-xs font-bold uppercase tracking-wider mb-0.5" style={{ fontFamily: "var(--font-body)" }}>
                       {p.label}
                     </p>
                     <p className="text-xs opacity-80 leading-snug">
@@ -111,7 +124,10 @@ export default function OnboardingPage() {
             transition={{ duration: 0.4 }}
             className="flex flex-col flex-1"
           >
-            <h2 className="text-xl font-bold text-[#1a2744] mb-2">
+            <h2
+              className="text-xl font-black text-[#1a2744] mb-2"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
               What&apos;s your name?
             </h2>
             <p className="text-[#6b6b6b] text-sm mb-8">

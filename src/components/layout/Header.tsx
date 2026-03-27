@@ -39,6 +39,7 @@ export default function Header({
         className
       )}
     >
+      {/* Left — back button */}
       <div className="w-10">
         {showBack && (
           <button
@@ -51,19 +52,30 @@ export default function Header({
         )}
       </div>
 
+      {/* Centre — app name or page title */}
       <div className="flex flex-col items-center">
-        {title && (
-          <h1 className="text-sm font-bold text-[#1a2744] tracking-wide">
+        {title ? (
+          /* Page-level title — Proxima Nova semibold */
+          <h1
+            className="text-sm font-bold text-[#1a2744] tracking-wide"
+            style={{ fontFamily: "var(--font-body)" }}
+          >
             {title}
           </h1>
-        )}
-        {!title && (
-          <span className="text-sm font-bold text-[#1a2744] tracking-widest uppercase">
-            The 10 Markers
+        ) : (
+          /* App name — Tussilago heavy, all-caps, Tangerine accent dot */
+          <span
+            className="text-sm font-black text-[#1a2744] tracking-[0.18em] uppercase"
+            style={{ fontFamily: "var(--font-heading)" }}
+          >
+            The{" "}
+            <span className="text-[#ee7625]">10</span>
+            {" "}Markers
           </span>
         )}
       </div>
 
+      {/* Right — profile or custom content */}
       <div className="w-10 flex justify-end">
         {rightContent ??
           (showProfile && (

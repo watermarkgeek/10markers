@@ -36,10 +36,12 @@ export default function RootLayout({
       <head>
         {/* iOS standalone — show full screen when launched from home screen */}
         <meta name="mobile-web-app-capable" content="yes" />
-        {/* Splash screen background while app loads */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="10 Markers" />
+        {/* Adobe Fonts (Typekit) — Proxima Nova, Tussilago, Freight Text Pro */}
+        {/* Note: add 10markers.vercel.app to your kit at fonts.adobe.com if fonts don't load */}
+        <link rel="stylesheet" href="https://use.typekit.net/cyq2epk.css" />
       </head>
       <body className="h-full bg-[#1a2744]">
         {/* bg-[#1a2744] on body = navy shows during overscroll / safe area */}

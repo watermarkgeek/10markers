@@ -41,6 +41,23 @@ body {
   background: white;
   position: relative;
   box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
+
+  /* Safe area insets — critical for standalone PWA on iPhone */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* In standalone mode, prevent overscroll bounce revealing the white body */
+@media (display-mode: standalone) {
+  body {
+    overscroll-behavior: none;
+  }
+  /* Slightly increase header top padding to clear the status bar */
+  header.sticky {
+    padding-top: calc(env(safe-area-inset-top) + 0.5rem);
+  }
 }
 
 /* Progress bar animation */

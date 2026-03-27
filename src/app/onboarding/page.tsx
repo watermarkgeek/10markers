@@ -50,7 +50,7 @@ export default function OnboardingPage() {
             Watermark Community Church
           </p>
           <h1
-            className="text-4xl font-black tracking-tight mb-3"
+            className="text-4xl font-bold tracking-tight mb-3"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             The <span className="text-[#ee7625]">10</span> Markers
@@ -75,7 +75,7 @@ export default function OnboardingPage() {
             className="flex flex-col flex-1"
           >
             <h2
-              className="text-xl font-black text-[#1a2744] mb-3"
+              className="text-xl font-bold text-[#1a2744] mb-3"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               Learn what it means to follow Jesus.
@@ -125,7 +125,7 @@ export default function OnboardingPage() {
             className="flex flex-col flex-1"
           >
             <h2
-              className="text-xl font-black text-[#1a2744] mb-2"
+              className="text-xl font-bold text-[#1a2744] mb-2"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               What&apos;s your name?

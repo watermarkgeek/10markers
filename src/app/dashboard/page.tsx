@@ -92,7 +92,7 @@ export default function DashboardPage() {
             <p className="text-blue-200 text-xs uppercase tracking-[0.15em] mb-0.5 overline" style={{ fontFamily: "var(--font-body)" }}>
               Welcome back
             </p>
-            <h2 className="text-white text-xl font-black" style={{ fontFamily: "var(--font-heading)" }}>{user?.name ?? "..."}</h2>
+            <h2 className="text-white text-xl font-bold" style={{ fontFamily: "var(--font-heading)" }}>{user?.name ?? "..."}</h2>
           </div>
           <div className="flex gap-4">
             <div className="flex flex-col items-center">

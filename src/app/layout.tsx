@@ -39,9 +39,13 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
         <meta name="apple-mobile-web-app-title" content="10 Markers" />
-        {/* Adobe Fonts (Typekit) — Proxima Nova, Tussilago, Freight Text Pro */}
-        {/* Note: add 10markers.vercel.app to your kit at fonts.adobe.com if fonts don't load */}
-        <link rel="stylesheet" href="https://use.typekit.net/cyq2epk.css" />
+        {/* Google Fonts — Oswald (headings/display) + Lato (body/UI) */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&display=swap"
+        />
       </head>
       <body className="h-full bg-[#1a2744]">
         {/* bg-[#1a2744] on body = navy shows during overscroll / safe area */}

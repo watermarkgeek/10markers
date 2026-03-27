@@ -9,9 +9,9 @@
 
 :root {
   /* ── Fonts ──────────────────────────────────────────────────────────────── */
-  --font-heading:  "tussilago", "proxima-nova", system-ui, sans-serif;
-  --font-body:     "proxima-nova", system-ui, -apple-system, sans-serif;
-  --font-serif:    "freight-text-pro", Georgia, "Times New Roman", serif;
+  --font-heading:  "Oswald", system-ui, sans-serif;       /* display / headings */
+  --font-body:     "Lato", system-ui, -apple-system, sans-serif;  /* UI / body */
+  --font-serif:    Georgia, "Times New Roman", serif;     /* scripture fallback */
 
   /* ── Watermark brand palette ─────────────────────────────────────────────
      Names match the style guide: Midnight, Tangerine, Charcoal, Sand, etc.  */
@@ -98,7 +98,8 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   color: var(--wm-midnight);
   line-height: 1.25;
-  font-weight: 700;
+  font-weight: 600;   /* Oswald 600 = bold but not overly heavy */
+  letter-spacing: 0.01em;
 }
 h1 { font-size: var(--text-h1); }
 h2 { font-size: var(--text-h2); }
@@ -136,12 +137,12 @@ h6 { font-size: var(--text-h6); }
   color: var(--wm-tangerine);
 }
 
-/* Display heading — Tussilago heavy (hero moments) */
+/* Display heading — Oswald 700 (hero moments) */
 .display-heading {
   font-family: var(--font-heading);
-  font-weight: 900;
+  font-weight: 700;
   line-height: 1.1;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.02em;   /* Oswald reads better with slight tracking */
 }
 
 /* ─── App container ───────────────────────────────────────────────────────── */

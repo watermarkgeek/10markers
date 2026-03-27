@@ -65,7 +65,7 @@ export default function Header({
         ) : (
           /* App name — Tussilago heavy, all-caps, Tangerine accent dot */
           <span
-            className="text-sm font-black text-[#1a2744] tracking-[0.18em] uppercase"
+            className="text-sm font-bold text-[#1a2744] tracking-[0.18em] uppercase"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             The{" "}

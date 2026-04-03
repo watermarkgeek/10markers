@@ -47,11 +47,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               variant === "primary",
 
             // Secondary → Midnight outline
-            "bg-white text-[#1a2744] border-2 border-[#1a2744] hover:bg-[#f8f5f0] focus-visible:ring-[#1a2744]":
+            "bg-white text-[#28312f] border-2 border-[#28312f] hover:bg-[#f8f5f0] focus-visible:ring-[#28312f]":
               variant === "secondary",
 
             // Navy → solid Midnight (for use on dark hero backgrounds reversed)
-            "bg-[#1a2744] text-white hover:bg-[#243359] focus-visible:ring-[#1a2744]":
+            "bg-[#28312f] text-white hover:bg-[#3a4540] focus-visible:ring-[#28312f]":
               variant === "navy",
 
             // Gold → warm accent
@@ -59,7 +59,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               variant === "gold",
 
             // Ghost → text only
-            "text-[#787878] hover:text-[#1a2744] hover:bg-[#f8f5f0] focus-visible:ring-[#1a2744]":
+            "text-[#787878] hover:text-[#28312f] hover:bg-[#f8f5f0] focus-visible:ring-[#28312f]":
               variant === "ghost",
 
             // Danger → red destructive

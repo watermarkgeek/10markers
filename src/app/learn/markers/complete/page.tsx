@@ -49,7 +49,7 @@ export default function MarkersCompletePage() {
           <div className="text-7xl">🎴</div>
 
           <h2
-            className="text-2xl font-bold text-[#1a2744]"
+            className="text-2xl font-bold text-[#28312f]"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             You know all 10 markers!
@@ -60,7 +60,7 @@ export default function MarkersCompletePage() {
             {MARKERS.map((m) => (
               <div key={m.id} className="flex items-center gap-2 text-sm">
                 <span className="text-base">{m.icon}</span>
-                <span className="font-semibold text-[#1a2744]">{m.name}</span>
+                <span className="font-semibold text-[#28312f]">{m.name}</span>
               </div>
             ))}
           </div>

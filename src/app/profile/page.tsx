@@ -39,7 +39,7 @@ export default function ProfilePage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="w-8 h-8 border-4 border-[#1a2744] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-[#28312f] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -57,7 +57,7 @@ export default function ProfilePage() {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-[#1a2744] rounded-2xl p-5"
+          className="bg-[#28312f] rounded-2xl p-5"
         >
           <p className="text-white font-bold text-lg mb-4">{user?.name}</p>
           <div className="grid grid-cols-4 gap-2">
@@ -103,7 +103,7 @@ export default function ProfilePage() {
                     const mp = progress.find((p) => p.markerId === marker.id);
                     return (
                       <div key={marker.id} className="flex items-center justify-between">
-                        <span className="text-xs text-[#1a2744] flex items-center gap-1.5">
+                        <span className="text-xs text-[#28312f] flex items-center gap-1.5">
                           <span>{marker.icon}</span>
                           <span>{marker.name}</span>
                         </span>
@@ -120,7 +120,7 @@ export default function ProfilePage() {
         {/* Badges */}
         {markerBadges.length > 0 && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}>
-            <h3 className="text-sm font-bold text-[#1a2744] uppercase tracking-wider mb-3">
+            <h3 className="text-sm font-bold text-[#28312f] uppercase tracking-wider mb-3">
               Badges Earned
             </h3>
             <div className="flex flex-wrap gap-3">

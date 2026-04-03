@@ -135,8 +135,8 @@ export default function PillarsSortPage() {
               onClick={() => selectMarker(m.id)}
               className={`px-3 py-1.5 rounded-lg text-xs font-semibold border-2 transition-all ${
                 selected === m.id
-                  ? "bg-[#1a2744] text-white border-[#1a2744]"
-                  : "bg-white text-[#1a2744] border-[#e8e2d9] hover:border-[#1a2744]"
+                  ? "bg-[#28312f] text-white border-[#28312f]"
+                  : "bg-white text-[#28312f] border-[#e8e2d9] hover:border-[#28312f]"
               }`}
             >
               {m.icon} {m.name.replace("A ", "")}
@@ -182,7 +182,7 @@ export default function PillarsSortPage() {
                           ? isRight
                             ? "bg-green-100 border-green-400 text-green-700"
                             : "bg-red-100 border-red-400 text-red-700"
-                          : "bg-white border-[#e8e2d9] text-[#1a2744]"
+                          : "bg-white border-[#e8e2d9] text-[#28312f]"
                       }`}
                     >
                       {checked && (isRight ? <CheckCircle2 size={11} /> : <XCircle size={11} />)}

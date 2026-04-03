@@ -24,7 +24,7 @@ export default function PillarsLearnPage() {
 
       <div className="px-5 pt-5 pb-4">
         <p
-          className="text-2xl font-bold text-[#1a2744] mb-1"
+          className="text-2xl font-bold text-[#28312f] mb-1"
           style={{ fontFamily: "var(--font-heading)" }}
         >
           Three Pillars
@@ -67,7 +67,7 @@ export default function PillarsLearnPage() {
                 <p className="text-xs font-bold uppercase tracking-wide text-[#6b6b6b] mb-1">
                   Key Scripture
                 </p>
-                <p className="text-xs text-[#1a2744] italic">
+                <p className="text-xs text-[#28312f] italic">
                   &ldquo;{info.scripture.text.slice(0, 100)}…&rdquo;
                 </p>
                 <p className={`text-xs font-bold mt-1 ${style.text}`}>— {info.scripture.reference}</p>
@@ -78,7 +78,7 @@ export default function PillarsLearnPage() {
                 {markers.map((marker) => (
                   <div key={marker.id} className="flex items-center gap-2">
                     <span className="text-base">{marker.icon}</span>
-                    <span className="text-sm font-medium text-[#1a2744]">{marker.name}</span>
+                    <span className="text-sm font-medium text-[#28312f]">{marker.name}</span>
                   </div>
                 ))}
               </div>

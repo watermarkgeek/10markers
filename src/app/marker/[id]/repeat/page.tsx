@@ -143,10 +143,10 @@ export default function RepeatPage() {
             transition={{ type: "spring", stiffness: 200, damping: 14 }}
           >
             <div className="text-6xl mb-4">🎴</div>
-            <h2 className="text-2xl font-bold text-[#1a2744] mb-2">Cards Complete!</h2>
+            <h2 className="text-2xl font-bold text-[#28312f] mb-2">Cards Complete!</h2>
             <p className="text-[#6b6b6b] text-sm mb-8">
               Great work reviewing{" "}
-              <span className="font-semibold text-[#1a2744]">{marker.name}</span>.{" "}
+              <span className="font-semibold text-[#28312f]">{marker.name}</span>.{" "}
               Ready to play the match game?
             </p>
             <Button variant="primary" size="lg" onClick={handleContinue}>
@@ -183,7 +183,7 @@ export default function RepeatPage() {
         >
           <div className={`card-flip-inner w-full h-full relative ${flipped ? "flipped" : ""}`}>
             {/* Front */}
-            <div className="card-front absolute inset-0 bg-[#1a2744] rounded-3xl p-6 flex flex-col items-center justify-center text-center shadow-xl">
+            <div className="card-front absolute inset-0 bg-[#28312f] rounded-3xl p-6 flex flex-col items-center justify-center text-center shadow-xl">
               <p className="text-[10px] font-semibold uppercase tracking-widest text-blue-300 mb-4">
                 {currentCard.frontLabel}
               </p>
@@ -200,7 +200,7 @@ export default function RepeatPage() {
                 {currentCard.backLabel}
               </p>
               <p
-                className={`text-[#1a2744] leading-relaxed ${currentCard.isScripture ? "text-sm italic" : "text-sm"}`}
+                className={`text-[#28312f] leading-relaxed ${currentCard.isScripture ? "text-sm italic" : "text-sm"}`}
               >
                 {currentCard.isScripture ? `"${currentCard.backText}"` : currentCard.backText}
               </p>

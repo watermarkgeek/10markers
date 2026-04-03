@@ -2,8 +2,8 @@
 
 /* ─────────────────────────────────────────────────────────────────────────────
    WATERMARK DESIGN SYSTEM
-   Fonts: Proxima Nova (UI), Tussilago (headings), Freight Text Pro (scripture)
-   Colors: Matched to rock.watermark.org/v1/style-guide
+   Fonts: Oswald (headings/display) + Lato (body/UI) — Google Fonts
+   Colors: Sourced from watermark.org brand — dark charcoal #28312f, orange #ee7625
    Scale:  Matched to Rock RMS typography spec
 ───────────────────────────────────────────────────────────────────────────── */
 
@@ -14,9 +14,10 @@
   --font-serif:    Georgia, "Times New Roman", serif;     /* scripture fallback */
 
   /* ── Watermark brand palette ─────────────────────────────────────────────
-     Names match the style guide: Midnight, Tangerine, Charcoal, Sand, etc.  */
-  --wm-midnight:        #1a2744;   /* primary navy — brand anchor */
-  --wm-midnight-light:  #243359;   /* hover state for midnight */
+     #28312f = Watermark's actual brand dark (confirmed from site source/SVG).
+     #ee7625 = Tangerine orange — primary CTA color (confirmed).               */
+  --wm-midnight:        #28312f;   /* dark charcoal — Watermark brand anchor */
+  --wm-midnight-light:  #3a4540;   /* hover state for dark charcoal */
   --wm-tangerine:       #ee7625;   /* primary CTA orange */
   --wm-tangerine-dark:  #cc6118;   /* hover state for tangerine */
   --wm-tangerine-light: #f5924a;   /* soft tangerine */
@@ -32,16 +33,16 @@
   --wm-glacier:         #a8d8ea;   /* light blue */
 
   /* ── Pillar accent colors ────────────────────────────────────────────────
-     Abiding → blue  |  Making → green  |  Together → amber/gold            */
-  --pillar-abiding:        #2e6e84;   /* Ming blue */
+     Abiding → teal-blue  |  Making → forest green  |  Enjoying → warm gold  */
+  --pillar-abiding:        #2e6e84;   /* Ming teal */
   --pillar-abiding-light:  #e8f4f8;
   --pillar-abiding-text:   #1d4d5e;
   --pillar-making:         #2e7d5e;   /* Forest green */
   --pillar-making-light:   #e8f5f0;
   --pillar-making-text:    #1d5240;
-  --pillar-together:       #b07a2e;   /* Warm gold */
-  --pillar-together-light: #fdf3e3;
-  --pillar-together-text:  #7a5220;
+  --pillar-enjoying:       #b07a2e;   /* Warm gold */
+  --pillar-enjoying-light: #fdf3e3;
+  --pillar-enjoying-text:  #7a5220;
 
   /* ── Game feedback ───────────────────────────────────────────────────────*/
   --correct:   #22c55e;

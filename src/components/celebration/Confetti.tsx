@@ -21,7 +21,7 @@ export default function Confetti({
           particleCount: 40,
           spread: 55,
           origin: { y: 0.7 },
-          colors: ["#1a2744", "#c8973a", "#3b6fa0"],
+          colors: ["#28312f", "#c8973a", "#3b6fa0"],
         },
       ],
       medium: [
@@ -29,13 +29,13 @@ export default function Confetti({
           particleCount: 60,
           spread: 70,
           origin: { x: 0.3, y: 0.6 },
-          colors: ["#1a2744", "#c8973a", "#2e7d5e", "#3b6fa0"],
+          colors: ["#28312f", "#c8973a", "#2e7d5e", "#3b6fa0"],
         },
         {
           particleCount: 60,
           spread: 70,
           origin: { x: 0.7, y: 0.6 },
-          colors: ["#1a2744", "#c8973a", "#2e7d5e", "#3b6fa0"],
+          colors: ["#28312f", "#c8973a", "#2e7d5e", "#3b6fa0"],
         },
       ],
       full: [
@@ -43,19 +43,19 @@ export default function Confetti({
           particleCount: 80,
           spread: 100,
           origin: { x: 0.2, y: 0.5 },
-          colors: ["#1a2744", "#c8973a", "#2e7d5e", "#3b6fa0", "#b07a2e"],
+          colors: ["#28312f", "#c8973a", "#2e7d5e", "#3b6fa0", "#b07a2e"],
         },
         {
           particleCount: 80,
           spread: 100,
           origin: { x: 0.8, y: 0.5 },
-          colors: ["#1a2744", "#c8973a", "#2e7d5e", "#3b6fa0", "#b07a2e"],
+          colors: ["#28312f", "#c8973a", "#2e7d5e", "#3b6fa0", "#b07a2e"],
         },
         {
           particleCount: 40,
           spread: 60,
           origin: { x: 0.5, y: 0.3 },
-          colors: ["#1a2744", "#c8973a"],
+          colors: ["#28312f", "#c8973a"],
         },
       ],
     };

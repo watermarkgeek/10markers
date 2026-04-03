@@ -145,7 +145,7 @@ export default function VisionPracticePage() {
               {/* Prompt */}
               <div className="bg-[#f8f5f0] rounded-2xl px-5 py-6 mb-6">
                 <p
-                  className="text-xl font-bold text-[#1a2744] leading-relaxed text-center"
+                  className="text-xl font-bold text-[#28312f] leading-relaxed text-center"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {q.prompt}
@@ -164,7 +164,7 @@ export default function VisionPracticePage() {
                       disabled={revealed}
                       className={`rounded-xl px-4 py-3.5 text-sm font-medium text-left transition-all border-2 ${
                         !revealed
-                          ? "bg-white border-[#e8e2d9] text-[#1a2744] hover:border-[#1a2744]"
+                          ? "bg-white border-[#e8e2d9] text-[#28312f] hover:border-[#28312f]"
                           : isCorrect
                           ? "bg-green-100 border-green-400 text-green-700"
                           : isSelected
@@ -231,7 +231,7 @@ export default function VisionPracticePage() {
                     key={`built-${i}`}
                     onClick={() => removeWord(word, i)}
                     disabled={scrambleChecked}
-                    className="px-3 py-1.5 bg-[#1a2744] text-white text-sm font-medium rounded-lg"
+                    className="px-3 py-1.5 bg-[#28312f] text-white text-sm font-medium rounded-lg"
                   >
                     {word}
                   </button>
@@ -262,7 +262,7 @@ export default function VisionPracticePage() {
                     key={`bank-${i}`}
                     onClick={() => addWord(word, i)}
                     disabled={scrambleChecked}
-                    className="px-3 py-1.5 bg-white border-2 border-[#e8e2d9] text-[#1a2744] text-sm font-medium rounded-lg hover:border-[#1a2744] transition-colors disabled:opacity-50"
+                    className="px-3 py-1.5 bg-white border-2 border-[#e8e2d9] text-[#28312f] text-sm font-medium rounded-lg hover:border-[#28312f] transition-colors disabled:opacity-50"
                   >
                     {word}
                   </button>

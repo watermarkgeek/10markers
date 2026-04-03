@@ -116,7 +116,7 @@ export default function MatchPage() {
             transition={{ type: "spring", stiffness: 200, damping: 14 }}
           >
             <div className="text-6xl mb-4">🎯</div>
-            <h2 className="text-2xl font-bold text-[#1a2744] mb-2">All Matched!</h2>
+            <h2 className="text-2xl font-bold text-[#28312f] mb-2">All Matched!</h2>
             <p className="text-[#6b6b6b] text-sm mb-2">
               {errors === 0
                 ? "Perfect — no mistakes! 🌟"
@@ -169,10 +169,10 @@ export default function MatchPage() {
                     isMatched
                       ? "bg-green-100 text-green-700 border-2 border-green-300"
                       : isSelected
-                      ? "bg-[#1a2744] text-white border-2 border-[#1a2744]"
+                      ? "bg-[#28312f] text-white border-2 border-[#28312f]"
                       : isWrong
                       ? "bg-red-100 text-red-600 border-2 border-red-300 animate-shake"
-                      : "bg-[#f8f5f0] text-[#1a2744] border-2 border-[#e8e2d9] hover:border-[#1a2744]"
+                      : "bg-[#f8f5f0] text-[#28312f] border-2 border-[#e8e2d9] hover:border-[#28312f]"
                   }`}
                   disabled={isMatched}
                 >
@@ -200,8 +200,8 @@ export default function MatchPage() {
                       : isWrong
                       ? "bg-red-100 text-red-600 border-2 border-red-300 animate-shake"
                       : selectedName !== null
-                      ? "bg-white text-[#1a2744] border-2 border-[#c8973a] cursor-pointer hover:bg-amber-50"
-                      : "bg-[#f8f5f0] text-[#1a2744] border-2 border-[#e8e2d9]"
+                      ? "bg-white text-[#28312f] border-2 border-[#c8973a] cursor-pointer hover:bg-amber-50"
+                      : "bg-[#f8f5f0] text-[#28312f] border-2 border-[#e8e2d9]"
                   }`}
                   disabled={isMatched}
                 >

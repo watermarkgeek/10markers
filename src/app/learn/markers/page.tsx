@@ -39,7 +39,7 @@ export default function MarkersLearnPage() {
 
       <div className="px-5 pt-5 pb-4">
         <p
-          className="text-2xl font-bold text-[#1a2744] mb-1"
+          className="text-2xl font-bold text-[#28312f] mb-1"
           style={{ fontFamily: "var(--font-heading)" }}
         >
           10 Markers of a Biblical Church
@@ -85,7 +85,7 @@ export default function MarkersLearnPage() {
                     >
                       {marker.id}
                     </span>
-                    <span className="text-sm font-semibold text-[#1a2744]">
+                    <span className="text-sm font-semibold text-[#28312f]">
                       {marker.name}
                     </span>
                     <span className="text-base ml-auto">{marker.icon}</span>

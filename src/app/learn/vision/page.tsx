@@ -58,7 +58,7 @@ export default function VisionLearnPage() {
                 🎯
               </div>
               <h2
-                className="text-2xl font-bold text-[#1a2744] leading-snug"
+                className="text-2xl font-bold text-[#28312f] leading-snug"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 Every disciple starts here.
@@ -94,7 +94,7 @@ export default function VisionLearnPage() {
                       i < wordIndex
                         ? "bg-[#ee7625]"
                         : i === wordIndex
-                        ? "bg-[#1a2744]"
+                        ? "bg-[#28312f]"
                         : "bg-[#e8e2d9]"
                     }`}
                   />
@@ -105,7 +105,7 @@ export default function VisionLearnPage() {
               <div className="flex flex-col items-center gap-2">
                 <span
                   className={`text-5xl font-bold leading-none ${
-                    WORD_COLORS[WORDS[wordIndex]] ?? "text-[#1a2744]"
+                    WORD_COLORS[WORDS[wordIndex]] ?? "text-[#28312f]"
                   }`}
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
@@ -138,7 +138,7 @@ export default function VisionLearnPage() {
                 Watermark&apos;s Vision
               </p>
               <blockquote
-                className="text-3xl font-bold text-[#1a2744] leading-snug text-center"
+                className="text-3xl font-bold text-[#28312f] leading-snug text-center"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 {WORDS.map((word, i) => (
@@ -176,7 +176,7 @@ export default function VisionLearnPage() {
             >
               <div className="text-6xl">💪</div>
               <h2
-                className="text-2xl font-bold text-[#1a2744]"
+                className="text-2xl font-bold text-[#28312f]"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 Time to practice!

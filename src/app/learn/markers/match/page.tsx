@@ -76,7 +76,7 @@ export default function MarkersMatchPage() {
         <div className="flex-1 flex flex-col items-center justify-center px-6 text-center gap-5">
           <div className="text-6xl">{isPerfect ? "🏆" : "💪"}</div>
           <h2
-            className="text-2xl font-bold text-[#1a2744]"
+            className="text-2xl font-bold text-[#28312f]"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             {isPerfect ? "Perfect!" : "Nice work!"}
@@ -131,7 +131,7 @@ export default function MarkersMatchPage() {
             {/* Prompt */}
             <div className="bg-[#f8f5f0] rounded-2xl px-5 py-6 mb-5 text-center">
               <p
-                className="text-2xl font-bold text-[#1a2744]"
+                className="text-2xl font-bold text-[#28312f]"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 A ________ Church
@@ -150,7 +150,7 @@ export default function MarkersMatchPage() {
                     disabled={revealed}
                     className={`rounded-xl px-4 py-3.5 text-sm font-medium text-left transition-all border-2 ${
                       !revealed
-                        ? "bg-white border-[#e8e2d9] text-[#1a2744] hover:border-[#1a2744]"
+                        ? "bg-white border-[#e8e2d9] text-[#28312f] hover:border-[#28312f]"
                         : isCorrect
                         ? "bg-green-100 border-green-400 text-green-700"
                         : isSelected

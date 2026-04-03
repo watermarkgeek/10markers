@@ -11,7 +11,7 @@ interface ProgressBarProps {
 }
 
 const colorMap = {
-  navy: "bg-[#1a2744]",
+  navy: "bg-[#28312f]",
   blue: "bg-[#3b6fa0]",
   green: "bg-[#2e7d5e]",
   amber: "bg-[#b07a2e]",

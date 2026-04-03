@@ -65,7 +65,7 @@ export default function DashboardPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="w-8 h-8 border-4 border-[#1a2744] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-[#28312f] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -88,7 +88,7 @@ export default function DashboardPage() {
       <Header showProfile showBack={false} />
 
       {/* Hero stats bar */}
-      <div className="bg-[#1a2744] px-6 py-5">
+      <div className="bg-[#28312f] px-6 py-5">
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
@@ -97,14 +97,14 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between mb-4">
             <div>
               <p
-                className="text-blue-200 text-xs uppercase tracking-[0.15em] mb-0.5"
+                className="text-white/50 text-xs uppercase tracking-[0.18em] mb-0.5"
                 style={{ fontFamily: "var(--font-body)" }}
               >
                 Welcome back
               </p>
               <h2
-                className="text-white text-xl font-bold"
-                style={{ fontFamily: "var(--font-heading)" }}
+                className="text-white text-2xl font-bold leading-tight"
+                style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.02em" }}
               >
                 {user?.name ?? "…"}
               </h2>
@@ -113,32 +113,37 @@ export default function DashboardPage() {
               <div className="flex flex-col items-center">
                 <div className="flex items-center gap-1 text-[#c8973a]">
                   <Flame size={16} />
-                  <span className="font-bold text-lg">{user?.streakDays ?? 0}</span>
+                  <span className="font-bold text-lg" style={{ fontFamily: "var(--font-heading)" }}>{user?.streakDays ?? 0}</span>
                 </div>
-                <p className="text-blue-200 text-[10px] uppercase tracking-wide">Streak</p>
+                <p className="text-white/50 text-[10px] uppercase tracking-wide" style={{ fontFamily: "var(--font-body)" }}>Streak</p>
               </div>
               <div className="flex flex-col items-center">
                 <div className="flex items-center gap-1 text-[#c8973a]">
                   <Star size={16} />
-                  <span className="font-bold text-lg">
+                  <span className="font-bold text-lg" style={{ fontFamily: "var(--font-heading)" }}>
                     {(phases.visionStars + phases.markersStars + phases.pillarsStars)}
                   </span>
                 </div>
-                <p className="text-blue-200 text-[10px] uppercase tracking-wide">Stars</p>
+                <p className="text-white/50 text-[10px] uppercase tracking-wide" style={{ fontFamily: "var(--font-body)" }}>Stars</p>
               </div>
               <div className="flex flex-col items-center">
-                <span className="font-bold text-lg text-white">{user?.totalXp ?? 0}</span>
-                <p className="text-blue-200 text-[10px] uppercase tracking-wide">XP</p>
+                <span className="font-bold text-lg text-white" style={{ fontFamily: "var(--font-heading)" }}>{user?.totalXp ?? 0}</span>
+                <p className="text-white/50 text-[10px] uppercase tracking-wide" style={{ fontFamily: "var(--font-body)" }}>XP</p>
               </div>
             </div>
           </div>
 
           {/* Vision statement */}
-          <div className="bg-white bg-opacity-10 rounded-xl px-4 py-3">
-            <p className="text-blue-200 text-xs uppercase tracking-widest mb-1">Vision</p>
+          <div className="bg-white/10 rounded-xl px-4 py-3 border border-white/10">
             <p
-              className="text-white text-sm font-semibold leading-snug"
-              style={{ fontFamily: "var(--font-heading)" }}
+              className="text-[#ee7625] text-[10px] uppercase tracking-[0.18em] font-bold mb-1"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
+              Our Vision
+            </p>
+            <p
+              className="text-white text-base font-bold leading-snug"
+              style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.01em" }}
             >
               Abiding in Jesus, we are making disciples together.
             </p>
@@ -207,7 +212,7 @@ export default function DashboardPage() {
                     </div>
                     <p
                       className={`font-bold text-base leading-tight ${
-                        isNext ? "text-white" : "text-[#1a2744]"
+                        isNext ? "text-white" : "text-[#28312f]"
                       }`}
                       style={{ fontFamily: "var(--font-heading)" }}
                     >
@@ -233,7 +238,7 @@ export default function DashboardPage() {
                     ) : completed ? (
                       <ChevronRight size={18} className="text-green-500" />
                     ) : (
-                      <ChevronRight size={18} className={isNext ? "text-white" : "text-[#1a2744]"} />
+                      <ChevronRight size={18} className={isNext ? "text-white" : "text-[#28312f]"} />
                     )}
                   </div>
                 </div>
@@ -247,7 +252,7 @@ export default function DashboardPage() {
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-[#1a2744] text-white rounded-2xl px-5 py-4 text-center mt-1"
+            className="bg-[#28312f] text-white rounded-2xl px-5 py-4 text-center mt-1"
           >
             <p className="text-lg font-bold mb-1">🎉 All 3 foundations complete!</p>
             <p className="text-blue-200 text-sm">

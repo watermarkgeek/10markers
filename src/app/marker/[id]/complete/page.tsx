@@ -28,7 +28,7 @@ export default function MarkerCompletePage() {
   if (!marker || loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="w-8 h-8 border-4 border-[#1a2744] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-[#28312f] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -65,7 +65,7 @@ export default function MarkerCompletePage() {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-[#1a2744] text-white rounded-2xl px-5 py-3 mb-6 w-full"
+            className="bg-[#28312f] text-white rounded-2xl px-5 py-3 mb-6 w-full"
           >
             <p className="text-sm font-bold">🎉 Pillar Complete!</p>
             <p className="text-blue-200 text-xs mt-0.5">{pillarData.label}</p>
@@ -96,7 +96,7 @@ export default function MarkerCompletePage() {
             {marker.icon}
           </div>
 
-          <h2 className="text-2xl font-bold text-[#1a2744] mb-1">
+          <h2 className="text-2xl font-bold text-[#28312f] mb-1">
             {marker.name}
           </h2>
           <p className="text-sm text-[#6b6b6b] mb-4">Marker Complete</p>
@@ -110,7 +110,7 @@ export default function MarkerCompletePage() {
             </div>
             <div className="w-px bg-[#e8e2d9]" />
             <div className="text-center">
-              <p className="text-2xl font-bold text-[#1a2744]">{stars}/3</p>
+              <p className="text-2xl font-bold text-[#28312f]">{stars}/3</p>
               <p className="text-xs text-[#6b6b6b] uppercase tracking-wide">Stars</p>
             </div>
           </div>

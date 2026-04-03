@@ -167,7 +167,7 @@ export default function QuizPage() {
             className="flex flex-col items-center"
           >
             <div className="text-7xl mb-4">{marker.icon}</div>
-            <h2 className="text-2xl font-bold text-[#1a2744] mb-2">
+            <h2 className="text-2xl font-bold text-[#28312f] mb-2">
               {isPerfect ? "Perfect Score! 🎉" : "Quiz Complete!"}
             </h2>
             <p className="text-[#6b6b6b] text-sm mb-4">
@@ -258,7 +258,7 @@ export default function QuizPage() {
                   key={i}
                   className={`leading-relaxed ${
                     i === 0
-                      ? "font-semibold text-base text-[#1a2744]"
+                      ? "font-semibold text-base text-[#28312f]"
                       : "text-sm italic text-[#6b6b6b] mt-2 bg-[#f8f5f0] rounded-xl px-4 py-3 max-h-28 overflow-y-auto"
                   }`}
                 >
@@ -279,7 +279,7 @@ export default function QuizPage() {
                     disabled={revealed}
                     className={`rounded-xl px-4 py-3.5 text-sm font-medium text-left transition-all border-2 ${
                       !revealed
-                        ? "bg-white border-[#e8e2d9] text-[#1a2744] hover:border-[#1a2744]"
+                        ? "bg-white border-[#e8e2d9] text-[#28312f] hover:border-[#28312f]"
                         : isCorrect
                         ? "bg-green-100 border-green-400 text-green-700"
                         : isSelected

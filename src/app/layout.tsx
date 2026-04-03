@@ -23,7 +23,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   viewportFit: "cover", // lets content flow under the iPhone notch/dynamic island
-  themeColor: "#1a2744",
+  themeColor: "#28312f",
 };
 
 export default function RootLayout({
@@ -47,8 +47,8 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700&display=swap"
         />
       </head>
-      <body className="h-full bg-[#1a2744]">
-        {/* bg-[#1a2744] on body = navy shows during overscroll / safe area */}
+      <body className="h-full bg-[#28312f]">
+        {/* bg-[#28312f] on body = Watermark dark charcoal shows during overscroll / safe area */}
         <div className="app-container">{children}</div>
       </body>
     </html>

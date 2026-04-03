@@ -68,7 +68,7 @@ export default function MarkerIntroPage() {
         >
           <div className="text-6xl mb-3">{marker.icon}</div>
           <PillarBadge pillar={marker.pillar} className="mb-3" />
-          <h2 className="text-2xl font-bold text-[#1a2744]">{marker.name}</h2>
+          <h2 className="text-2xl font-bold text-[#28312f]">{marker.name}</h2>
         </motion.div>
 
         {/* Definition */}
@@ -84,7 +84,7 @@ export default function MarkerIntroPage() {
               What it means
             </h3>
           </div>
-          <p className="text-[#1a2744] leading-relaxed text-sm">
+          <p className="text-[#28312f] leading-relaxed text-sm">
             {marker.definition}
           </p>
         </motion.div>
@@ -102,7 +102,7 @@ export default function MarkerIntroPage() {
               Key Scripture (ESV)
             </h3>
           </div>
-          <p className="text-[#1a2744] leading-relaxed text-sm italic mb-3">
+          <p className="text-[#28312f] leading-relaxed text-sm italic mb-3">
             &ldquo;{marker.scripture.text}&rdquo;
           </p>
           <p className="text-[#c8973a] font-semibold text-sm">

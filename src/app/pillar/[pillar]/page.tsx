@@ -75,7 +75,7 @@ export default function PillarPage() {
   if (loading || !PILLARS[pillar]) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="w-8 h-8 border-4 border-[#1a2744] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-[#28312f] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -125,7 +125,7 @@ export default function PillarPage() {
                 onClick={(e) => { if (!unlocked) e.preventDefault(); }}
                 className={`block rounded-2xl border p-4 transition-all ${
                   unlocked
-                    ? "border-[#e8e2d9] hover:border-[#1a2744] hover:shadow-sm active:scale-[0.99]"
+                    ? "border-[#e8e2d9] hover:border-[#28312f] hover:shadow-sm active:scale-[0.99]"
                     : "border-[#e8e2d9] opacity-40 cursor-not-allowed"
                 }`}
               >
@@ -133,7 +133,7 @@ export default function PillarPage() {
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">{marker.icon}</span>
                     <div>
-                      <p className="font-bold text-[#1a2744] text-sm">
+                      <p className="font-bold text-[#28312f] text-sm">
                         {marker.id}. {marker.name}
                       </p>
                       <StarRating stars={p?.stars ?? 0} size="sm" className="mt-0.5" />
@@ -155,7 +155,7 @@ export default function PillarPage() {
                       key={stage}
                       className={`flex-1 h-1 rounded-full transition-colors ${
                         stagesCompleted.includes(stage)
-                          ? "bg-[#1a2744]"
+                          ? "bg-[#28312f]"
                           : "bg-[#e8e2d9]"
                       }`}
                     />

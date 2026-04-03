@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/hooks/useUser";
 import Button from "@/components/ui/Button";
@@ -35,37 +36,51 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#1a2744] text-white overflow-hidden">
-      {/* Top logo / branding */}
-      <div className="flex-none px-6 pt-16 pb-8 text-center">
+    <div className="flex flex-col min-h-screen bg-[#28312f] text-white overflow-hidden">
+      {/* ── Hero / Branding ──────────────────────────────────────────────── */}
+      <div className="flex-none px-6 pt-14 pb-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
+          className="flex flex-col items-center gap-4"
         >
+          {/* Watermark W logo */}
+          <Image
+            src="/wm-logo.png"
+            alt="Watermark Community Church"
+            width={64}
+            height={64}
+            className="rounded-xl shadow-lg"
+          />
+
+          {/* Overline */}
           <p
-            className="text-[#ee7625] text-xs font-bold uppercase tracking-[0.2em] mb-3"
+            className="text-[#ee7625] text-xs font-bold uppercase tracking-[0.22em]"
             style={{ fontFamily: "var(--font-body)" }}
           >
             Watermark Community Church
           </p>
+
+          {/* App title — Oswald 700, all-caps style */}
           <h1
-            className="text-4xl font-bold tracking-tight mb-3"
-            style={{ fontFamily: "var(--font-heading)" }}
+            className="text-5xl font-bold leading-none tracking-tight text-white"
+            style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.02em" }}
           >
             The <span className="text-[#ee7625]">10</span> Markers
           </h1>
-          {/* Vision statement — Freight Text Pro italic */}
+
+          {/* Vision statement — serif italic */}
           <p
-            className="text-base text-blue-100 leading-relaxed max-w-xs mx-auto"
-            style={{ fontFamily: "var(--font-serif)", fontStyle: "italic" }}
+            className="text-sm text-white/70 leading-relaxed max-w-xs italic"
+            style={{ fontFamily: "var(--font-serif)" }}
           >
             &ldquo;{VISION_STATEMENT}&rdquo;
           </p>
         </motion.div>
       </div>
 
-      {/* Content card */}
+      {/* ── Content card ─────────────────────────────────────────────────── */}
       <div className="flex-1 bg-white rounded-t-3xl px-6 pt-8 pb-10 flex flex-col">
         {step === "welcome" ? (
           <motion.div
@@ -75,35 +90,45 @@ export default function OnboardingPage() {
             className="flex flex-col flex-1"
           >
             <h2
-              className="text-xl font-bold text-[#1a2744] mb-3"
-              style={{ fontFamily: "var(--font-heading)" }}
+              className="text-2xl font-bold text-[#28312f] mb-2 leading-snug"
+              style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.01em" }}
             >
-              Learn what it means to follow Jesus.
+              Learn what it means to<br />follow Jesus.
             </h2>
-            <p className="text-[#6b6b6b] text-sm leading-relaxed mb-8">
+            <p
+              className="text-[#6b6b6b] text-sm leading-relaxed mb-7"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
               The 10 Markers are what Watermark believes makes up someone who
               is a disciple of Jesus. This app will walk you through each one
               through games, flashcards, and quizzes — at your own pace.
             </p>
 
-            {/* Pillar preview */}
-            <div className="flex flex-col gap-3 mb-8">
+            {/* Three-pillar preview */}
+            <div className="flex flex-col gap-2.5 mb-8">
               {(["abiding", "making", "enjoying"] as const).map((pillar) => {
                 const p = PILLARS[pillar];
                 const colors = {
-                  abiding:  "bg-[#e8f4f8] border-[#a8d8ea] text-[#1d4d5e]",
-                  making:   "bg-[#e8f5f0] border-[#a3d9c4] text-[#1d5240]",
-                  enjoying: "bg-[#fdf3e3] border-[#e8c98a] text-[#7a5220]",
+                  abiding:  { bg: "bg-[#eef6f9]", border: "border-[#2e6e84]", text: "text-[#1d4d5e]" },
+                  making:   { bg: "bg-[#eef7f2]", border: "border-[#2e7d5e]", text: "text-[#1d5240]" },
+                  enjoying: { bg: "bg-[#fdf6ed]", border: "border-[#b07a2e]", text: "text-[#7a5220]" },
                 };
+                const c = colors[pillar];
                 return (
                   <div
                     key={pillar}
-                    className={`rounded-xl border px-4 py-3 ${colors[pillar]}`}
+                    className={`rounded-xl border-l-4 ${c.border} ${c.bg} px-4 py-3`}
                   >
-                    <p className="text-xs font-bold uppercase tracking-wider mb-0.5" style={{ fontFamily: "var(--font-body)" }}>
+                    <p
+                      className={`text-xs font-bold uppercase tracking-widest mb-0.5 ${c.text}`}
+                      style={{ fontFamily: "var(--font-body)" }}
+                    >
                       {p.label}
                     </p>
-                    <p className="text-xs opacity-80 leading-snug">
+                    <p
+                      className="text-xs text-[#6b6b6b] leading-snug"
+                      style={{ fontFamily: "var(--font-body)" }}
+                    >
                       {p.description}
                     </p>
                   </div>
@@ -125,12 +150,15 @@ export default function OnboardingPage() {
             className="flex flex-col flex-1"
           >
             <h2
-              className="text-xl font-bold text-[#1a2744] mb-2"
+              className="text-2xl font-bold text-[#28312f] mb-2"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               What&apos;s your name?
             </h2>
-            <p className="text-[#6b6b6b] text-sm mb-8">
+            <p
+              className="text-[#6b6b6b] text-sm mb-8"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
               We&apos;ll use this to personalize your experience.
             </p>
 
@@ -142,7 +170,8 @@ export default function OnboardingPage() {
                 placeholder="Your first name"
                 autoFocus
                 maxLength={40}
-                className="w-full border-2 border-[#e8e2d9] rounded-xl px-4 py-3 text-lg text-[#1a2744] placeholder-[#b0a898] focus:outline-none focus:border-[#1a2744] transition-colors"
+                className="w-full border-2 border-[#e8e2d9] rounded-xl px-4 py-3 text-lg text-[#28312f] placeholder-[#b0a898] focus:outline-none focus:border-[#28312f] transition-colors"
+                style={{ fontFamily: "var(--font-body)" }}
               />
               {error && (
                 <p className="text-red-500 text-sm mt-2">{error}</p>
@@ -151,17 +180,18 @@ export default function OnboardingPage() {
               <div className="mt-auto pt-6">
                 <Button
                   type="submit"
-                  variant="gold"
+                  variant="primary"
                   size="lg"
                   fullWidth
                   disabled={isSubmitting || !name.trim()}
                 >
-                  {isSubmitting ? "Starting..." : "Let's Go →"}
+                  {isSubmitting ? "Starting…" : "Let's Go →"}
                 </Button>
                 <button
                   type="button"
                   onClick={() => setStep("welcome")}
-                  className="w-full mt-3 text-sm text-[#6b6b6b] hover:text-[#1a2744] transition-colors py-2"
+                  className="w-full mt-3 text-sm text-[#6b6b6b] hover:text-[#28312f] transition-colors py-2"
+                  style={{ fontFamily: "var(--font-body)" }}
                 >
                   ← Back
                 </button>

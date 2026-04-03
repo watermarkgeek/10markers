@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, User } from "lucide-react";
@@ -47,31 +48,49 @@ export default function Header({
             className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#f8f5f0] transition-colors"
             aria-label="Go back"
           >
-            <ArrowLeft size={20} className="text-[#1a2744]" />
+            <ArrowLeft size={20} className="text-[#28312f]" />
           </button>
         )}
       </div>
 
-      {/* Centre — app name or page title */}
+      {/* Centre — logo + app name or page title */}
       <div className="flex flex-col items-center">
         {title ? (
-          /* Page-level title — Proxima Nova semibold */
-          <h1
-            className="text-sm font-bold text-[#1a2744] tracking-wide"
-            style={{ fontFamily: "var(--font-body)" }}
-          >
-            {title}
-          </h1>
+          /* Page-level title — Lato semibold */
+          <div className="flex items-center gap-2">
+            <Image
+              src="/wm-logo.png"
+              alt="Watermark"
+              width={20}
+              height={20}
+              className="rounded-sm opacity-70"
+            />
+            <h1
+              className="text-sm font-bold text-[#28312f] tracking-wide"
+              style={{ fontFamily: "var(--font-body)" }}
+            >
+              {title}
+            </h1>
+          </div>
         ) : (
-          /* App name — Tussilago heavy, all-caps, Tangerine accent dot */
-          <span
-            className="text-sm font-bold text-[#1a2744] tracking-[0.18em] uppercase"
-            style={{ fontFamily: "var(--font-heading)" }}
-          >
-            The{" "}
-            <span className="text-[#ee7625]">10</span>
-            {" "}Markers
-          </span>
+          /* App wordmark — W logo + Oswald uppercase */
+          <Link href="/dashboard" className="flex items-center gap-2 group">
+            <Image
+              src="/wm-logo.png"
+              alt="Watermark"
+              width={28}
+              height={28}
+              className="rounded-md"
+            />
+            <span
+              className="text-sm font-bold text-[#28312f] tracking-[0.14em] uppercase"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              The{" "}
+              <span className="text-[#ee7625]">10</span>
+              {" "}Markers
+            </span>
+          </Link>
         )}
       </div>
 
@@ -84,7 +103,7 @@ export default function Header({
               className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-[#f8f5f0] transition-colors"
               aria-label="Profile"
             >
-              <User size={20} className="text-[#1a2744]" />
+              <User size={20} className="text-[#28312f]" />
             </Link>
           ))}
       </div>

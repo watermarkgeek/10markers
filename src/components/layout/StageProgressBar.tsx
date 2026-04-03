@@ -28,7 +28,7 @@ export default function StageProgressBar({
               className={cn(
                 "h-1.5 w-full rounded-full transition-all duration-500",
                 isDone
-                  ? "bg-[#1a2744]"
+                  ? "bg-[#28312f]"
                   : isCurrent
                   ? "bg-[#c8973a]"
                   : "bg-[#e8e2d9]"
@@ -38,7 +38,7 @@ export default function StageProgressBar({
               className={cn(
                 "text-[9px] font-medium uppercase tracking-wide",
                 isDone
-                  ? "text-[#1a2744]"
+                  ? "text-[#28312f]"
                   : isCurrent
                   ? "text-[#c8973a]"
                   : "text-[#e8e2d9]"

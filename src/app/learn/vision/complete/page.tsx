@@ -49,7 +49,7 @@ export default function VisionCompletePage() {
           <div className="text-7xl">🎯</div>
 
           <h2
-            className="text-2xl font-bold text-[#1a2744]"
+            className="text-2xl font-bold text-[#28312f]"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             You know the vision!
@@ -60,7 +60,7 @@ export default function VisionCompletePage() {
               Watermark&apos;s Vision
             </p>
             <p
-              className="text-lg font-bold text-[#1a2744] leading-relaxed"
+              className="text-lg font-bold text-[#28312f] leading-relaxed"
               style={{ fontFamily: "var(--font-heading)" }}
             >
               {VISION_STATEMENT}

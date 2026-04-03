@@ -49,7 +49,7 @@ export default function MarkersFlashcardsPage() {
         <div className="flex-1 flex flex-col items-center justify-center px-6 text-center gap-6">
           <div className="text-6xl">🎴</div>
           <h2
-            className="text-2xl font-bold text-[#1a2744]"
+            className="text-2xl font-bold text-[#28312f]"
             style={{ fontFamily: "var(--font-heading)" }}
           >
             All 10 reviewed!
@@ -131,7 +131,7 @@ export default function MarkersFlashcardsPage() {
                 <div className="flex flex-col items-center justify-center px-6 py-10 text-center min-h-[260px]">
                   <span className="text-4xl mb-3">{marker.icon}</span>
                   <p
-                    className="text-xl font-bold text-[#1a2744] leading-snug mb-2"
+                    className="text-xl font-bold text-[#28312f] leading-snug mb-2"
                     style={{ fontFamily: "var(--font-heading)" }}
                   >
                     {marker.name}

@@ -179,7 +179,7 @@ export default function FillBlankPage() {
             transition={{ type: "spring", stiffness: 200, damping: 14 }}
           >
             <div className="text-6xl mb-4">✏️</div>
-            <h2 className="text-2xl font-bold text-[#1a2744] mb-2">
+            <h2 className="text-2xl font-bold text-[#28312f] mb-2">
               Fill-in Complete!
             </h2>
             <p className="text-[#6b6b6b] text-sm mb-2">
@@ -237,7 +237,7 @@ export default function FillBlankPage() {
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="bg-[#f8f5f0] rounded-2xl px-5 py-5 mb-6 text-sm leading-relaxed text-[#1a2744]">
+            <div className="bg-[#f8f5f0] rounded-2xl px-5 py-5 mb-6 text-sm leading-relaxed text-[#28312f]">
               {parts[0]}
               <span
                 className={`inline-block mx-1 px-3 py-0.5 rounded-lg font-semibold border-2 min-w-[80px] text-center ${
@@ -280,7 +280,7 @@ export default function FillBlankPage() {
                     disabled={revealed}
                     className={`rounded-xl px-3 py-3 text-sm font-medium text-left transition-all border-2 ${
                       !revealed
-                        ? "bg-white border-[#e8e2d9] text-[#1a2744] hover:border-[#1a2744]"
+                        ? "bg-white border-[#e8e2d9] text-[#28312f] hover:border-[#28312f]"
                         : isCorrect
                         ? "bg-green-100 border-green-400 text-green-700"
                         : isSelected

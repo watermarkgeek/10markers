@@ -103,18 +103,15 @@ export default function MarkersFlashcardsPage() {
                 className="rounded-3xl shadow-lg overflow-hidden"
                 style={{ backgroundColor: color }}
               >
-                <div className="flex flex-col items-center justify-center px-6 py-12 text-center min-h-[260px]">
-                  <p className="text-white text-opacity-70 text-xs uppercase tracking-widest font-bold mb-3">
-                    Marker #{marker.id}
+                <div className="flex flex-col items-center justify-center px-6 py-8 text-center min-h-[260px]">
+                  <p className="text-white text-opacity-70 text-xs uppercase tracking-widest font-bold mb-4">
+                    Marker {index + 1} of {MARKERS.length}
                   </p>
-                  <p
-                    className="text-white text-4xl font-bold leading-none mb-2"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
-                    {marker.id}
+                  <p className="text-white text-sm leading-relaxed">
+                    {marker.definition}
                   </p>
-                  <p className="text-white text-opacity-60 text-sm mt-4">
-                    Tap to reveal the name
+                  <p className="text-white text-opacity-60 text-xs mt-4">
+                    Tap to reveal
                   </p>
                 </div>
               </motion.div>

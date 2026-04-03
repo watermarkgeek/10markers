@@ -10,16 +10,10 @@ import { MARKERS } from "@/data/markers";
 import { shuffleArray } from "@/lib/utils";
 import { CheckCircle2, XCircle } from "lucide-react";
 
-// Extract the "middle" word(s) from "A ___-___ Church"
-// e.g. "A Gospel-Saturated Church" → "Gospel-Saturated"
-function extractMiddle(name: string): string {
-  return name.replace(/^A\s+/, "").replace(/\s+Church$/, "");
-}
-
 interface MatchQuestion {
   marker: typeof MARKERS[0];
-  prompt: string; // "A ___ Church"
-  answer: string; // middle word(s)
+  hint: string;
+  answer: string; // full marker name
   options: string[];
 }
 
@@ -29,15 +23,14 @@ export default function MarkersMatchPage() {
   const questions: MatchQuestion[] = useMemo(() => {
     const shuffled = shuffleArray([...MARKERS]);
     return shuffled.map((marker) => {
-      const answer = extractMiddle(marker.name);
       const others = MARKERS.filter((m) => m.id !== marker.id)
-        .map((m) => extractMiddle(m.name));
+        .map((m) => m.name);
       const distractors = shuffleArray(others).slice(0, 3);
       return {
         marker,
-        prompt: "A ___ Church",
-        answer,
-        options: shuffleArray([answer, ...distractors]),
+        hint: marker.quizHint,
+        answer: marker.name,
+        options: shuffleArray([marker.name, ...distractors]),
       };
     });
   }, []);
@@ -113,7 +106,7 @@ export default function MarkersMatchPage() {
         <ProgressBar value={progressPct} color="navy" height="sm" />
       </div>
 
-      <div className="flex-1 min-h-0 px-5 pt-4 pb-6 flex flex-col">
+      <div className="flex-1 min-h-0 px-5 pt-3 overflow-y-auto">
         <AnimatePresence mode="wait">
           <motion.div
             key={qIndex}
@@ -121,25 +114,21 @@ export default function MarkersMatchPage() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
-            className="flex flex-col flex-1 min-h-0"
           >
-            {/* Marker number hint */}
-            <p className="text-xs uppercase tracking-widest text-[#ee7625] font-bold mb-3">
-              Marker #{q.marker.id} — {q.marker.icon}
+            {/* Instruction */}
+            <p className="text-xs uppercase tracking-widest text-[#ee7625] font-bold mb-2">
+              Which marker does this describe?
             </p>
 
-            {/* Prompt */}
-            <div className="bg-[#f8f5f0] rounded-2xl px-5 py-6 mb-5 text-center">
-              <p
-                className="text-2xl font-bold text-[#28312f]"
-                style={{ fontFamily: "var(--font-heading)" }}
-              >
-                A ________ Church
+            {/* Quiz hint */}
+            <div className="bg-[#f8f5f0] rounded-2xl px-4 py-3 mb-3">
+              <p className="text-sm leading-relaxed text-[#28312f] text-center italic">
+                &ldquo;{q.hint}&rdquo;
               </p>
             </div>
 
-            {/* Options */}
-            <div className="flex flex-col gap-3">
+            {/* Options — full marker names */}
+            <div className="flex flex-col gap-1.5">
               {q.options.map((opt) => {
                 const isCorrect = opt === q.answer;
                 const isSelected = selected === opt;
@@ -148,7 +137,7 @@ export default function MarkersMatchPage() {
                     key={opt}
                     onClick={() => handleSelect(opt)}
                     disabled={revealed}
-                    className={`rounded-xl px-4 py-3.5 text-sm font-medium text-left transition-all border-2 ${
+                    className={`rounded-xl px-4 py-2.5 text-sm font-medium text-left transition-all border-2 ${
                       !revealed
                         ? "bg-white border-[#e8e2d9] text-[#28312f] hover:border-[#28312f]"
                         : isCorrect
@@ -161,27 +150,28 @@ export default function MarkersMatchPage() {
                     <div className="flex items-center gap-2">
                       {revealed && isCorrect && <CheckCircle2 size={16} className="shrink-0" />}
                       {revealed && isSelected && !isCorrect && <XCircle size={16} className="shrink-0" />}
-                      <span>A {opt} Church</span>
+                      <span>{opt}</span>
                     </div>
                   </button>
                 );
               })}
             </div>
-
-            {revealed && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mt-auto pt-6"
-              >
-                <Button variant="primary" size="lg" fullWidth onClick={handleNext}>
-                  {qIndex + 1 < questions.length ? "Next →" : "See Results →"}
-                </Button>
-              </motion.div>
-            )}
           </motion.div>
         </AnimatePresence>
       </div>
+
+      {/* Fixed bottom button */}
+      {revealed && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="px-5 pb-4 pt-3"
+        >
+          <Button variant="primary" size="lg" fullWidth onClick={handleNext}>
+            {qIndex + 1 < questions.length ? "Next →" : "See Results →"}
+          </Button>
+        </motion.div>
+      )}
     </div>
   );
 }

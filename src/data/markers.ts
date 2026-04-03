@@ -1,4 +1,4 @@
-export type Pillar = "abiding" | "making" | "together";
+export type Pillar = "abiding" | "making" | "enjoying";
 
 export interface Scripture {
   reference: string;
@@ -15,11 +15,15 @@ export interface Marker {
   color: string; // Tailwind color class for accent
 }
 
-export const PILLARS: Record<Pillar, { label: string; description: string; color: string; order: number }> = {
+export const PILLARS: Record<Pillar, { label: string; description: string; scripture: Scripture; color: string; order: number }> = {
   abiding: {
     label: "Abiding in Jesus",
     description:
-      "These markers reflect a life rooted in personal communion with Jesus — through his Word, prayer, and the Spirit.",
+      "These markers reflect a community rooted in personal communion with Jesus — through his Word, prayer, and the Spirit.",
+    scripture: {
+      reference: "John 15:4–5",
+      text: "Abide in me, and I in you. As the branch cannot bear fruit by itself, unless it abides in the vine, neither can you, unless you abide in me. I am the vine; you are the branches. Whoever abides in me and I in him, he it is that bears much fruit, for apart from me you can do nothing.",
+    },
     color: "blue",
     order: 1,
   },
@@ -27,13 +31,21 @@ export const PILLARS: Record<Pillar, { label: string; description: string; color
     label: "Making Disciples",
     description:
       "These markers shape how we live on mission — sharing the gospel and intentionally investing in others.",
+    scripture: {
+      reference: "Matthew 28:19–20",
+      text: "Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, teaching them to observe all that I have commanded you. And behold, I am with you always, to the end of the age.",
+    },
     color: "green",
     order: 2,
   },
-  together: {
-    label: "Together",
+  enjoying: {
+    label: "Enjoying Life Together",
     description:
-      "These markers express what it looks like to belong to one another and grow as the body of Christ.",
+      "These markers express what it looks like to belong to one another and grow together as the body of Christ.",
+    scripture: {
+      reference: "Ephesians 4:15–16",
+      text: "Rather, speaking the truth in love, we are to grow up in every way into him who is the head, into Christ, from whom the whole body, joined and held together by every joint with which it is equipped, when each part is working properly, makes the body grow so that it builds itself up in love.",
+    },
     color: "amber",
     order: 3,
   },
@@ -45,132 +57,132 @@ export const VISION_STATEMENT =
 export const MARKERS: Marker[] = [
   {
     id: 1,
-    name: "Gospel Saturated",
+    name: "A Gospel-Saturated Church",
     pillar: "abiding",
     definition:
-      "I understand, believe, and am living in light of the gospel — the good news that Jesus Christ, the Son of God, lived the life I should have lived, died the death I deserved to die, and rose again so that I might be forgiven of my sin and reconciled to God.",
+      "A Gospel-Saturated Church is one where the good news of Jesus Christ — his life, death, and resurrection — is central to everything we do. We understand, believe, and live in light of the gospel, allowing it to shape our identity, our relationships, and our mission.",
     scripture: {
-      reference: "2 Corinthians 5:21",
-      text: "For our sake he made him to be sin who knew no sin, so that in him we might become the righteousness of God.",
+      reference: "Acts 2:38",
+      text: "And Peter said to them, 'Repent and be baptized every one of you in the name of Jesus Christ for the forgiveness of your sins, and you will receive the gift of the Holy Spirit.'",
     },
     icon: "✝️",
     color: "blue",
   },
   {
     id: 2,
-    name: "Biblically Saturated",
+    name: "A Praying Church",
     pillar: "abiding",
     definition:
-      "I believe the Bible is the inspired, inerrant, and sufficient Word of God. I am regularly reading, studying, memorizing, and meditating on it so that it shapes every area of my life.",
+      "A Praying Church is one that depends wholly on God through constant, corporate, and personal prayer. We believe prayer is not a last resort but our first response — an ongoing conversation with the God who hears and answers.",
     scripture: {
-      reference: "2 Timothy 3:16–17",
-      text: "All Scripture is breathed out by God and profitable for teaching, for reproof, for correction, and for training in righteousness, that the man of God may be complete, equipped for every good work.",
+      reference: "Acts 6:4",
+      text: "But we will devote ourselves to prayer and to the ministry of the word.",
     },
-    icon: "📖",
+    icon: "🙏",
     color: "blue",
   },
   {
     id: 3,
-    name: "Spirit Filled",
+    name: "A Spirit-Led Church",
     pillar: "abiding",
     definition:
-      "I am surrendering to and being led by the Holy Spirit in every area of my life, producing his fruit and using his gifts to build up the body of Christ.",
+      "A Spirit-Led Church is one that acknowledges its total dependence on the Holy Spirit for life, power, and direction. We seek to be filled with the Spirit, sensitive to his leading, and empowered by his gifts for the sake of the gospel.",
     scripture: {
-      reference: "Galatians 5:16",
-      text: "But I say, walk by the Spirit, and you will not gratify the desires of the flesh.",
+      reference: "Acts 1:8",
+      text: "But you will receive power when the Holy Spirit has come upon you, and you will be my witnesses in Jerusalem and in all Judea and Samaria, and to the end of the earth.",
     },
     icon: "🔥",
     color: "blue",
   },
   {
     id: 4,
-    name: "Prayerful",
+    name: "A Bible-Revering Church",
     pillar: "abiding",
     definition:
-      "I am regularly and persistently communicating with God — adoring him, confessing sin, giving thanks, and making requests — as an expression of dependence on and delight in him.",
+      "A Bible-Revering Church is one that holds the Scriptures as the inspired, inerrant, and sufficient Word of God. We are committed to reading, studying, teaching, and obeying the Bible as the ultimate authority for faith and life.",
     scripture: {
-      reference: "Philippians 4:6",
-      text: "Do not be anxious about anything, but in everything by prayer and supplication with thanksgiving let your requests be made known to God.",
+      reference: "Acts 1:16",
+      text: "Brothers, the Scripture had to be fulfilled, which the Holy Spirit spoke beforehand by the mouth of David concerning Judas, who became a guide to those who arrested Jesus.",
     },
-    icon: "🙏",
+    icon: "📖",
     color: "blue",
   },
   {
     id: 5,
-    name: "Evangelistic",
+    name: "A Missional Church",
     pillar: "making",
     definition:
-      "I am intentionally and regularly sharing the gospel with those who don't know Jesus, praying for the lost, and looking for opportunities to point people to Christ.",
+      "A Missional Church is one that understands every member is sent by God into their everyday life — their neighborhood, workplace, and relational networks — as an ambassador of the kingdom. We don't just invite people to church; we bring the church to people.",
     scripture: {
-      reference: "Acts 1:8",
-      text: "But you will receive power when the Holy Spirit has come upon you, and you will be my witnesses in Jerusalem and in all Judea and Samaria, and to the end of the earth.",
-    },
-    icon: "📢",
-    color: "green",
-  },
-  {
-    id: 6,
-    name: "Discipling",
-    pillar: "making",
-    definition:
-      "I am intentionally investing in the lives of others to help them know, trust, follow, and obey Jesus — and to do the same for others.",
-    scripture: {
-      reference: "Matthew 28:19–20",
-      text: "Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, teaching them to observe all that I have commanded you. And behold, I am with you always, to the end of the age.",
-    },
-    icon: "🤝",
-    color: "green",
-  },
-  {
-    id: 7,
-    name: "Missional",
-    pillar: "making",
-    definition:
-      "I understand that I am sent by God into my everyday life — my neighborhood, workplace, and relational networks — as an ambassador of the kingdom of God.",
-    scripture: {
-      reference: "2 Corinthians 5:20",
-      text: "Therefore, we are ambassadors for Christ, God making his appeal through us. We implore you on behalf of Christ, be reconciled to God.",
+      reference: "Acts 8:4",
+      text: "Now those who were scattered went about preaching the word.",
     },
     icon: "🌍",
     color: "green",
   },
   {
-    id: 8,
-    name: "Gifted & Serving",
-    pillar: "together",
+    id: 6,
+    name: "A Maturing Church",
+    pillar: "making",
     definition:
-      "I am discovering, developing, and deploying my spiritual gifts in service to the body of Christ and the world, for God's glory and the good of others.",
+      "A Maturing Church is one committed to ongoing spiritual growth and transformation. We believe discipleship is a lifelong process of becoming more like Jesus, and we invest in one another's growth through teaching, mentoring, and accountability.",
     scripture: {
-      reference: "1 Peter 4:10",
-      text: "As each has received a gift, use it to serve one another, as good stewards of God's varied grace.",
+      reference: "Acts 18:25–26",
+      text: "He had been instructed in the way of the Lord. And being fervent in spirit, he spoke and taught accurately the things concerning Jesus, though he knew only the baptism of John. He began to speak boldly in the synagogue, but when Priscilla and Aquila heard him, they took him aside and explained to him the way of God more accurately.",
     },
-    icon: "🎁",
+    icon: "🌱",
+    color: "green",
+  },
+  {
+    id: 7,
+    name: "A Sending Church",
+    pillar: "making",
+    definition:
+      "A Sending Church is one that actively identifies, equips, and releases people for gospel work near and far. We hold our people with open hands, celebrating when God calls them to go, and we invest in gospel movements around the world.",
+    scripture: {
+      reference: "Acts 13:2–3",
+      text: "While they were worshiping the Lord and fasting, the Holy Spirit said, 'Set apart for me Barnabas and Saul for the work to which I have called them.' Then after fasting and praying they laid their hands on them and sent them off.",
+    },
+    icon: "✈️",
+    color: "green",
+  },
+  {
+    id: 8,
+    name: "A Shepherding Church",
+    pillar: "enjoying",
+    definition:
+      "A Shepherding Church is one where leaders care for the souls of those entrusted to them, and where members care for one another. We believe every person needs to be known, loved, and guided — and we take that responsibility seriously.",
+    scripture: {
+      reference: "Hebrews 13:17",
+      text: "Obey your leaders and submit to them, for they are keeping watch over your souls, as those who will have to give an account. Let them do this with joy and not with groaning, for that would be of no advantage to you.",
+    },
+    icon: "🐑",
     color: "amber",
   },
   {
     id: 9,
-    name: "Submitted to Community",
-    pillar: "together",
+    name: "A Community Church",
+    pillar: "enjoying",
     definition:
-      "I am committed to authentic, accountable relationships in the body of Christ where I am known, where I can know others, and where we spur one another on toward love and good deeds.",
+      "A Community Church is one where authentic, life-giving relationships are woven into the fabric of our common life. We don't just attend church — we do life together, bearing one another's burdens and celebrating one another's joys.",
     scripture: {
-      reference: "Hebrews 10:24–25",
-      text: "And let us consider how to stir up one another to love and good works, not neglecting to meet together, as is the habit of some, but encouraging one another, and all the more as you see the Day drawing near.",
+      reference: "Acts 2:44",
+      text: "And all who believed were together and had all things in common.",
     },
     icon: "👥",
     color: "amber",
   },
   {
     id: 10,
-    name: "Stewarding Life Well",
-    pillar: "together",
+    name: "A Unifying Church",
+    pillar: "enjoying",
     definition:
-      "I recognize that everything I have — my time, talents, treasure, and influence — belongs to God, and I am faithfully managing it all for his glory and the advancement of his kingdom.",
+      "A Unifying Church is one that reflects the reconciling power of the gospel across every dividing line — race, class, age, and background. We believe unity is not uniformity, but a Spirit-wrought oneness that testifies to the world that Jesus is Lord.",
     scripture: {
-      reference: "Matthew 25:21",
-      text: "His master said to him, 'Well done, good and faithful servant. You have been faithful over a little; I will set you over much. Enter into the joy of your master.'",
+      reference: "Ephesians 4:1–6",
+      text: "I therefore, a prisoner for the Lord, urge you to walk in a manner worthy of the calling to which you have been called, with all humility and gentleness, with patience, bearing with one another in love, eager to maintain the unity of the Spirit in the bond of peace. There is one body and one Spirit — just as you were called to the one hope that belongs to your call — one Lord, one faith, one baptism, one God and Father of all, who is over all and through all and in all.",
     },
-    icon: "⚖️",
+    icon: "🤝",
     color: "amber",
   },
 ];
@@ -188,8 +200,6 @@ export function getPillarForMarker(markerId: number): Pillar | undefined {
 }
 
 export function getNextMarker(currentId: number): Marker | undefined {
-  const current = MARKERS.find((m) => m.id === currentId);
-  if (!current) return undefined;
   return MARKERS.find((m) => m.id === currentId + 1);
 }
 

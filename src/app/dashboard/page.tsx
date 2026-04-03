@@ -2,59 +2,59 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { useUser } from "@/hooks/useUser";
-import { PILLARS, MARKERS, getMarkersByPillar } from "@/data/markers";
-import type { Pillar } from "@/data/markers";
 import Header from "@/components/layout/Header";
-import ProgressBar from "@/components/ui/ProgressBar";
-import { Flame, Star, Lock, ChevronRight } from "lucide-react";
+import { Flame, Star, ChevronRight, CheckCircle2, Lock } from "lucide-react";
 import { motion } from "framer-motion";
-import type { MarkerProgress } from "@/lib/db/schema";
 
 const USER_ID_KEY = "10markers_user_id";
 
-const pillarColors: Record<Pillar, { bg: string; text: string; ring: string; bar: "blue" | "green" | "amber" }> = {
-  abiding:  { bg: "bg-[#e8f4f8]", text: "text-[#1d4d5e]", ring: "ring-[#a8d8ea]", bar: "blue"  },
-  making:   { bg: "bg-[#e8f5f0]", text: "text-[#1d5240]", ring: "ring-[#a3d9c4]", bar: "green" },
-  together: { bg: "bg-[#fdf3e3]", text: "text-[#7a5220]", ring: "ring-[#e8c98a]", bar: "amber" },
-};
-
-function isPillarUnlocked(pillar: Pillar, progress: MarkerProgress[]): boolean {
-  if (pillar === "abiding") return true;
-  if (pillar === "making") {
-    // Abiding is complete when all abiding markers have quiz done
-    const abidingMarkers = getMarkersByPillar("abiding");
-    return abidingMarkers.every((m) =>
-      progress.find((p) => p.markerId === m.id)?.quizCompleted
-    );
-  }
-  if (pillar === "together") {
-    const makingMarkers = getMarkersByPillar("making");
-    return makingMarkers.every((m) =>
-      progress.find((p) => p.markerId === m.id)?.quizCompleted
-    );
-  }
-  return false;
+interface PhaseCard {
+  phase: 1 | 2 | 3 | 4;
+  title: string;
+  subtitle: string;
+  icon: string;
+  href: string;
+  xpReward: number;
 }
 
-function getNextMarkerHref(progress: MarkerProgress[]): string {
-  // Find the first marker where quiz is not completed
-  for (const marker of MARKERS) {
-    const p = progress.find((pr) => pr.markerId === marker.id);
-    if (!p?.quizCompleted) {
-      if (!p?.introCompleted) return `/marker/${marker.id}/intro`;
-      if (!p?.repeatCompleted) return `/marker/${marker.id}/repeat`;
-      if (!p?.matchCompleted) return `/marker/${marker.id}/match`;
-      if (!p?.fillblankCompleted) return `/marker/${marker.id}/fillblank`;
-      return `/marker/${marker.id}/quiz`;
-    }
-  }
-  return "/profile"; // all done
-}
+const PHASE_CARDS: PhaseCard[] = [
+  {
+    phase: 1,
+    title: "The Vision",
+    subtitle: "Learn Watermark's one-sentence mission.",
+    icon: "🎯",
+    href: "/learn/vision",
+    xpReward: 50,
+  },
+  {
+    phase: 2,
+    title: "The 10 Markers",
+    subtitle: "Learn the name of every marker.",
+    icon: "🎴",
+    href: "/learn/markers",
+    xpReward: 75,
+  },
+  {
+    phase: 3,
+    title: "The 3 Pillars",
+    subtitle: "Sort every marker into its pillar.",
+    icon: "🏛️",
+    href: "/learn/pillars",
+    xpReward: 100,
+  },
+  {
+    phase: 4,
+    title: "Deep Dive",
+    subtitle: "Definitions, scripture, and quizzes for each marker.",
+    icon: "📖",
+    href: "/dashboard",
+    xpReward: 0,
+  },
+];
 
 export default function DashboardPage() {
-  const { user, progress, loading } = useUser();
+  const { user, phases, loading } = useUser();
   const router = useRouter();
 
   useEffect(() => {
@@ -70,15 +70,22 @@ export default function DashboardPage() {
     );
   }
 
-  const totalStars = progress.reduce((sum, p) => sum + p.stars, 0);
-  const completedMarkers = progress.filter((p) => p.quizCompleted).length;
-  const overallPct = Math.round((completedMarkers / MARKERS.length) * 100);
-  const continueHref = getNextMarkerHref(progress);
-  const allDone = completedMarkers === MARKERS.length;
+  const phaseCompleted = [
+    phases.visionCompleted,
+    phases.markersCompleted,
+    phases.pillarsCompleted,
+    false, // Phase 4 coming soon
+  ];
+
+  // First incomplete phase (0-indexed) — used to unlock next
+  const nextPhaseIdx = phaseCompleted.findIndex((c) => !c);
+  // 0 = phase 1, 1 = phase 2, etc.
+
+  const phasesComplete = phaseCompleted.filter(Boolean).length;
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
-      <Header showProfile title="The 10 Markers" showBack={false} />
+      <Header showProfile showBack={false} />
 
       {/* Hero stats bar */}
       <div className="bg-[#1a2744] px-6 py-5">
@@ -86,130 +93,168 @@ export default function DashboardPage() {
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="flex items-center justify-between mb-4"
         >
-          <div>
-            <p className="text-blue-200 text-xs uppercase tracking-[0.15em] mb-0.5 overline" style={{ fontFamily: "var(--font-body)" }}>
-              Welcome back
-            </p>
-            <h2 className="text-white text-xl font-bold" style={{ fontFamily: "var(--font-heading)" }}>{user?.name ?? "..."}</h2>
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <p
+                className="text-blue-200 text-xs uppercase tracking-[0.15em] mb-0.5"
+                style={{ fontFamily: "var(--font-body)" }}
+              >
+                Welcome back
+              </p>
+              <h2
+                className="text-white text-xl font-bold"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                {user?.name ?? "…"}
+              </h2>
+            </div>
+            <div className="flex gap-4">
+              <div className="flex flex-col items-center">
+                <div className="flex items-center gap-1 text-[#c8973a]">
+                  <Flame size={16} />
+                  <span className="font-bold text-lg">{user?.streakDays ?? 0}</span>
+                </div>
+                <p className="text-blue-200 text-[10px] uppercase tracking-wide">Streak</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="flex items-center gap-1 text-[#c8973a]">
+                  <Star size={16} />
+                  <span className="font-bold text-lg">
+                    {(phases.visionStars + phases.markersStars + phases.pillarsStars)}
+                  </span>
+                </div>
+                <p className="text-blue-200 text-[10px] uppercase tracking-wide">Stars</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <span className="font-bold text-lg text-white">{user?.totalXp ?? 0}</span>
+                <p className="text-blue-200 text-[10px] uppercase tracking-wide">XP</p>
+              </div>
+            </div>
           </div>
-          <div className="flex gap-4">
-            <div className="flex flex-col items-center">
-              <div className="flex items-center gap-1 text-[#c8973a]">
-                <Flame size={16} />
-                <span className="font-bold text-lg">{user?.streakDays ?? 0}</span>
-              </div>
-              <p className="text-blue-200 text-[10px] uppercase tracking-wide">
-                Streak
-              </p>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="flex items-center gap-1 text-[#c8973a]">
-                <Star size={16} />
-                <span className="font-bold text-lg">{totalStars}</span>
-              </div>
-              <p className="text-blue-200 text-[10px] uppercase tracking-wide">
-                Stars
-              </p>
-            </div>
-            <div className="flex flex-col items-center">
-              <span className="font-bold text-lg text-white">
-                {user?.totalXp ?? 0}
-              </span>
-              <p className="text-blue-200 text-[10px] uppercase tracking-wide">
-                XP
-              </p>
-            </div>
+
+          {/* Vision statement */}
+          <div className="bg-white bg-opacity-10 rounded-xl px-4 py-3">
+            <p className="text-blue-200 text-xs uppercase tracking-widest mb-1">Vision</p>
+            <p
+              className="text-white text-sm font-semibold leading-snug"
+              style={{ fontFamily: "var(--font-heading)" }}
+            >
+              Abiding in Jesus, we are making disciples together.
+            </p>
           </div>
         </motion.div>
-
-        {/* Overall progress */}
-        <div>
-          <div className="flex justify-between text-xs text-blue-200 mb-1.5">
-            <span>Overall progress</span>
-            <span>{completedMarkers} / {MARKERS.length} markers</span>
-          </div>
-          <ProgressBar value={overallPct} color="amber" animated />
-        </div>
       </div>
 
-      {/* Main content */}
-      <div className="flex-1 px-4 py-6 flex flex-col gap-4">
-        {/* Continue button */}
-        {!allDone && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-          >
-            <Link
-              href={continueHref}
-              className="flex items-center justify-between w-full bg-[#ee7625] text-white rounded-2xl px-5 py-4 font-bold shadow-md hover:bg-[#cc6118] transition-colors"
-              style={{ fontFamily: "var(--font-body)" }}
+      {/* Phase cards */}
+      <div className="flex-1 px-4 py-5 flex flex-col gap-3">
+        <p className="text-xs uppercase tracking-widest text-[#6b6b6b] font-bold px-1">
+          Your Learning Path — {phasesComplete} of 3 foundations complete
+        </p>
+
+        {PHASE_CARDS.map((card, idx) => {
+          const completed = phaseCompleted[idx];
+          const isNext = idx === nextPhaseIdx;
+          const isLocked = idx > nextPhaseIdx && nextPhaseIdx !== -1;
+          const isFuture = card.phase === 4;
+
+          return (
+            <motion.div
+              key={card.phase}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.08 + 0.1 }}
             >
-              <span className="text-base tracking-wide">Continue Learning</span>
-              <ChevronRight size={20} />
-            </Link>
-          </motion.div>
-        )}
-
-        {allDone && (
-          <div className="bg-[#1a2744] text-white rounded-2xl px-5 py-4 text-center">
-            <p className="text-lg font-bold mb-1">🎉 All 10 Markers Complete!</p>
-            <p className="text-blue-200 text-sm">
-              &ldquo;{`Abiding in Jesus, we are making disciples together.`}&rdquo;
-            </p>
-          </div>
-        )}
-
-        {/* Pillar cards */}
-        <div className="flex flex-col gap-3">
-          {(["abiding", "making", "together"] as Pillar[]).map((pillar, idx) => {
-            const p = PILLARS[pillar];
-            const markers = getMarkersByPillar(pillar);
-            const completed = markers.filter(
-              (m) => progress.find((pr) => pr.markerId === m.id)?.quizCompleted
-            ).length;
-            const pct = Math.round((completed / markers.length) * 100);
-            const unlocked = isPillarUnlocked(pillar, progress);
-            const colors = pillarColors[pillar];
-
-            return (
-              <motion.div
-                key={pillar}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 + idx * 0.08 }}
+              <button
+                disabled={isLocked || isFuture}
+                onClick={() => {
+                  if (!isLocked && !isFuture) router.push(card.href);
+                }}
+                className={`w-full rounded-2xl p-4 text-left transition-all ${
+                  completed
+                    ? "bg-[#f0faf4] border-2 border-green-300"
+                    : isNext
+                    ? "bg-[#ee7625] text-white shadow-md hover:bg-[#cc6118] active:scale-[0.99]"
+                    : isFuture
+                    ? "bg-[#f8f5f0] border-2 border-dashed border-[#e8e2d9] opacity-60 cursor-not-allowed"
+                    : "bg-[#f8f5f0] border-2 border-[#e8e2d9] opacity-50 cursor-not-allowed"
+                }`}
               >
-                <Link
-                  href={unlocked ? `/pillar/${pillar}` : "#"}
-                  className={`block rounded-2xl p-4 ring-1 transition-all ${colors.bg} ${colors.ring} ${
-                    !unlocked ? "opacity-50 cursor-not-allowed" : "hover:shadow-md active:scale-[0.99]"
-                  }`}
-                  onClick={(e) => { if (!unlocked) e.preventDefault(); }}
-                >
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <p className={`text-xs font-bold uppercase tracking-wider mb-0.5 ${colors.text}`}>
-                        {p.label}
-                      </p>
-                      <p className="text-xs text-[#6b6b6b]">
-                        {completed} of {markers.length} markers complete
-                      </p>
+                <div className="flex items-center gap-4">
+                  <div
+                    className={`w-12 h-12 rounded-2xl flex items-center justify-center text-2xl shrink-0 ${
+                      completed
+                        ? "bg-green-100"
+                        : isNext
+                        ? "bg-white bg-opacity-20"
+                        : "bg-white"
+                    }`}
+                  >
+                    {completed ? "✅" : card.icon}
+                  </div>
+
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span
+                        className={`text-xs font-bold uppercase tracking-widest ${
+                          isNext ? "text-orange-100" : completed ? "text-green-600" : "text-[#6b6b6b]"
+                        }`}
+                      >
+                        Phase {card.phase}
+                        {isFuture && " — Coming Soon"}
+                      </span>
+                      {completed && <CheckCircle2 size={13} className="text-green-600" />}
                     </div>
-                    {unlocked ? (
-                      <ChevronRight size={18} className={colors.text} />
-                    ) : (
-                      <Lock size={16} className="text-[#b0a898]" />
+                    <p
+                      className={`font-bold text-base leading-tight ${
+                        isNext ? "text-white" : "text-[#1a2744]"
+                      }`}
+                      style={{ fontFamily: "var(--font-heading)" }}
+                    >
+                      {card.title}
+                    </p>
+                    <p
+                      className={`text-xs mt-0.5 ${
+                        isNext ? "text-orange-100" : "text-[#6b6b6b]"
+                      }`}
+                    >
+                      {card.subtitle}
+                    </p>
+                    {!isFuture && card.xpReward > 0 && !completed && (
+                      <p className={`text-xs font-semibold mt-1 ${isNext ? "text-orange-100" : "text-[#c8973a]"}`}>
+                        +{card.xpReward} XP
+                      </p>
                     )}
                   </div>
-                  <ProgressBar value={pct} color={colors.bar} height="sm" />
-                </Link>
-              </motion.div>
-            );
-          })}
-        </div>
+
+                  <div className="shrink-0">
+                    {isFuture || (isLocked && !completed) ? (
+                      <Lock size={18} className="text-[#b0a898]" />
+                    ) : completed ? (
+                      <ChevronRight size={18} className="text-green-500" />
+                    ) : (
+                      <ChevronRight size={18} className={isNext ? "text-white" : "text-[#1a2744]"} />
+                    )}
+                  </div>
+                </div>
+              </button>
+            </motion.div>
+          );
+        })}
+
+        {/* All foundations done callout */}
+        {phasesComplete >= 3 && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-[#1a2744] text-white rounded-2xl px-5 py-4 text-center mt-1"
+          >
+            <p className="text-lg font-bold mb-1">🎉 All 3 foundations complete!</p>
+            <p className="text-blue-200 text-sm">
+              Deep-dive content for each marker is coming soon.
+            </p>
+          </motion.div>
+        )}
       </div>
     </div>
   );

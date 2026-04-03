@@ -15,6 +15,13 @@ export const users = pgTable("users", {
   lastActiveDate: text("last_active_date"), // ISO date string YYYY-MM-DD
   streakDays: integer("streak_days").default(0).notNull(),
   totalXp: integer("total_xp").default(0).notNull(),
+  // Phase completion tracking
+  visionCompleted: boolean("vision_completed").default(false).notNull(),
+  markersCompleted: boolean("markers_completed").default(false).notNull(),
+  pillarsCompleted: boolean("pillars_completed").default(false).notNull(),
+  visionStars: integer("vision_stars").default(0).notNull(),
+  markersStars: integer("markers_stars").default(0).notNull(),
+  pillarsStars: integer("pillars_stars").default(0).notNull(),
 });
 
 // ─── Marker Progress ──────────────────────────────────────────────────────────

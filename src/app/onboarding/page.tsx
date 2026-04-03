@@ -88,12 +88,12 @@ export default function OnboardingPage() {
 
             {/* Pillar preview */}
             <div className="flex flex-col gap-3 mb-8">
-              {(["abiding", "making", "together"] as const).map((pillar) => {
+              {(["abiding", "making", "enjoying"] as const).map((pillar) => {
                 const p = PILLARS[pillar];
                 const colors = {
                   abiding:  "bg-[#e8f4f8] border-[#a8d8ea] text-[#1d4d5e]",
                   making:   "bg-[#e8f5f0] border-[#a3d9c4] text-[#1d5240]",
-                  together: "bg-[#fdf3e3] border-[#e8c98a] text-[#7a5220]",
+                  enjoying: "bg-[#fdf3e3] border-[#e8c98a] text-[#7a5220]",
                 };
                 return (
                   <div

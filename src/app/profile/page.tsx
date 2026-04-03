@@ -17,7 +17,7 @@ const USER_ID_KEY = "10markers_user_id";
 const pillarColors: Record<Pillar, { bar: "blue" | "green" | "amber"; accent: string; bg: string }> = {
   abiding: { bar: "blue", accent: "text-blue-700", bg: "bg-blue-50" },
   making: { bar: "green", accent: "text-emerald-700", bg: "bg-emerald-50" },
-  together: { bar: "amber", accent: "text-amber-700", bg: "bg-amber-50" },
+  enjoying: { bar: "amber", accent: "text-amber-700", bg: "bg-amber-50" },
 };
 
 export default function ProfilePage() {
@@ -77,7 +77,7 @@ export default function ProfilePage() {
         </motion.div>
 
         {/* Pillar progress */}
-        {(["abiding", "making", "together"] as Pillar[]).map((pillar, idx) => {
+        {(["abiding", "making", "enjoying"] as Pillar[]).map((pillar, idx) => {
           const markers = getMarkersByPillar(pillar);
           const done = markers.filter((m) => progress.find((p) => p.markerId === m.id)?.quizCompleted).length;
           const pct = Math.round((done / markers.length) * 100);

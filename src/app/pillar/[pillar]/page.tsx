@@ -24,7 +24,7 @@ const USER_ID_KEY = "10markers_user_id";
 const pillarColors: Record<Pillar, { bar: "blue" | "green" | "amber"; accent: string }> = {
   abiding: { bar: "blue", accent: "text-blue-700" },
   making: { bar: "green", accent: "text-emerald-700" },
-  together: { bar: "amber", accent: "text-amber-700" },
+  enjoying: { bar: "amber", accent: "text-amber-700" },
 };
 
 function getStagesCompleted(p: MarkerProgress): Stage[] {

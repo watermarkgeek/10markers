@@ -2,13 +2,24 @@
 
 import { useState, useEffect, useCallback } from "react";
 import type { User, MarkerProgress, Badge } from "@/lib/db/schema";
+import type { PhaseKey } from "@/app/api/phases/[userId]/route";
 
 const USER_ID_KEY = "10markers_user_id";
+
+export interface PhaseProgress {
+  visionCompleted: boolean;
+  markersCompleted: boolean;
+  pillarsCompleted: boolean;
+  visionStars: number;
+  markersStars: number;
+  pillarsStars: number;
+}
 
 export interface UserState {
   user: User | null;
   progress: MarkerProgress[];
   badges: Badge[];
+  phases: PhaseProgress;
   loading: boolean;
   error: string | null;
   createUser: (name: string) => Promise<void>;
@@ -17,33 +28,50 @@ export interface UserState {
     stage: string,
     stars?: number
   ) => Promise<{ xpGain: number; newBadges: unknown[] }>;
+  completePhase: (
+    phase: PhaseKey,
+    stars: number
+  ) => Promise<{ xpGain: number }>;
   refresh: () => Promise<void>;
 }
+
+const DEFAULT_PHASES: PhaseProgress = {
+  visionCompleted: false,
+  markersCompleted: false,
+  pillarsCompleted: false,
+  visionStars: 0,
+  markersStars: 0,
+  pillarsStars: 0,
+};
 
 export function useUser(): UserState {
   const [user, setUser] = useState<User | null>(null);
   const [progress, setProgress] = useState<MarkerProgress[]>([]);
   const [badges, setBadges] = useState<Badge[]>([]);
+  const [phases, setPhases] = useState<PhaseProgress>(DEFAULT_PHASES);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   const fetchAll = useCallback(async (userId: string) => {
-    const [userRes, progressRes, badgesRes] = await Promise.all([
+    const [userRes, progressRes, badgesRes, phasesRes] = await Promise.all([
       fetch(`/api/user/${userId}`),
       fetch(`/api/progress/${userId}`),
       fetch(`/api/badges/${userId}`),
+      fetch(`/api/phases/${userId}`),
     ]);
 
     if (!userRes.ok) throw new Error("Failed to load user");
-    const [userData, progressData, badgesData] = await Promise.all([
+    const [userData, progressData, badgesData, phasesData] = await Promise.all([
       userRes.json(),
       progressRes.json(),
       badgesRes.json(),
+      phasesRes.json(),
     ]);
 
     setUser(userData);
     setProgress(progressData);
     setBadges(badgesData);
+    setPhases(phasesData);
   }, []);
 
   const refresh = useCallback(async () => {
@@ -105,7 +133,6 @@ export function useUser(): UserState {
       if (!res.ok) throw new Error("Failed to update progress");
       const result = await res.json();
 
-      // Update local state immediately for snappy UX
       setProgress((prev) =>
         prev.map((p) =>
           p.markerId === markerId ? result.progress : p
@@ -118,7 +145,7 @@ export function useUser(): UserState {
       );
 
       if (result.newBadges?.length > 0) {
-        await refresh(); // re-fetch badges
+        await refresh();
       }
 
       return { xpGain: result.xpGain, newBadges: result.newBadges };
@@ -126,7 +153,33 @@ export function useUser(): UserState {
     [refresh]
   );
 
-  return { user, progress, badges, loading, error, createUser, completeStage, refresh };
+  const completePhase = useCallback(
+    async (phase: PhaseKey, stars: number) => {
+      const userId = localStorage.getItem(USER_ID_KEY);
+      if (!userId) throw new Error("No user");
+
+      const res = await fetch(`/api/phases/${userId}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ phase, stars }),
+      });
+
+      if (!res.ok) throw new Error("Failed to update phase progress");
+      const result = await res.json();
+
+      setUser(result.user);
+      setPhases((prev) => ({
+        ...prev,
+        [`${phase}Completed`]: true,
+        [`${phase}Stars`]: Math.max(prev[`${phase}Stars` as keyof PhaseProgress] as number, stars),
+      }));
+
+      return { xpGain: result.xpGain };
+    },
+    []
+  );
+
+  return { user, progress, badges, phases, loading, error, createUser, completeStage, completePhase, refresh };
 }
 
 export function getUserId(): string | null {

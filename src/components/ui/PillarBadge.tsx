@@ -10,7 +10,7 @@ interface PillarBadgeProps {
 const pillarStyles: Record<Pillar, string> = {
   abiding: "bg-blue-50 text-blue-700 border border-blue-200",
   making: "bg-emerald-50 text-emerald-700 border border-emerald-200",
-  together: "bg-amber-50 text-amber-700 border border-amber-200",
+  enjoying: "bg-amber-50 text-amber-700 border border-amber-200",
 };
 
 export default function PillarBadge({ pillar, className }: PillarBadgeProps) {

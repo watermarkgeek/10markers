@@ -133,10 +133,10 @@ export default function RepeatPage() {
 
   if (done) {
     return (
-      <div className="flex flex-col min-h-screen bg-white">
+      <div className="flex flex-col h-[100dvh] bg-white">
         <Header showBack title={marker.name} showProfile={false} />
         <XpPopup xp={xpAmount} show={showXp} />
-        <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
+        <div className="flex-1 min-h-0 flex flex-col items-center justify-center px-6 text-center">
           <motion.div
             initial={{ scale: 0.7, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -159,7 +159,7 @@ export default function RepeatPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col h-[100dvh] bg-white">
       <Header showBack backHref={`/marker/${markerId}/intro`} title={marker.name} showProfile={false} />
       <StageProgressBar
         currentStage="repeat"
@@ -175,7 +175,7 @@ export default function RepeatPage() {
       </div>
 
       {/* Flashcard */}
-      <div className="flex-1 flex flex-col items-center justify-center px-5 pb-4">
+      <div className="flex-1 min-h-0 flex flex-col items-center justify-center px-5 pb-4">
         <div
           className="card-flip w-full max-w-sm cursor-pointer"
           onClick={handleFlip}

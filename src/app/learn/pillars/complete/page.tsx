@@ -43,12 +43,12 @@ export default function PillarsCompletePage() {
   }, []);
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col h-[100dvh] bg-white">
       <Header title="Phase 3 Complete!" showProfile={false} />
       <XpPopup xp={xpAmount} show={showXp} />
       {done && <Confetti trigger intensity="full" />}
 
-      <div className="flex-1 overflow-y-auto px-5 py-6">
+      <div className="flex-1 min-h-0 overflow-y-auto px-5 py-6">
         <motion.div
           initial={{ scale: 0.7, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}

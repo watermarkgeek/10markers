@@ -44,9 +44,9 @@ export default function MarkersFlashcardsPage() {
 
   if (done) {
     return (
-      <div className="flex flex-col min-h-screen bg-white">
+      <div className="flex flex-col h-[100dvh] bg-white">
         <Header title="Marker Flashcards" showBack backHref="/learn/markers" showProfile={false} />
-        <div className="flex-1 flex flex-col items-center justify-center px-6 text-center gap-6">
+        <div className="flex-1 min-h-0 flex flex-col items-center justify-center px-6 text-center gap-6">
           <div className="text-6xl">🎴</div>
           <h2
             className="text-2xl font-bold text-[#28312f]"
@@ -73,7 +73,7 @@ export default function MarkersFlashcardsPage() {
   const color = PILLAR_COLORS[marker.pillar];
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col h-[100dvh] bg-white">
       <Header title="Marker Flashcards" showBack backHref="/learn/markers" showProfile={false} />
 
       {/* Progress */}
@@ -85,7 +85,7 @@ export default function MarkersFlashcardsPage() {
         <ProgressBar value={progressPct} color="navy" height="sm" />
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-5 pb-6">
+      <div className="flex-1 min-h-0 flex flex-col items-center justify-center px-5 pb-6">
         {/* Flashcard */}
         <div
           className="w-full max-w-sm cursor-pointer select-none"

@@ -36,7 +36,7 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#28312f] text-white overflow-hidden">
+    <div className="flex flex-col h-[100dvh] bg-[#28312f] text-white overflow-hidden">
       {/* ── Hero / Branding ──────────────────────────────────────────────── */}
       <div className="flex-none px-6 pt-14 pb-10 text-center">
         <motion.div
@@ -92,7 +92,7 @@ export default function OnboardingPage() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex flex-col flex-1"
+            className="flex flex-col flex-1 min-h-0"
           >
             <h2
               className="text-2xl font-bold text-[#28312f] mb-2 leading-snug"
@@ -152,7 +152,7 @@ export default function OnboardingPage() {
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.4 }}
-            className="flex flex-col flex-1"
+            className="flex flex-col flex-1 min-h-0"
           >
             <h2
               className="text-2xl font-bold text-[#28312f] mb-2"
@@ -167,7 +167,7 @@ export default function OnboardingPage() {
               We&apos;ll use this to personalize your experience.
             </p>
 
-            <form onSubmit={handleSubmit} className="flex flex-col flex-1">
+            <form onSubmit={handleSubmit} className="flex flex-col flex-1 min-h-0">
               <input
                 type="text"
                 value={name}

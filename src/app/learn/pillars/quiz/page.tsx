@@ -74,9 +74,9 @@ export default function PillarsQuizPage() {
   if (done) {
     const isPerfect = correct === questions.length;
     return (
-      <div className="flex flex-col min-h-screen bg-white">
+      <div className="flex flex-col h-[100dvh] bg-white">
         <Header title="Pillar Quiz" showBack showProfile={false} />
-        <div className="flex-1 flex flex-col items-center justify-center px-6 text-center gap-5">
+        <div className="flex-1 min-h-0 flex flex-col items-center justify-center px-6 text-center gap-5">
           <div className="text-7xl">{isPerfect ? "🏆" : "💪"}</div>
           <h2
             className="text-2xl font-bold text-[#28312f]"
@@ -111,7 +111,7 @@ export default function PillarsQuizPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col h-[100dvh] bg-white">
       <Header title="Pillar Quiz" showBack backHref="/learn/pillars/sort" showProfile={false} />
 
       <div className="px-5 pt-3 pb-2">
@@ -122,7 +122,7 @@ export default function PillarsQuizPage() {
         <ProgressBar value={progressPct} color="navy" height="sm" />
       </div>
 
-      <div className="flex-1 px-5 pt-4 pb-6 flex flex-col">
+      <div className="flex-1 min-h-0 px-5 pt-4 pb-6 flex flex-col">
         <AnimatePresence mode="wait">
           <motion.div
             key={qIndex}
@@ -130,7 +130,7 @@ export default function PillarsQuizPage() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
-            className="flex flex-col flex-1"
+            className="flex flex-col flex-1 min-h-0"
           >
             <p className="text-xs uppercase tracking-widest text-[#ee7625] font-bold mb-4">
               Which pillar?

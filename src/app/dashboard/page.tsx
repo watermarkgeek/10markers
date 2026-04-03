@@ -84,7 +84,7 @@ export default function DashboardPage() {
   const phasesComplete = phaseCompleted.filter(Boolean).length;
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col h-[100dvh] bg-white">
       <Header showProfile showBack={false} />
 
       {/* Hero stats bar */}
@@ -152,7 +152,7 @@ export default function DashboardPage() {
       </div>
 
       {/* Phase cards */}
-      <div className="flex-1 px-4 py-5 flex flex-col gap-3">
+      <div className="flex-1 min-h-0 px-4 py-5 flex flex-col gap-3 overflow-y-auto">
         <p className="text-xs uppercase tracking-widest text-[#6b6b6b] font-bold px-1">
           Your Learning Path — {phasesComplete} of 3 foundations complete
         </p>

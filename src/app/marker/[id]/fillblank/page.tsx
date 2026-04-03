@@ -169,10 +169,10 @@ export default function FillBlankPage() {
 
   if (done) {
     return (
-      <div className="flex flex-col min-h-screen bg-white">
+      <div className="flex flex-col h-[100dvh] bg-white">
         <Header showBack title={marker.name} showProfile={false} />
         <XpPopup xp={xpAmount} show={showXp} />
-        <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
+        <div className="flex-1 min-h-0 flex flex-col items-center justify-center px-6 text-center">
           <motion.div
             initial={{ scale: 0.7, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -205,7 +205,7 @@ export default function FillBlankPage() {
   const parts = q.sentence.split("___");
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col h-[100dvh] bg-white">
       <Header
         showBack
         backHref={`/marker/${markerId}/match`}
@@ -227,7 +227,7 @@ export default function FillBlankPage() {
         <ProgressBar value={progressPct} color="navy" height="sm" />
       </div>
 
-      <div className="flex-1 px-5 pt-6 pb-4 flex flex-col">
+      <div className="flex-1 min-h-0 px-5 pt-6 pb-4 flex flex-col">
         {/* Sentence with blank */}
         <AnimatePresence mode="wait">
           <motion.div

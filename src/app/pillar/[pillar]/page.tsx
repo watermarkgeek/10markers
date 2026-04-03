@@ -89,7 +89,7 @@ export default function PillarPage() {
   const pct = Math.round((completedCount / markers.length) * 100);
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col h-[100dvh] bg-white">
       <Header showBack backHref="/dashboard" title={pillarData.label} />
 
       {/* Pillar header */}
@@ -105,7 +105,7 @@ export default function PillarPage() {
       </div>
 
       {/* Marker list */}
-      <div className="flex-1 px-4 py-5 flex flex-col gap-3">
+      <div className="flex-1 min-h-0 px-4 py-5 flex flex-col gap-3 overflow-y-auto">
         {markers.map((marker, idx) => {
           const p = progress.find((pr) => pr.markerId === marker.id);
           const stagesCompleted = p ? getStagesCompleted(p) : [];

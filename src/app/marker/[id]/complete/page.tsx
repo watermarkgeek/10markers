@@ -55,11 +55,11 @@ export default function MarkerCompletePage() {
     : `/pillar/${marker.pillar}`;
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col h-[100dvh] bg-white">
       <Header showBack backHref={`/pillar/${marker.pillar}`} showProfile={false} />
       <Confetti trigger={confettiFired} intensity={intensity} />
 
-      <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
+      <div className="flex-1 min-h-0 flex flex-col items-center justify-center px-6 text-center">
         {/* Pillar complete banner */}
         {pillarComplete && !allComplete && (
           <motion.div

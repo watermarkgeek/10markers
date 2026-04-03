@@ -106,10 +106,10 @@ export default function MatchPage() {
 
   if (done) {
     return (
-      <div className="flex flex-col min-h-screen bg-white">
+      <div className="flex flex-col h-[100dvh] bg-white">
         <Header showBack title={marker.name} showProfile={false} />
         <XpPopup xp={xpAmount} show={showXp} />
-        <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
+        <div className="flex-1 min-h-0 flex flex-col items-center justify-center px-6 text-center">
           <motion.div
             initial={{ scale: 0.7, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -135,7 +135,7 @@ export default function MatchPage() {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col h-[100dvh] bg-white">
       <Header showBack backHref={`/marker/${markerId}/repeat`} title={marker.name} showProfile={false} />
       <StageProgressBar
         currentStage="match"
@@ -150,7 +150,7 @@ export default function MatchPage() {
         </p>
       </div>
 
-      <div className="flex-1 px-4 pb-6 overflow-y-auto">
+      <div className="flex-1 min-h-0 px-4 pb-6 overflow-y-auto">
         <div className="flex gap-3">
           {/* Names column */}
           <div className="flex-1 flex flex-col gap-2">

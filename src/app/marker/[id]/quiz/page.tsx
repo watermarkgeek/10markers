@@ -155,11 +155,11 @@ export default function QuizPage() {
   if (done) {
     const isPerfect = correct === questions.length;
     return (
-      <div className="flex flex-col min-h-screen bg-white">
+      <div className="flex flex-col h-[100dvh] bg-white">
         <Header showBack title={marker.name} showProfile={false} />
         <XpPopup xp={xpAmount} show={showXp} />
         <Confetti trigger={showConfetti} intensity={isPerfect ? "full" : "medium"} />
-        <div className="flex-1 flex flex-col items-center justify-center px-6 text-center">
+        <div className="flex-1 min-h-0 flex flex-col items-center justify-center px-6 text-center">
           <motion.div
             initial={{ scale: 0.7, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
@@ -218,7 +218,7 @@ export default function QuizPage() {
   const questionLines = q.question.split("\n\n");
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col h-[100dvh] bg-white">
       <Header
         showBack
         backHref={`/marker/${markerId}/fillblank`}
@@ -241,7 +241,7 @@ export default function QuizPage() {
         <ProgressBar value={progressPct} color="navy" height="sm" />
       </div>
 
-      <div className="flex-1 px-5 pt-5 pb-4 flex flex-col">
+      <div className="flex-1 min-h-0 px-5 pt-5 pb-4 flex flex-col">
         <AnimatePresence mode="wait">
           <motion.div
             key={qIndex}
@@ -249,7 +249,7 @@ export default function QuizPage() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
-            className="flex flex-col flex-1"
+            className="flex flex-col flex-1 min-h-0"
           >
             {/* Question */}
             <div className="mb-5">

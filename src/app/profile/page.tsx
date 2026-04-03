@@ -49,10 +49,10 @@ export default function ProfilePage() {
   const markerBadges = badges.filter((b) => b.type === "marker_complete");
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col h-[100dvh] bg-white">
       <Header showBack backHref="/dashboard" title="My Progress" showProfile={false} />
 
-      <div className="flex-1 px-5 py-6 flex flex-col gap-6">
+      <div className="flex-1 min-h-0 px-5 py-6 flex flex-col gap-6 overflow-y-auto">
         {/* Stats row */}
         <motion.div
           initial={{ opacity: 0, y: 10 }}

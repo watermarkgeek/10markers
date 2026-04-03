@@ -113,7 +113,7 @@ export default function PillarsSortPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col h-[100dvh] bg-white">
       <Header title="Sort the Markers" showBack backHref="/learn/pillars" showProfile={false} />
 
       <div className="px-5 pt-4 pb-2">
@@ -146,7 +146,7 @@ export default function PillarsSortPage() {
       )}
 
       {/* Pillar buckets */}
-      <div className="flex-1 px-4 py-3 space-y-3 overflow-y-auto">
+      <div className="flex-1 min-h-0 px-4 py-3 space-y-3 overflow-y-auto">
         {PILLARS_ORDER.map((pillar) => {
           const style = PILLAR_STYLES[pillar];
           const ids = sorted[pillar];
@@ -202,7 +202,7 @@ export default function PillarsSortPage() {
       </div>
 
       {/* Action button */}
-      <div className="px-5 pb-6 pt-2 border-t border-[#e8e2d9]">
+      <div className="shrink-0 px-5 pb-6 pt-2 border-t border-[#e8e2d9]">
         {!checked ? (
           <Button
             variant="primary"

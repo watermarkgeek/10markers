@@ -19,7 +19,7 @@ export default function PillarsLearnPage() {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col h-[100dvh] bg-white">
       <Header title="Phase 3: The Pillars" showBack backHref="/learn/markers/complete" showProfile={false} />
 
       <div className="px-5 pt-5 pb-4">
@@ -34,7 +34,7 @@ export default function PillarsLearnPage() {
         </p>
       </div>
 
-      <div className="flex-1 px-5 pb-6 space-y-5 overflow-y-auto">
+      <div className="flex-1 min-h-0 px-5 pb-6 space-y-5 overflow-y-auto">
         {PILLARS_ORDER.map((pillar, idx) => {
           const info = PILLARS[pillar];
           const style = PILLAR_STYLES[pillar];
@@ -87,7 +87,7 @@ export default function PillarsLearnPage() {
         })}
       </div>
 
-      <div className="px-5 pb-6 pt-2 border-t border-[#e8e2d9]">
+      <div className="shrink-0 px-5 pb-6 pt-2 border-t border-[#e8e2d9]">
         <Button
           variant="primary"
           size="lg"

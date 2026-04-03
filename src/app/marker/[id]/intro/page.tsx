@@ -45,7 +45,7 @@ export default function MarkerIntroPage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col h-[100dvh] bg-white">
       <Header
         showBack
         backHref={`/pillar/${marker.pillar}`}
@@ -58,7 +58,7 @@ export default function MarkerIntroPage() {
         className="py-3 border-b border-[#e8e2d9]"
       />
 
-      <div className="flex-1 px-5 py-6 pb-28 overflow-y-auto">
+      <div className="flex-1 min-h-0 px-5 py-6 pb-28 overflow-y-auto">
         {/* Icon + name */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}

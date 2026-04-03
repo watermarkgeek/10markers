@@ -117,7 +117,7 @@ export default function VisionPracticePage() {
       : 100;
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col h-[100dvh] bg-white">
       <Header title="Vision Practice" showBack backHref="/learn/vision" showProfile={false} />
 
       {/* Progress */}
@@ -125,7 +125,7 @@ export default function VisionPracticePage() {
         <ProgressBar value={progressPct} color="navy" height="sm" />
       </div>
 
-      <div className="flex-1 px-5 pt-4 pb-6 flex flex-col">
+      <div className="flex-1 min-h-0 px-5 pt-4 pb-6 flex flex-col">
         <AnimatePresence mode="wait">
 
           {/* ── Fill-in-blank ─────────────────────────────────────────────── */}
@@ -136,7 +136,7 @@ export default function VisionPracticePage() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
-              className="flex flex-col flex-1"
+              className="flex flex-col flex-1 min-h-0"
             >
               <p className="text-xs uppercase tracking-widest text-[#ee7625] font-bold mb-4">
                 Fill in the blank — {fillIndex + 1} of {questions.length}
@@ -204,7 +204,7 @@ export default function VisionPracticePage() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
-              className="flex flex-col flex-1"
+              className="flex flex-col flex-1 min-h-0"
             >
               <p className="text-xs uppercase tracking-widest text-[#ee7625] font-bold mb-2">
                 Word Scramble

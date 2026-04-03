@@ -125,7 +125,7 @@ export default function VisionPracticePage() {
         <ProgressBar value={progressPct} color="navy" height="sm" />
       </div>
 
-      <div className="flex-1 min-h-0 px-5 pt-4 pb-6 flex flex-col">
+      <div className="flex-1 min-h-0 px-5 pt-3 pb-4 flex flex-col">
         <AnimatePresence mode="wait">
 
           {/* ── Fill-in-blank ─────────────────────────────────────────────── */}
@@ -138,12 +138,12 @@ export default function VisionPracticePage() {
               transition={{ duration: 0.3 }}
               className="flex flex-col flex-1 min-h-0"
             >
-              <p className="text-xs uppercase tracking-widest text-[#ee7625] font-bold mb-4">
+              <p className="text-xs uppercase tracking-widest text-[#ee7625] font-bold mb-3">
                 Fill in the blank — {fillIndex + 1} of {questions.length}
               </p>
 
               {/* Prompt */}
-              <div className="bg-[#f8f5f0] rounded-2xl px-5 py-6 mb-6">
+              <div className="bg-[#f8f5f0] rounded-2xl px-5 py-4 mb-4">
                 <p
                   className="text-xl font-bold text-[#28312f] leading-relaxed text-center"
                   style={{ fontFamily: "var(--font-heading)" }}
@@ -153,7 +153,7 @@ export default function VisionPracticePage() {
               </div>
 
               {/* Options */}
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-2">
                 {q.options.map((opt) => {
                   const isCorrect = opt === q.answer;
                   const isSelected = selected === opt;
@@ -162,7 +162,7 @@ export default function VisionPracticePage() {
                       key={opt}
                       onClick={() => handleFillSelect(opt)}
                       disabled={revealed}
-                      className={`rounded-xl px-4 py-3.5 text-sm font-medium text-left transition-all border-2 ${
+                      className={`rounded-xl px-4 py-3 text-sm font-medium text-left transition-all border-2 ${
                         !revealed
                           ? "bg-white border-[#e8e2d9] text-[#28312f] hover:border-[#28312f]"
                           : isCorrect
@@ -186,7 +186,7 @@ export default function VisionPracticePage() {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="mt-auto pt-6"
+                  className="mt-auto pt-4"
                 >
                   <Button variant="primary" size="lg" fullWidth onClick={handleFillNext}>
                     {fillIndex + 1 < questions.length ? "Next →" : "Word Scramble →"}
@@ -209,13 +209,13 @@ export default function VisionPracticePage() {
               <p className="text-xs uppercase tracking-widest text-[#ee7625] font-bold mb-2">
                 Word Scramble
               </p>
-              <p className="text-sm text-[#6b6b6b] mb-5">
+              <p className="text-sm text-[#6b6b6b] mb-3">
                 Tap the words in order to build the vision statement.
               </p>
 
               {/* Built sentence */}
               <div
-                className={`min-h-[80px] rounded-2xl border-2 p-4 mb-4 flex flex-wrap gap-2 items-start content-start transition-colors ${
+                className={`min-h-[64px] rounded-2xl border-2 p-3 mb-3 flex flex-wrap gap-2 items-start content-start transition-colors ${
                   scrambleChecked
                     ? scrambleCorrect
                       ? "border-green-400 bg-green-50"
@@ -243,7 +243,7 @@ export default function VisionPracticePage() {
                 <motion.div
                   initial={{ opacity: 0, y: -6 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className={`text-sm font-semibold mb-4 flex items-center gap-2 ${
+                  className={`text-sm font-semibold mb-3 flex items-center gap-2 ${
                     scrambleCorrect ? "text-green-700" : "text-red-700"
                   }`}
                 >
@@ -256,7 +256,7 @@ export default function VisionPracticePage() {
               )}
 
               {/* Word bank */}
-              <div className="flex flex-wrap gap-2 mb-6">
+              <div className="flex flex-wrap gap-2 mb-4">
                 {bank.map((word, i) => (
                   <button
                     key={`bank-${i}`}

@@ -57,12 +57,12 @@ export default function Header({
       <div className="flex flex-col items-center">
         {title ? (
           /* Page-level title — clean Lato, no logo */
-          <h1
+          <p
             className="text-sm font-bold text-[#28312f] tracking-wide"
             style={{ fontFamily: "var(--font-body)" }}
           >
             {title}
-          </h1>
+          </p>
         ) : (
           /* App wordmark — W logo + Oswald uppercase */
           <Link href="/dashboard" className="flex items-center gap-2 group">

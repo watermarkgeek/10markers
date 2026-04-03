@@ -227,7 +227,7 @@ export default function FillBlankPage() {
         <ProgressBar value={progressPct} color="navy" height="sm" />
       </div>
 
-      <div className="flex-1 min-h-0 px-5 pt-6 pb-4 flex flex-col">
+      <div className="flex-1 min-h-0 px-5 pt-4 pb-4 flex flex-col">
         {/* Sentence with blank */}
         <AnimatePresence mode="wait">
           <motion.div
@@ -237,7 +237,7 @@ export default function FillBlankPage() {
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="bg-[#f8f5f0] rounded-2xl px-5 py-5 mb-6 text-sm leading-relaxed text-[#28312f]">
+            <div className="bg-[#f8f5f0] rounded-2xl px-5 py-4 mb-4 text-sm leading-relaxed text-[#28312f]">
               {parts[0]}
               <span
                 className={`inline-block mx-1 px-3 py-0.5 rounded-lg font-semibold border-2 min-w-[80px] text-center ${
@@ -258,7 +258,7 @@ export default function FillBlankPage() {
               <motion.div
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex items-center gap-2 mb-4 px-1"
+                className="flex items-center gap-2 mb-3 px-1"
               >
                 <CheckCircle2 size={16} className="text-green-600 shrink-0" />
                 <p className="text-sm text-green-700">
@@ -269,7 +269,7 @@ export default function FillBlankPage() {
             )}
 
             {/* Options */}
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-2">
               {q.options.map((opt) => {
                 const isCorrect = opt === q.answer;
                 const isSelected = selected === opt;
@@ -305,7 +305,7 @@ export default function FillBlankPage() {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-auto pt-6"
+            className="mt-auto pt-4"
           >
             <Button variant="primary" size="lg" fullWidth onClick={handleNext}>
               {qIndex + 1 < questions.length ? "Next →" : "Finish →"}

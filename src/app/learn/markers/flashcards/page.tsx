@@ -103,15 +103,19 @@ export default function MarkersFlashcardsPage() {
                 className="rounded-3xl shadow-lg overflow-hidden"
                 style={{ backgroundColor: color }}
               >
-                <div className="flex flex-col items-center justify-center px-6 py-8 text-center min-h-[260px]">
-                  <p className="text-white text-opacity-70 text-xs uppercase tracking-widest font-bold mb-4">
+                <div className="flex flex-col items-center justify-center px-6 py-10 text-center min-h-[260px]">
+                  <p className="text-white text-opacity-70 text-xs uppercase tracking-widest font-bold mb-3">
                     Marker {index + 1} of {MARKERS.length}
                   </p>
-                  <p className="text-white text-sm leading-relaxed">
-                    {marker.definition}
+                  <span className="text-4xl mb-3">{marker.icon}</span>
+                  <p
+                    className="text-white text-xl font-bold leading-snug"
+                    style={{ fontFamily: "var(--font-heading)" }}
+                  >
+                    {marker.name}
                   </p>
                   <p className="text-white text-opacity-60 text-xs mt-4">
-                    Tap to reveal
+                    Tap to see definition
                   </p>
                 </div>
               </motion.div>
@@ -125,20 +129,16 @@ export default function MarkersFlashcardsPage() {
                 className="rounded-3xl shadow-lg overflow-hidden bg-white border-2"
                 style={{ borderColor: color }}
               >
-                <div className="flex flex-col items-center justify-center px-6 py-10 text-center min-h-[260px]">
-                  <span className="text-4xl mb-3">{marker.icon}</span>
-                  <p
-                    className="text-xl font-bold text-[#28312f] leading-snug mb-2"
-                    style={{ fontFamily: "var(--font-heading)" }}
-                  >
-                    {marker.name}
-                  </p>
-                  <p className="text-xs font-bold uppercase tracking-widest mt-1" style={{ color }}>
+                <div className="flex flex-col items-center justify-center px-6 py-8 text-center min-h-[260px]">
+                  <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color }}>
                     {marker.pillar === "abiding"
                       ? "Abiding in Jesus"
                       : marker.pillar === "making"
                       ? "Making Disciples"
                       : "Enjoying Life Together"}
+                  </p>
+                  <p className="text-sm leading-relaxed text-[#28312f]">
+                    {marker.definition}
                   </p>
                 </div>
               </motion.div>

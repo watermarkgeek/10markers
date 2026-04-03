@@ -70,8 +70,8 @@ export default function OnboardingPage() {
             style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.03em" }}
           >
             <span className="block text-lg uppercase tracking-[0.2em] text-white/70 mb-1">The</span>
-            <span className="block text-5xl leading-none">
-              <span className="text-[#ee7625]">10</span>{" "}Markers
+            <span className="block text-5xl leading-none text-[#ee7625]">
+              10 Markers
             </span>
           </h1>
 

@@ -45,14 +45,16 @@ export default function OnboardingPage() {
           transition={{ duration: 0.6 }}
           className="flex flex-col items-center gap-4"
         >
-          {/* Watermark W logo */}
-          <Image
-            src="/wm-logo.png"
-            alt="Watermark Community Church"
-            width={64}
-            height={64}
-            className="rounded-xl shadow-lg"
-          />
+          {/* Watermark W logo — white pill so it pops off dark background */}
+          <div className="bg-white rounded-2xl p-3 shadow-lg">
+            <Image
+              src="/wm-logo.png"
+              alt="Watermark Community Church"
+              width={56}
+              height={56}
+              className="block"
+            />
+          </div>
 
           {/* Overline */}
           <p
@@ -62,12 +64,15 @@ export default function OnboardingPage() {
             Watermark Community Church
           </p>
 
-          {/* App title — Oswald 700, all-caps style */}
+          {/* App title — "The" small, "10 Markers" large together */}
           <h1
-            className="text-5xl font-bold leading-none tracking-tight text-white"
-            style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.02em" }}
+            className="font-bold text-white leading-tight text-center"
+            style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.03em" }}
           >
-            The <span className="text-[#ee7625]">10</span> Markers
+            <span className="block text-lg uppercase tracking-[0.2em] text-white/70 mb-1">The</span>
+            <span className="block text-5xl leading-none">
+              <span className="text-[#ee7625]">10</span>{" "}Markers
+            </span>
           </h1>
 
           {/* Vision statement — serif italic */}

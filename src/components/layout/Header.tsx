@@ -56,22 +56,13 @@ export default function Header({
       {/* Centre — logo + app name or page title */}
       <div className="flex flex-col items-center">
         {title ? (
-          /* Page-level title — Lato semibold */
-          <div className="flex items-center gap-2">
-            <Image
-              src="/wm-logo.png"
-              alt="Watermark"
-              width={20}
-              height={20}
-              className="rounded-sm opacity-70"
-            />
-            <h1
-              className="text-sm font-bold text-[#28312f] tracking-wide"
-              style={{ fontFamily: "var(--font-body)" }}
-            >
-              {title}
-            </h1>
-          </div>
+          /* Page-level title — clean Lato, no logo */
+          <h1
+            className="text-sm font-bold text-[#28312f] tracking-wide"
+            style={{ fontFamily: "var(--font-body)" }}
+          >
+            {title}
+          </h1>
         ) : (
           /* App wordmark — W logo + Oswald uppercase */
           <Link href="/dashboard" className="flex items-center gap-2 group">

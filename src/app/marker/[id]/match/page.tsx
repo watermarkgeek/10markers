@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect } from "react";
+import { useMounted } from "@/hooks/useMounted";
 import { useParams, useRouter } from "next/navigation";
 import { getMarkerById, getMarkersByPillar } from "@/data/markers";
 import { useUser } from "@/hooks/useUser";
@@ -33,6 +34,7 @@ interface MatchItem {
 export default function MatchPage() {
   const params = useParams();
   const router = useRouter();
+  const mounted = useMounted();
   const markerId = Number(params.id);
   const marker = getMarkerById(markerId);
   const { progress, completeStage } = useUser();
@@ -70,6 +72,13 @@ export default function MatchPage() {
   const [errors, setErrors] = useState(0);
 
   if (!marker) return <div className="p-8 text-center">Marker not found.</div>;
+  if (!mounted) {
+    return (
+      <div className="flex flex-col h-[100dvh] bg-white">
+        <Header showBack title={marker.name} showProfile={false} />
+      </div>
+    );
+  }
 
   const stagesCompleted = getStagesCompleted(p);
 

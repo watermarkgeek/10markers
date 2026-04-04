@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
+import { useMounted } from "@/hooks/useMounted";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Header from "@/components/layout/Header";
@@ -20,7 +21,9 @@ interface MatchQuestion {
 export default function MarkersMatchPage() {
   const router = useRouter();
 
-  const questions: MatchQuestion[] = useMemo(() => {
+  const mounted = useMounted();
+
+  const [questions] = useState<MatchQuestion[]>(() => {
     const shuffled = shuffleArray([...MARKERS]);
     return shuffled.map((marker) => {
       const others = MARKERS.filter((m) => m.id !== marker.id)
@@ -33,7 +36,7 @@ export default function MarkersMatchPage() {
         options: shuffleArray([marker.name, ...distractors]),
       };
     });
-  }, []);
+  });
 
   const [qIndex, setQIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
@@ -90,6 +93,14 @@ export default function MarkersMatchPage() {
             )}
           </div>
         </div>
+      </div>
+    );
+  }
+
+  if (!mounted) {
+    return (
+      <div className="flex flex-col h-[100dvh] bg-white">
+        <Header title="Marker Match" showBack backHref="/learn/markers/flashcards" showProfile={false} />
       </div>
     );
   }

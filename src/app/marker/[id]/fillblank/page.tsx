@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
+import { useMounted } from "@/hooks/useMounted";
 import { useParams, useRouter } from "next/navigation";
 import { getMarkerById, getMarkersByPillar, MARKERS } from "@/data/markers";
 import { useUser } from "@/hooks/useUser";
@@ -121,14 +122,14 @@ function buildQuestions(marker: NonNullable<ReturnType<typeof getMarkerById>>): 
 export default function FillBlankPage() {
   const params = useParams();
   const router = useRouter();
+  const mounted = useMounted();
   const markerId = Number(params.id);
   const marker = getMarkerById(markerId);
   const { progress, completeStage } = useUser();
   const p = progress.find((pr) => pr.markerId === markerId);
 
-  const questions = useMemo(
-    () => (marker ? buildQuestions(marker) : []),
-    [marker]
+  const [questions] = useState(
+    () => (marker ? buildQuestions(marker) : [])
   );
 
   const [qIndex, setQIndex] = useState(0);
@@ -140,6 +141,13 @@ export default function FillBlankPage() {
   const [xpAmount, setXpAmount] = useState(0);
 
   if (!marker) return <div className="p-8 text-center">Marker not found.</div>;
+  if (!mounted) {
+    return (
+      <div className="flex flex-col h-[100dvh] bg-white">
+        <Header showBack title={marker.name} showProfile={false} />
+      </div>
+    );
+  }
 
   const stagesCompleted = getStagesCompleted(p);
   const q = questions[qIndex];

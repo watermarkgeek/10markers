@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
+import { useMounted } from "@/hooks/useMounted";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Header from "@/components/layout/Header";
@@ -44,7 +45,8 @@ interface SortState {
 
 export default function PillarsSortPage() {
   const router = useRouter();
-  const shuffledMarkers = useMemo(() => shuffleArray([...MARKERS]), []);
+  const mounted = useMounted();
+  const [shuffledMarkers] = useState(() => shuffleArray([...MARKERS]));
 
   const [sorted, setSorted] = useState<SortState>({ abiding: [], making: [], enjoying: [] });
   const [selected, setSelected] = useState<number | null>(null); // marker id being moved
@@ -111,6 +113,14 @@ export default function PillarsSortPage() {
     setResults({});
     setSelected(null);
   };
+
+  if (!mounted) {
+    return (
+      <div className="flex flex-col h-[100dvh] bg-white">
+        <Header title="Sort the Markers" showBack backHref="/learn/pillars" showProfile={false} />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-[100dvh] bg-white">

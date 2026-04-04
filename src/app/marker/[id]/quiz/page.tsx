@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
+import { useMounted } from "@/hooks/useMounted";
 import { useParams, useRouter } from "next/navigation";
 import { getMarkerById, MARKERS, PILLARS } from "@/data/markers";
 import { useUser } from "@/hooks/useUser";
@@ -47,9 +48,9 @@ function buildQuizQuestions(
       : "Together";
 
   const questions: QuizQuestion[] = [
-    // Q1 — Which marker matches this definition?
+    // Q1 — Which marker matches this description?
     {
-      question: `Which marker is described as: "${marker.definition.slice(0, 100)}…"`,
+      question: `Which marker does this describe?\n\n"${marker.quizHint}"`,
       answer: marker.name,
       options: shuffleArray([
         marker.name,
@@ -99,14 +100,14 @@ function buildQuizQuestions(
 export default function QuizPage() {
   const params = useParams();
   const router = useRouter();
+  const mounted = useMounted();
   const markerId = Number(params.id);
   const marker = getMarkerById(markerId);
   const { progress, completeStage } = useUser();
   const p = progress.find((pr) => pr.markerId === markerId);
 
-  const questions = useMemo(
-    () => (marker ? buildQuizQuestions(marker) : []),
-    [marker]
+  const [questions] = useState(
+    () => (marker ? buildQuizQuestions(marker) : [])
   );
 
   const [qIndex, setQIndex] = useState(0);
@@ -120,6 +121,13 @@ export default function QuizPage() {
   const [showConfetti, setShowConfetti] = useState(false);
 
   if (!marker) return <div className="p-8 text-center">Marker not found.</div>;
+  if (!mounted) {
+    return (
+      <div className="flex flex-col h-[100dvh] bg-white">
+        <Header showBack title={marker.name} showProfile={false} />
+      </div>
+    );
+  }
 
   const stagesCompleted = getStagesCompleted(p);
   const q = questions[qIndex];

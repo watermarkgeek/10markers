@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
+import { useMounted } from "@/hooks/useMounted";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Header from "@/components/layout/Header";
@@ -30,16 +31,18 @@ const PILLAR_LABELS: Record<Pillar, string> = {
 export default function PillarsQuizPage() {
   const router = useRouter();
 
-  const questions: QuizQuestion[] = useMemo(() => {
-    return shuffleArray(MARKERS.map((marker) => ({
+  const mounted = useMounted();
+
+  const [questions] = useState<QuizQuestion[]>(() =>
+    shuffleArray(MARKERS.map((marker) => ({
       markerId: marker.id,
       markerName: marker.name,
       markerIcon: marker.icon,
       answer: PILLAR_LABELS[marker.pillar],
       answerKey: marker.pillar,
       options: shuffleArray(Object.values(PILLAR_LABELS)),
-    })));
-  }, []);
+    })))
+  );
 
   const [qIndex, setQIndex] = useState(0);
   const [selected, setSelected] = useState<string | null>(null);
@@ -110,6 +113,14 @@ export default function PillarsQuizPage() {
     );
   }
 
+  if (!mounted) {
+    return (
+      <div className="flex flex-col h-[100dvh] bg-white">
+        <Header title="Pillar Quiz" showBack backHref="/learn/pillars/sort" showProfile={false} />
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col h-[100dvh] bg-white">
       <Header title="Pillar Quiz" showBack backHref="/learn/pillars/sort" showProfile={false} />
@@ -122,7 +133,7 @@ export default function PillarsQuizPage() {
         <ProgressBar value={progressPct} color="navy" height="sm" />
       </div>
 
-      <div className="flex-1 min-h-0 px-5 pt-4 pb-6 flex flex-col">
+      <div className="flex-1 min-h-0 px-5 pt-3 pb-4 flex flex-col justify-center overflow-y-auto">
         <AnimatePresence mode="wait">
           <motion.div
             key={qIndex}
@@ -130,17 +141,16 @@ export default function PillarsQuizPage() {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
-            className="flex flex-col flex-1 min-h-0"
           >
-            <p className="text-xs uppercase tracking-widest text-[#ee7625] font-bold mb-4">
+            <p className="text-xs uppercase tracking-widest text-[#ee7625] font-bold mb-3">
               Which pillar?
             </p>
 
             {/* Marker card */}
-            <div className="bg-[#f8f5f0] rounded-2xl px-5 py-6 mb-5 text-center">
-              <div className="text-4xl mb-2">{q.markerIcon}</div>
+            <div className="bg-[#f8f5f0] rounded-2xl px-6 py-6 mb-6 text-center">
+              <div className="text-5xl mb-3">{q.markerIcon}</div>
               <p
-                className="text-xl font-bold text-[#28312f]"
+                className="text-2xl font-bold text-[#28312f]"
                 style={{ fontFamily: "var(--font-heading)" }}
               >
                 {q.markerName}
@@ -148,7 +158,7 @@ export default function PillarsQuizPage() {
             </div>
 
             {/* Options */}
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2.5">
               {q.options.map((opt) => {
                 const isCorrect = opt === q.answer;
                 const isSelected = selected === opt;
@@ -157,7 +167,7 @@ export default function PillarsQuizPage() {
                     key={opt}
                     onClick={() => handleSelect(opt)}
                     disabled={revealed}
-                    className={`rounded-xl px-4 py-3.5 text-sm font-medium text-left transition-all border-2 ${
+                    className={`rounded-xl px-5 py-3.5 text-base font-medium text-left transition-all border-2 ${
                       !revealed
                         ? "bg-white border-[#e8e2d9] text-[#28312f] hover:border-[#28312f]"
                         : isCorrect
@@ -168,8 +178,8 @@ export default function PillarsQuizPage() {
                     }`}
                   >
                     <div className="flex items-center gap-2">
-                      {revealed && isCorrect && <CheckCircle2 size={16} className="shrink-0" />}
-                      {revealed && isSelected && !isCorrect && <XCircle size={16} className="shrink-0" />}
+                      {revealed && isCorrect && <CheckCircle2 size={18} className="shrink-0" />}
+                      {revealed && isSelected && !isCorrect && <XCircle size={18} className="shrink-0" />}
                       <span>{opt}</span>
                     </div>
                   </button>
@@ -177,17 +187,13 @@ export default function PillarsQuizPage() {
               })}
             </div>
 
-            {revealed && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mt-auto pt-6"
-              >
+            <div className="mt-auto pt-4">
+              <div className={`transition-opacity duration-200 ${revealed ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
                 <Button variant="primary" size="lg" fullWidth onClick={handleNext}>
                   {qIndex + 1 < questions.length ? "Next →" : "See Results →"}
                 </Button>
-              </motion.div>
-            )}
+              </div>
+            </div>
           </motion.div>
         </AnimatePresence>
       </div>

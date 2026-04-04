@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState } from "react";
+import { useMounted } from "@/hooks/useMounted";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Header from "@/components/layout/Header";
@@ -17,22 +18,16 @@ interface FillQuestion {
   options: string[];
 }
 
-const FILL_QUESTIONS: FillQuestion[] = [
-  {
-    prompt: "___ in Jesus, we are making disciples together.",
-    answer: "Abiding",
-    options: shuffleArray(["Abiding", "Trusting", "Resting", "Walking"]),
-  },
-  {
-    prompt: "Abiding in Jesus, we are ___ disciples together.",
-    answer: "making",
-    options: shuffleArray(["making", "teaching", "training", "growing"]),
-  },
-  {
-    prompt: "Abiding in Jesus, we are making disciples ___.",
-    answer: "together",
-    options: shuffleArray(["together", "always", "boldly", "daily"]),
-  },
+const FILL_QUESTIONS_RAW: Omit<FillQuestion, "options">[] = [
+  { prompt: "___ in Jesus, we are making disciples together.", answer: "Abiding" },
+  { prompt: "Abiding in Jesus, we are ___ disciples together.", answer: "making" },
+  { prompt: "Abiding in Jesus, we are making disciples ___.", answer: "together" },
+];
+
+const FILL_OPTIONS: string[][] = [
+  ["Abiding", "Trusting", "Resting", "Walking"],
+  ["making", "teaching", "training", "growing"],
+  ["together", "always", "boldly", "daily"],
 ];
 
 // ── Word scramble helpers ──────────────────────────────────────────────────
@@ -46,6 +41,7 @@ type GamePhase = "fill" | "scramble" | "done";
 
 export default function VisionPracticePage() {
   const router = useRouter();
+  const mounted = useMounted();
   const [gamePhase, setGamePhase] = useState<GamePhase>("fill");
 
   // ── Fill-in-blank state ────────────────────────────────────────────────
@@ -54,7 +50,12 @@ export default function VisionPracticePage() {
   const [revealed, setRevealed] = useState(false);
   const [fillCorrect, setFillCorrect] = useState(0);
 
-  const questions = useMemo(() => FILL_QUESTIONS, []);
+  const [questions] = useState<FillQuestion[]>(() =>
+    FILL_QUESTIONS_RAW.map((q, i) => ({
+      ...q,
+      options: shuffleArray(FILL_OPTIONS[i]),
+    }))
+  );
   const q = questions[fillIndex];
 
   const handleFillSelect = (opt: string) => {
@@ -116,6 +117,14 @@ export default function VisionPracticePage() {
       ? Math.round((questions.length / (questions.length + 1)) * 100)
       : 100;
 
+  if (!mounted) {
+    return (
+      <div className="flex flex-col h-[100dvh] bg-white">
+        <Header title="Vision Practice" showBack backHref="/learn/vision" showProfile={false} />
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col h-[100dvh] bg-white">
       <Header title="Vision Practice" showBack backHref="/learn/vision" showProfile={false} />
@@ -125,7 +134,7 @@ export default function VisionPracticePage() {
         <ProgressBar value={progressPct} color="navy" height="sm" />
       </div>
 
-      <div className="flex-1 min-h-0 px-5 pt-3 pb-4 flex flex-col">
+      <div className="flex-1 min-h-0 px-5 pt-3 pb-4 flex flex-col justify-center overflow-y-auto">
         <AnimatePresence mode="wait">
 
           {/* ── Fill-in-blank ─────────────────────────────────────────────── */}
@@ -136,16 +145,16 @@ export default function VisionPracticePage() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
-              className="flex flex-col flex-1 min-h-0"
+              className="flex flex-col flex-1"
             >
               <p className="text-xs uppercase tracking-widest text-[#ee7625] font-bold mb-3">
                 Fill in the blank — {fillIndex + 1} of {questions.length}
               </p>
 
               {/* Prompt */}
-              <div className="bg-[#f8f5f0] rounded-2xl px-5 py-4 mb-4">
+              <div className="bg-[#f8f5f0] rounded-2xl px-6 py-6 mb-6">
                 <p
-                  className="text-xl font-bold text-[#28312f] leading-relaxed text-center"
+                  className="text-2xl font-bold text-[#28312f] leading-relaxed text-center"
                   style={{ fontFamily: "var(--font-heading)" }}
                 >
                   {q.prompt}
@@ -153,7 +162,7 @@ export default function VisionPracticePage() {
               </div>
 
               {/* Options */}
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2.5">
                 {q.options.map((opt) => {
                   const isCorrect = opt === q.answer;
                   const isSelected = selected === opt;
@@ -162,7 +171,7 @@ export default function VisionPracticePage() {
                       key={opt}
                       onClick={() => handleFillSelect(opt)}
                       disabled={revealed}
-                      className={`rounded-xl px-4 py-3 text-sm font-medium text-left transition-all border-2 ${
+                      className={`rounded-xl px-5 py-3.5 text-base font-medium text-left transition-all border-2 ${
                         !revealed
                           ? "bg-white border-[#e8e2d9] text-[#28312f] hover:border-[#28312f]"
                           : isCorrect
@@ -173,8 +182,8 @@ export default function VisionPracticePage() {
                       }`}
                     >
                       <div className="flex items-center gap-2">
-                        {revealed && isCorrect && <CheckCircle2 size={16} className="shrink-0" />}
-                        {revealed && isSelected && !isCorrect && <XCircle size={16} className="shrink-0" />}
+                        {revealed && isCorrect && <CheckCircle2 size={18} className="shrink-0" />}
+                        {revealed && isSelected && !isCorrect && <XCircle size={18} className="shrink-0" />}
                         <span>{opt}</span>
                       </div>
                     </button>

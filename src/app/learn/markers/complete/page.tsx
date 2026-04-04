@@ -34,7 +34,7 @@ export default function MarkersCompletePage() {
   }, []);
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-white">
+    <div className="flex flex-col h-full bg-white">
       <Header title="Phase 2 Complete!" showProfile={false} />
       <XpPopup xp={xpAmount} show={showXp} />
       {done && <Confetti trigger intensity="full" />}

@@ -133,7 +133,7 @@ export default function RepeatPage() {
 
   if (done) {
     return (
-      <div className="flex flex-col h-[100dvh] bg-white">
+      <div className="flex flex-col h-full bg-white">
         <Header showBack title={marker.name} showProfile={false} />
         <XpPopup xp={xpAmount} show={showXp} />
         <div className="flex-1 min-h-0 flex flex-col items-center justify-center px-6 text-center">
@@ -159,7 +159,7 @@ export default function RepeatPage() {
   }
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-white">
+    <div className="flex flex-col h-full bg-white">
       <Header showBack backHref={`/marker/${markerId}/intro`} title={marker.name} showProfile={false} />
       <StageProgressBar
         currentStage="repeat"

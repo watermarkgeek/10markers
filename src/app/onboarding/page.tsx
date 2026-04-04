@@ -36,7 +36,7 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-[#28312f] text-white overflow-hidden">
+    <div className="flex flex-col h-full bg-[#28312f] text-white overflow-hidden">
       {/* ── Hero / Branding ──────────────────────────────────────────────── */}
       <div className="flex-none px-6 pt-10 pb-5 text-center">
         <motion.div

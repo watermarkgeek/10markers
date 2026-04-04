@@ -43,7 +43,7 @@ export default function PillarsCompletePage() {
   }, []);
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-white">
+    <div className="flex flex-col h-full bg-white">
       <Header title="Phase 3 Complete!" showProfile={false} />
       <XpPopup xp={xpAmount} show={showXp} />
       {done && <Confetti trigger intensity="full" />}

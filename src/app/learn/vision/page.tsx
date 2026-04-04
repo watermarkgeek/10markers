@@ -38,7 +38,7 @@ export default function VisionLearnPage() {
   const handleStart = () => router.push("/learn/vision/practice");
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-white">
+    <div className="flex flex-col h-full bg-white">
       <Header title="Phase 1: The Vision" showBack backHref="/dashboard" showProfile={false} />
 
       <div className="flex-1 min-h-0 flex flex-col items-center justify-center px-6 text-center">

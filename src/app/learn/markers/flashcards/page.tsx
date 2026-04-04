@@ -44,7 +44,7 @@ export default function MarkersFlashcardsPage() {
 
   if (done) {
     return (
-      <div className="flex flex-col h-[100dvh] bg-white">
+      <div className="flex flex-col h-full bg-white">
         <Header title="Marker Flashcards" showBack backHref="/learn/markers" showProfile={false} />
         <div className="flex-1 min-h-0 flex flex-col items-center justify-center px-6 text-center gap-6">
           <div className="text-6xl">🎴</div>
@@ -73,7 +73,7 @@ export default function MarkersFlashcardsPage() {
   const color = PILLAR_COLORS[marker.pillar];
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-white">
+    <div className="flex flex-col h-full bg-white">
       <Header title="Marker Flashcards" showBack backHref="/learn/markers" showProfile={false} />
 
       {/* Progress */}

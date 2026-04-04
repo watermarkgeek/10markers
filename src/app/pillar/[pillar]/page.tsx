@@ -89,7 +89,7 @@ export default function PillarPage() {
   const pct = Math.round((completedCount / markers.length) * 100);
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-white">
+    <div className="flex flex-col h-full bg-white">
       <Header showBack backHref="/dashboard" title={pillarData.label} />
 
       {/* Pillar header */}

@@ -19,7 +19,7 @@ export default function PillarsLearnPage() {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-white">
+    <div className="flex flex-col h-full bg-white">
       <Header title="Phase 3: The Pillars" showBack backHref="/learn/markers/complete" showProfile={false} />
 
       <div className="px-5 pt-5 pb-4">

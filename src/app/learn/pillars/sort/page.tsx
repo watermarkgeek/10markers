@@ -116,14 +116,14 @@ export default function PillarsSortPage() {
 
   if (!mounted) {
     return (
-      <div className="flex flex-col h-[100dvh] bg-white">
+      <div className="flex flex-col h-full bg-white">
         <Header title="Sort the Markers" showBack backHref="/learn/pillars" showProfile={false} />
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-white">
+    <div className="flex flex-col h-full bg-white">
       <Header title="Sort the Markers" showBack backHref="/learn/pillars" showProfile={false} />
 
       <div className="px-5 pt-4 pb-2">

@@ -49,7 +49,7 @@ export default function ProfilePage() {
   const markerBadges = badges.filter((b) => b.type === "marker_complete");
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-white">
+    <div className="flex flex-col h-full bg-white">
       <Header showBack backHref="/dashboard" title="My Progress" showProfile={false} />
 
       <div className="flex-1 min-h-0 px-5 py-6 flex flex-col gap-6 overflow-y-auto">

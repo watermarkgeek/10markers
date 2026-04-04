@@ -55,7 +55,7 @@ export default function MarkerCompletePage() {
     : `/pillar/${marker.pillar}`;
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-white">
+    <div className="flex flex-col h-full bg-white">
       <Header showBack backHref={`/pillar/${marker.pillar}`} showProfile={false} />
       <Confetti trigger={confettiFired} intensity={intensity} />
 

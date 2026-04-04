@@ -74,7 +74,7 @@ export default function MatchPage() {
   if (!marker) return <div className="p-8 text-center">Marker not found.</div>;
   if (!mounted) {
     return (
-      <div className="flex flex-col h-[100dvh] bg-white">
+      <div className="flex flex-col h-full bg-white">
         <Header showBack title={marker.name} showProfile={false} />
       </div>
     );
@@ -115,7 +115,7 @@ export default function MatchPage() {
 
   if (done) {
     return (
-      <div className="flex flex-col h-[100dvh] bg-white">
+      <div className="flex flex-col h-full bg-white">
         <Header showBack title={marker.name} showProfile={false} />
         <XpPopup xp={xpAmount} show={showXp} />
         <div className="flex-1 min-h-0 flex flex-col items-center justify-center px-6 text-center">
@@ -144,7 +144,7 @@ export default function MatchPage() {
   }
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-white">
+    <div className="flex flex-col h-full bg-white">
       <Header showBack backHref={`/marker/${markerId}/repeat`} title={marker.name} showProfile={false} />
       <StageProgressBar
         currentStage="match"

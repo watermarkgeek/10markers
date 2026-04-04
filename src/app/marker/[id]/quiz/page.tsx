@@ -123,7 +123,7 @@ export default function QuizPage() {
   if (!marker) return <div className="p-8 text-center">Marker not found.</div>;
   if (!mounted) {
     return (
-      <div className="flex flex-col h-[100dvh] bg-white">
+      <div className="flex flex-col h-full bg-white">
         <Header showBack title={marker.name} showProfile={false} />
       </div>
     );
@@ -163,7 +163,7 @@ export default function QuizPage() {
   if (done) {
     const isPerfect = correct === questions.length;
     return (
-      <div className="flex flex-col h-[100dvh] bg-white">
+      <div className="flex flex-col h-full bg-white">
         <Header showBack title={marker.name} showProfile={false} />
         <XpPopup xp={xpAmount} show={showXp} />
         <Confetti trigger={showConfetti} intensity={isPerfect ? "full" : "medium"} />
@@ -226,7 +226,7 @@ export default function QuizPage() {
   const questionLines = q.question.split("\n\n");
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-white">
+    <div className="flex flex-col h-full bg-white">
       <Header
         showBack
         backHref={`/marker/${markerId}/fillblank`}

@@ -84,7 +84,7 @@ export default function DashboardPage() {
   const phasesComplete = phaseCompleted.filter(Boolean).length;
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-white">
+    <div className="flex flex-col h-full bg-white">
       <Header showProfile showBack={false} />
 
       {/* Hero stats bar */}

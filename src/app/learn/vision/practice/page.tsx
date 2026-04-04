@@ -119,14 +119,14 @@ export default function VisionPracticePage() {
 
   if (!mounted) {
     return (
-      <div className="flex flex-col h-[100dvh] bg-white">
+      <div className="flex flex-col h-full bg-white">
         <Header title="Vision Practice" showBack backHref="/learn/vision" showProfile={false} />
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-white">
+    <div className="flex flex-col h-full bg-white">
       <Header title="Vision Practice" showBack backHref="/learn/vision" showProfile={false} />
 
       {/* Progress */}

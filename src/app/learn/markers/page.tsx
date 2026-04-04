@@ -34,7 +34,7 @@ export default function MarkersLearnPage() {
   const router = useRouter();
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-white">
+    <div className="flex flex-col h-full bg-white">
       <Header title="Phase 2: The Markers" showBack backHref="/learn/vision/complete" showProfile={false} />
 
       <div className="px-5 pt-5 pb-4">

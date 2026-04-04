@@ -77,7 +77,7 @@ export default function PillarsQuizPage() {
   if (done) {
     const isPerfect = correct === questions.length;
     return (
-      <div className="flex flex-col h-[100dvh] bg-white">
+      <div className="flex flex-col h-full bg-white">
         <Header title="Pillar Quiz" showBack showProfile={false} />
         <div className="flex-1 min-h-0 flex flex-col items-center justify-center px-6 text-center gap-5">
           <div className="text-7xl">{isPerfect ? "🏆" : "💪"}</div>
@@ -115,14 +115,14 @@ export default function PillarsQuizPage() {
 
   if (!mounted) {
     return (
-      <div className="flex flex-col h-[100dvh] bg-white">
+      <div className="flex flex-col h-full bg-white">
         <Header title="Pillar Quiz" showBack backHref="/learn/pillars/sort" showProfile={false} />
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col h-[100dvh] bg-white">
+    <div className="flex flex-col h-full bg-white">
       <Header title="Pillar Quiz" showBack backHref="/learn/pillars/sort" showProfile={false} />
 
       <div className="px-5 pt-3 pb-2">

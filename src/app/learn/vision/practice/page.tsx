@@ -134,7 +134,7 @@ export default function VisionPracticePage() {
         <ProgressBar value={progressPct} color="navy" height="sm" />
       </div>
 
-      <div className="flex-1 min-h-0 px-5 pt-3 pb-4 flex flex-col justify-center overflow-y-auto">
+      <div className="flex-1 min-h-0 px-5 pt-3 flex flex-col overflow-y-auto">
         <AnimatePresence mode="wait">
 
           {/* ── Fill-in-blank ─────────────────────────────────────────────── */}
@@ -145,14 +145,13 @@ export default function VisionPracticePage() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
-              className="flex flex-col flex-1"
             >
               <p className="text-xs uppercase tracking-widest text-[#ee7625] font-bold mb-3">
                 Fill in the blank — {fillIndex + 1} of {questions.length}
               </p>
 
               {/* Prompt */}
-              <div className="bg-[#f8f5f0] rounded-2xl px-6 py-6 mb-6">
+              <div className="bg-[#f8f5f0] rounded-2xl px-6 py-5 mb-5">
                 <p
                   className="text-2xl font-bold text-[#28312f] leading-relaxed text-center"
                   style={{ fontFamily: "var(--font-heading)" }}
@@ -162,7 +161,7 @@ export default function VisionPracticePage() {
               </div>
 
               {/* Options */}
-              <div className="flex flex-col gap-2.5">
+              <div className="flex flex-col gap-2">
                 {q.options.map((opt) => {
                   const isCorrect = opt === q.answer;
                   const isSelected = selected === opt;
@@ -171,7 +170,7 @@ export default function VisionPracticePage() {
                       key={opt}
                       onClick={() => handleFillSelect(opt)}
                       disabled={revealed}
-                      className={`rounded-xl px-5 py-3.5 text-base font-medium text-left transition-all border-2 ${
+                      className={`rounded-xl px-5 py-3 text-base font-medium text-left transition-all border-2 ${
                         !revealed
                           ? "bg-white border-[#e8e2d9] text-[#28312f] hover:border-[#28312f]"
                           : isCorrect
@@ -190,15 +189,6 @@ export default function VisionPracticePage() {
                   );
                 })}
               </div>
-
-              {/* Spacer to reserve button area */}
-              <div className="mt-auto pt-4">
-                <div className={`transition-opacity duration-200 ${revealed ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-                  <Button variant="primary" size="lg" fullWidth onClick={handleFillNext}>
-                    {fillIndex + 1 < questions.length ? "Next →" : "Word Scramble →"}
-                  </Button>
-                </div>
-              </div>
             </motion.div>
           )}
 
@@ -210,7 +200,6 @@ export default function VisionPracticePage() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
-              className="flex flex-col flex-1 min-h-0"
             >
               <p className="text-xs uppercase tracking-widest text-[#ee7625] font-bold mb-2">
                 Word Scramble
@@ -221,7 +210,7 @@ export default function VisionPracticePage() {
 
               {/* Built sentence */}
               <div
-                className={`min-h-[64px] rounded-2xl border-2 p-3 mb-3 flex flex-wrap gap-2 items-start content-start transition-colors ${
+                className={`min-h-[72px] rounded-2xl border-2 p-4 mb-3 flex flex-wrap gap-2.5 items-start content-start transition-colors ${
                   scrambleChecked
                     ? scrambleCorrect
                       ? "border-green-400 bg-green-50"
@@ -230,14 +219,14 @@ export default function VisionPracticePage() {
                 }`}
               >
                 {built.length === 0 && (
-                  <span className="text-sm text-[#b0a898] italic">Tap words below…</span>
+                  <span className="text-base text-[#b0a898] italic">Tap words below…</span>
                 )}
                 {built.map((word, i) => (
                   <button
                     key={`built-${i}`}
                     onClick={() => removeWord(word, i)}
                     disabled={scrambleChecked}
-                    className="px-3 py-1.5 bg-[#28312f] text-white text-sm font-medium rounded-lg"
+                    className="px-4 py-2 bg-[#28312f] text-white text-base font-medium rounded-lg"
                   >
                     {word}
                   </button>
@@ -262,45 +251,55 @@ export default function VisionPracticePage() {
               )}
 
               {/* Word bank */}
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-2.5 mb-4">
                 {bank.map((word, i) => (
                   <button
                     key={`bank-${i}`}
                     onClick={() => addWord(word, i)}
                     disabled={scrambleChecked}
-                    className="px-3 py-1.5 bg-white border-2 border-[#e8e2d9] text-[#28312f] text-sm font-medium rounded-lg hover:border-[#28312f] transition-colors disabled:opacity-50"
+                    className="px-4 py-2 bg-white border-2 border-[#e8e2d9] text-[#28312f] text-base font-medium rounded-lg hover:border-[#28312f] transition-colors disabled:opacity-50"
                   >
                     {word}
                   </button>
                 ))}
-              </div>
-
-              <div className="mt-auto flex flex-col gap-3">
-                {!scrambleChecked ? (
-                  <Button
-                    variant="primary"
-                    size="lg"
-                    fullWidth
-                    onClick={checkScramble}
-                    disabled={built.length !== STATEMENT_WORDS.length}
-                  >
-                    Check →
-                  </Button>
-                ) : scrambleCorrect ? (
-                  <Button variant="primary" size="lg" fullWidth onClick={handleScrambleDone}>
-                    Complete! →
-                  </Button>
-                ) : (
-                  <Button variant="secondary" size="lg" fullWidth onClick={retryScramble}>
-                    Try again
-                  </Button>
-                )}
               </div>
             </motion.div>
           )}
 
         </AnimatePresence>
       </div>
+
+      {/* ── Bottom pinned button ──────────────────────────────────────────── */}
+      {gamePhase === "fill" && (
+        <div className={`px-5 pb-4 pt-2 transition-opacity duration-200 ${revealed ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+          <Button variant="primary" size="lg" fullWidth onClick={handleFillNext}>
+            {fillIndex + 1 < questions.length ? "Next →" : "Word Scramble →"}
+          </Button>
+        </div>
+      )}
+      {gamePhase === "scramble" && (
+        <div className="px-5 pb-4 pt-2">
+          {!scrambleChecked ? (
+            <Button
+              variant="primary"
+              size="lg"
+              fullWidth
+              onClick={checkScramble}
+              disabled={built.length !== STATEMENT_WORDS.length}
+            >
+              Check →
+            </Button>
+          ) : scrambleCorrect ? (
+            <Button variant="primary" size="lg" fullWidth onClick={handleScrambleDone}>
+              Complete! →
+            </Button>
+          ) : (
+            <Button variant="secondary" size="lg" fullWidth onClick={retryScramble}>
+              Try again
+            </Button>
+          )}
+        </div>
+      )}
     </div>
   );
 }

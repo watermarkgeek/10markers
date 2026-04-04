@@ -133,7 +133,7 @@ export default function PillarsQuizPage() {
         <ProgressBar value={progressPct} color="navy" height="sm" />
       </div>
 
-      <div className="flex-1 min-h-0 px-5 pt-3 pb-4 flex flex-col justify-center overflow-y-auto">
+      <div className="flex-1 min-h-0 px-5 pt-3 flex flex-col overflow-y-auto">
         <AnimatePresence mode="wait">
           <motion.div
             key={qIndex}
@@ -187,15 +187,15 @@ export default function PillarsQuizPage() {
               })}
             </div>
 
-            <div className="mt-auto pt-4">
-              <div className={`transition-opacity duration-200 ${revealed ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
-                <Button variant="primary" size="lg" fullWidth onClick={handleNext}>
-                  {qIndex + 1 < questions.length ? "Next →" : "See Results →"}
-                </Button>
-              </div>
-            </div>
           </motion.div>
         </AnimatePresence>
+      </div>
+
+      {/* Bottom pinned button */}
+      <div className={`px-5 pb-4 pt-2 transition-opacity duration-200 ${revealed ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+        <Button variant="primary" size="lg" fullWidth onClick={handleNext}>
+          {qIndex + 1 < questions.length ? "Next →" : "See Results →"}
+        </Button>
       </div>
     </div>
   );

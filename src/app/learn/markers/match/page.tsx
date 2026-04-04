@@ -160,18 +160,12 @@ export default function MarkersMatchPage() {
         </AnimatePresence>
       </div>
 
-      {/* Fixed bottom button */}
-      {revealed && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="px-5 pb-4 pt-3"
-        >
-          <Button variant="primary" size="lg" fullWidth onClick={handleNext}>
-            {qIndex + 1 < questions.length ? "Next →" : "See Results →"}
-          </Button>
-        </motion.div>
-      )}
+      {/* Bottom button — always takes space, only visible when answered */}
+      <div className={`px-5 pb-4 pt-3 transition-opacity duration-200 ${revealed ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
+        <Button variant="primary" size="lg" fullWidth onClick={handleNext}>
+          {qIndex + 1 < questions.length ? "Next →" : "See Results →"}
+        </Button>
+      </div>
     </div>
   );
 }

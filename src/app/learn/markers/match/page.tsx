@@ -106,7 +106,7 @@ export default function MarkersMatchPage() {
         <ProgressBar value={progressPct} color="navy" height="sm" />
       </div>
 
-      <div className="flex-1 min-h-0 px-5 pt-3 overflow-y-auto">
+      <div className="flex-1 min-h-0 px-5 pt-3 pb-4 flex flex-col justify-center overflow-y-auto">
         <AnimatePresence mode="wait">
           <motion.div
             key={qIndex}
@@ -116,19 +116,19 @@ export default function MarkersMatchPage() {
             transition={{ duration: 0.3 }}
           >
             {/* Instruction */}
-            <p className="text-xs uppercase tracking-widest text-[#ee7625] font-bold mb-2">
+            <p className="text-xs uppercase tracking-widest text-[#ee7625] font-bold mb-3">
               Which marker does this describe?
             </p>
 
             {/* Quiz hint */}
-            <div className="bg-[#f8f5f0] rounded-2xl px-4 py-3 mb-3">
-              <p className="text-sm leading-relaxed text-[#28312f] text-center italic">
+            <div className="bg-[#f8f5f0] rounded-2xl px-6 py-6 mb-6">
+              <p className="text-lg leading-relaxed text-[#28312f] text-center italic">
                 &ldquo;{q.hint}&rdquo;
               </p>
             </div>
 
             {/* Options — full marker names */}
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-2.5">
               {q.options.map((opt) => {
                 const isCorrect = opt === q.answer;
                 const isSelected = selected === opt;
@@ -137,7 +137,7 @@ export default function MarkersMatchPage() {
                     key={opt}
                     onClick={() => handleSelect(opt)}
                     disabled={revealed}
-                    className={`rounded-xl px-4 py-2.5 text-sm font-medium text-left transition-all border-2 ${
+                    className={`rounded-xl px-5 py-3.5 text-base font-medium text-left transition-all border-2 ${
                       !revealed
                         ? "bg-white border-[#e8e2d9] text-[#28312f] hover:border-[#28312f]"
                         : isCorrect
@@ -148,8 +148,8 @@ export default function MarkersMatchPage() {
                     }`}
                   >
                     <div className="flex items-center gap-2">
-                      {revealed && isCorrect && <CheckCircle2 size={16} className="shrink-0" />}
-                      {revealed && isSelected && !isCorrect && <XCircle size={16} className="shrink-0" />}
+                      {revealed && isCorrect && <CheckCircle2 size={18} className="shrink-0" />}
+                      {revealed && isSelected && !isCorrect && <XCircle size={18} className="shrink-0" />}
                       <span>{opt}</span>
                     </div>
                   </button>

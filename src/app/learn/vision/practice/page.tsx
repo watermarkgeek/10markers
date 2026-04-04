@@ -182,17 +182,14 @@ export default function VisionPracticePage() {
                 })}
               </div>
 
-              {revealed && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mt-auto pt-4"
-                >
+              {/* Spacer to reserve button area */}
+              <div className="mt-auto pt-4">
+                <div className={`transition-opacity duration-200 ${revealed ? "opacity-100" : "opacity-0 pointer-events-none"}`}>
                   <Button variant="primary" size="lg" fullWidth onClick={handleFillNext}>
                     {fillIndex + 1 < questions.length ? "Next →" : "Word Scramble →"}
                   </Button>
-                </motion.div>
-              )}
+                </div>
+              </div>
             </motion.div>
           )}
 

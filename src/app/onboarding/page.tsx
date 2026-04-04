@@ -38,20 +38,20 @@ export default function OnboardingPage() {
   return (
     <div className="flex flex-col h-[100dvh] bg-[#28312f] text-white overflow-hidden">
       {/* ── Hero / Branding ──────────────────────────────────────────────── */}
-      <div className="flex-none px-6 pt-14 pb-10 text-center">
+      <div className="flex-none px-6 pt-10 pb-5 text-center">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col items-center gap-4"
+          className="flex flex-col items-center gap-3"
         >
           {/* Watermark W logo — white pill so it pops off dark background */}
-          <div className="bg-white rounded-2xl p-3 shadow-lg">
+          <div className="bg-white rounded-2xl p-2.5 shadow-lg">
             <Image
               src="/wm-logo.png"
               alt="Watermark Community Church"
-              width={56}
-              height={56}
+              width={44}
+              height={44}
               className="block"
             />
           </div>
@@ -69,15 +69,15 @@ export default function OnboardingPage() {
             className="font-bold text-white leading-tight text-center"
             style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.03em" }}
           >
-            <span className="block text-lg uppercase tracking-[0.2em] text-white/70 mb-1">The</span>
-            <span className="block text-5xl leading-none text-[#ee7625]">
+            <span className="block text-base uppercase tracking-[0.2em] text-white/70 mb-0.5">The</span>
+            <span className="block text-4xl leading-none text-[#ee7625]">
               10 Markers
             </span>
           </h1>
 
           {/* Vision statement — serif italic */}
           <p
-            className="text-sm text-white/70 leading-relaxed max-w-xs italic"
+            className="text-xs text-white/70 leading-relaxed max-w-xs italic"
             style={{ fontFamily: "var(--font-serif)" }}
           >
             &ldquo;{VISION_STATEMENT}&rdquo;
@@ -86,7 +86,7 @@ export default function OnboardingPage() {
       </div>
 
       {/* ── Content card ─────────────────────────────────────────────────── */}
-      <div className="flex-1 bg-white rounded-t-3xl px-6 pt-8 pb-10 flex flex-col">
+      <div className="flex-1 min-h-0 bg-white rounded-t-3xl px-6 pt-6 pb-6 flex flex-col overflow-y-auto">
         {step === "welcome" ? (
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -95,13 +95,13 @@ export default function OnboardingPage() {
             className="flex flex-col flex-1 min-h-0"
           >
             <h2
-              className="text-2xl font-bold text-[#28312f] mb-2 leading-snug"
+              className="text-xl font-bold text-[#28312f] mb-1.5 leading-snug"
               style={{ fontFamily: "var(--font-heading)", letterSpacing: "0.01em" }}
             >
-              Learn what it means to<br />follow Jesus.
+              Learn what it means to follow Jesus.
             </h2>
             <p
-              className="text-[#6b6b6b] text-sm leading-relaxed mb-7"
+              className="text-[#6b6b6b] text-sm leading-relaxed mb-4"
               style={{ fontFamily: "var(--font-body)" }}
             >
               The 10 Markers are what Watermark believes makes up someone who
@@ -110,7 +110,7 @@ export default function OnboardingPage() {
             </p>
 
             {/* Three-pillar preview */}
-            <div className="flex flex-col gap-2.5 mb-8">
+            <div className="flex flex-col gap-2 mb-5">
               {(["abiding", "making", "enjoying"] as const).map((pillar) => {
                 const p = PILLARS[pillar];
                 const colors = {
@@ -122,7 +122,7 @@ export default function OnboardingPage() {
                 return (
                   <div
                     key={pillar}
-                    className={`rounded-xl border-l-4 ${c.border} ${c.bg} px-4 py-3`}
+                    className={`rounded-xl border-l-4 ${c.border} ${c.bg} px-4 py-2.5`}
                   >
                     <p
                       className={`text-xs font-bold uppercase tracking-widest mb-0.5 ${c.text}`}

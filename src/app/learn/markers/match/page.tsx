@@ -10,6 +10,7 @@ import ProgressBar from "@/components/ui/ProgressBar";
 import { MARKERS } from "@/data/markers";
 import { shuffleArray } from "@/lib/utils";
 import { CheckCircle2, XCircle } from "lucide-react";
+import { hapticSuccess, hapticError } from "@/lib/haptics";
 
 interface MatchQuestion {
   marker: typeof MARKERS[0];
@@ -51,7 +52,12 @@ export default function MarkersMatchPage() {
     if (revealed) return;
     setSelected(opt);
     setRevealed(true);
-    if (opt === q.answer) setCorrect((c) => c + 1);
+    if (opt === q.answer) {
+      setCorrect((c) => c + 1);
+      hapticSuccess();
+    } else {
+      hapticError();
+    }
   };
 
   const handleNext = () => {

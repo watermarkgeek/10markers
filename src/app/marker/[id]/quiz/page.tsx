@@ -15,6 +15,7 @@ import StarRating from "@/components/ui/StarRating";
 import { shuffleArray, starsFromScore } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircle2, XCircle } from "lucide-react";
+import { hapticSuccess, hapticError } from "@/lib/haptics";
 import type { MarkerProgress } from "@/lib/db/schema";
 import type { Stage } from "@/types";
 
@@ -137,7 +138,12 @@ export default function QuizPage() {
     if (revealed) return;
     setSelected(option);
     setRevealed(true);
-    if (option === q.answer) setCorrect((c) => c + 1);
+    if (option === q.answer) {
+      setCorrect((c) => c + 1);
+      hapticSuccess();
+    } else {
+      hapticError();
+    }
   };
 
   const handleNext = async () => {

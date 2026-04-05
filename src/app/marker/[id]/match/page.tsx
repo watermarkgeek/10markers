@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import { useMounted } from "@/hooks/useMounted";
+import { hapticSuccess, hapticError } from "@/lib/haptics";
 import { useParams, useRouter } from "next/navigation";
 import { getMarkerById, getMarkersByPillar } from "@/data/markers";
 import { useUser } from "@/hooks/useUser";
@@ -88,6 +89,7 @@ export default function MatchPage() {
       if (matched.includes(selectedName)) return;
 
       if (selectedName === defId) {
+        hapticSuccess();
         const newMatched = [...matched, defId];
         setMatched(newMatched);
         setSelectedName(null);
@@ -102,6 +104,7 @@ export default function MatchPage() {
           }, 600);
         }
       } else {
+        hapticError();
         setErrors((e) => e + 1);
         setWrongPair([selectedName, defId]);
         setTimeout(() => {

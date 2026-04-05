@@ -10,6 +10,7 @@ import ProgressBar from "@/components/ui/ProgressBar";
 import { VISION_STATEMENT } from "@/data/markers";
 import { shuffleArray } from "@/lib/utils";
 import { CheckCircle2, XCircle } from "lucide-react";
+import { hapticSuccess, hapticError } from "@/lib/haptics";
 
 // ── Fill-in-blank questions ────────────────────────────────────────────────
 interface FillQuestion {
@@ -62,7 +63,12 @@ export default function VisionPracticePage() {
     if (revealed) return;
     setSelected(opt);
     setRevealed(true);
-    if (opt === q.answer) setFillCorrect((c) => c + 1);
+    if (opt === q.answer) {
+      setFillCorrect((c) => c + 1);
+      hapticSuccess();
+    } else {
+      hapticError();
+    }
   };
 
   const handleFillNext = () => {

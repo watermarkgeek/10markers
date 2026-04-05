@@ -11,6 +11,7 @@ import StarRating from "@/components/ui/StarRating";
 import { MARKERS, PILLARS } from "@/data/markers";
 import { shuffleArray, starsFromScore } from "@/lib/utils";
 import { CheckCircle2, XCircle } from "lucide-react";
+import { hapticSuccess, hapticError } from "@/lib/haptics";
 import type { Pillar } from "@/data/markers";
 
 interface QuizQuestion {
@@ -58,7 +59,12 @@ export default function PillarsQuizPage() {
     if (revealed) return;
     setSelected(opt);
     setRevealed(true);
-    if (opt === q.answer) setCorrect((c) => c + 1);
+    if (opt === q.answer) {
+      setCorrect((c) => c + 1);
+      hapticSuccess();
+    } else {
+      hapticError();
+    }
   };
 
   const handleNext = () => {

@@ -8,6 +8,7 @@ import Button from "@/components/ui/Button";
 import ProgressBar from "@/components/ui/ProgressBar";
 import { MARKERS } from "@/data/markers";
 import type { Pillar } from "@/data/markers";
+import { useSwipe } from "@/hooks/useSwipe";
 
 const PILLAR_COLORS: Record<Pillar, string> = {
   abiding: "#2e6e84",
@@ -20,6 +21,7 @@ export default function MarkersFlashcardsPage() {
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [done, setDone] = useState(false);
+  const [direction, setDirection] = useState(1); // 1 = forward, -1 = back
 
   const marker = MARKERS[index];
   const progressPct = Math.round((index / MARKERS.length) * 100);
@@ -28,6 +30,7 @@ export default function MarkersFlashcardsPage() {
 
   const handleNext = () => {
     if (index + 1 < MARKERS.length) {
+      setDirection(1);
       setFlipped(false);
       setTimeout(() => setIndex((i) => i + 1), 150);
     } else {
@@ -37,10 +40,13 @@ export default function MarkersFlashcardsPage() {
 
   const handlePrev = () => {
     if (index > 0) {
+      setDirection(-1);
       setFlipped(false);
       setTimeout(() => setIndex((i) => i - 1), 150);
     }
   };
+
+  const swipeHandlers = useSwipe(handleNext, handlePrev);
 
   if (done) {
     return (
@@ -80,12 +86,15 @@ export default function MarkersFlashcardsPage() {
       <div className="px-5 pt-3 pb-2">
         <div className="flex justify-between text-xs text-[#6b6b6b] mb-1">
           <span>Card {index + 1} of {MARKERS.length}</span>
-          <span>Tap to flip</span>
+          <span>Tap to flip · Swipe to advance</span>
         </div>
         <ProgressBar value={progressPct} color="navy" height="sm" />
       </div>
 
-      <div className="flex-1 min-h-0 flex flex-col items-center justify-center px-5 pb-6">
+      <div
+        className="flex-1 min-h-0 flex flex-col items-center justify-center px-5 pb-6"
+        {...swipeHandlers}
+      >
         {/* Flashcard */}
         <div
           className="w-full max-w-sm cursor-pointer select-none"
